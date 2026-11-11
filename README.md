@@ -24,6 +24,6 @@ Proyecto para la perfumería **Nube Aromática** con **dos partes separadas** qu
 
 ## Estado
 
-🟡 **Demo navegable lista** en `web/` (datos de ejemplo, sin base de datos todavía). Para abrirla: `cd web`, `npm install` y `npm run dev`. Guion de demo en `web/README.md`.
+🟡 **Demo publicada:** https://e-commerce-performance.vercel.app (sistema interno en `/sistema`). Código en `web/` (datos de ejemplo, sin base de datos todavía). Para abrirla: `cd web`, `npm install` y `npm run dev`. Guion de demo en `web/README.md`.
 
 > Los precios de la maqueta son referenciales. Stock, pedidos y cifras de ventas son datos de ejemplo.
