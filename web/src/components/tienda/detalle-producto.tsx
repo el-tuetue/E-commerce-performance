@@ -18,7 +18,7 @@ export function DetalleProducto({ slug }: { slug: string }) {
     return (
       <main className="mx-auto max-w-[1200px] px-4 py-24 text-center sm:px-6">
         <h1 className="mb-3 font-serif text-4xl font-semibold">No encontramos este perfume</h1>
-        <Link href="/#catalogo" className="text-marca underline">
+        <Link href="/catalogo" className="text-marca underline">
           Volver al catálogo
         </Link>
       </main>
@@ -62,13 +62,13 @@ function Detalle({ producto }: { producto: Producto }) {
   };
 
   return (
-    <main className="mx-auto max-w-[1200px] px-4 pb-16 pt-6 sm:px-6">
-      <nav aria-label="Ruta" className="mb-6 flex flex-wrap gap-2 text-sm text-gris">
+    <main className="mx-auto max-w-[1200px] px-4 pb-10 pt-4 sm:px-6 sm:pb-16 sm:pt-6">
+      <nav aria-label="Ruta" className="mb-4 flex flex-wrap gap-2 text-sm text-gris">
         <Link href="/" className="text-gris underline-offset-2 hover:underline">
           Inicio
         </Link>
         <span aria-hidden>/</span>
-        <Link href={`/?filtro=${producto.linea === "arabe" ? "arabe" : producto.genero}#catalogo`} className="text-gris underline-offset-2 hover:underline">
+        <Link href={`/catalogo?filtro=${producto.linea === "arabe" ? "arabe" : producto.genero}`} className="text-gris underline-offset-2 hover:underline">
           {producto.linea === "arabe" ? "Perfumería árabe" : GENERO[producto.genero]}
         </Link>
         <span aria-hidden>/</span>
@@ -77,9 +77,9 @@ function Detalle({ producto }: { producto: Producto }) {
         </span>
       </nav>
 
-      <div className="flex flex-wrap gap-12">
-        <div className="flex flex-[1_1_440px] flex-col gap-3">
-          <div className="animate-subir aspect-[4/5] max-h-[640px] overflow-hidden rounded-[20px] bg-crema">
+      <div className="flex flex-wrap gap-6 sm:gap-12">
+        <div className="flex flex-[1_1_440px] flex-col gap-2 sm:gap-3">
+          <div className="animate-subir aspect-[5/4] overflow-hidden rounded-[18px] bg-crema sm:aspect-[4/5] sm:max-h-[640px] sm:rounded-[20px]">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={producto.foto} alt={`${producto.marca} ${producto.nombre}`} className="size-full object-cover" />
           </div>
@@ -88,17 +88,17 @@ function Detalle({ producto }: { producto: Producto }) {
           )}
         </div>
 
-        <div className="flex flex-[1_1_420px] flex-col gap-5">
+        <div className="flex flex-[1_1_420px] flex-col gap-4 sm:gap-5">
           <div>
             <p className="mb-1.5 text-[13px] uppercase tracking-[1.5px] text-gris">{producto.marca}</p>
-            <h1 className="mb-2 font-serif text-[52px] font-semibold leading-none">{producto.nombre}</h1>
+            <h1 className="mb-2 font-serif text-[38px] font-semibold leading-none sm:text-[52px]">{producto.nombre}</h1>
             <p className="text-gris">
               {producto.concentracion} · {GENERO[producto.genero]} · {producto.familia}
             </p>
           </div>
 
           <div className="flex flex-wrap items-baseline gap-3">
-            <p className="text-[34px] font-semibold">{formatoPrecio(v.precio)}</p>
+            <p className="text-[28px] font-semibold sm:text-[34px]">{formatoPrecio(v.precio)}</p>
             <p className="text-sm text-gris">Precio referencial · hasta 3 cuotas sin interés</p>
           </div>
 

@@ -15,12 +15,12 @@ export function Emblema({ className = "size-12" }: { className?: string }) {
 export function Logo({ tamano = "grande" }: { tamano?: "grande" | "chico" }) {
   return (
     <span className="inline-flex items-center gap-2.5 text-tinta">
-      <Emblema className={tamano === "grande" ? "size-12" : "size-10"} />
+      <Emblema className={tamano === "grande" ? "size-10 sm:size-12" : "size-10"} />
       <span className="flex flex-col leading-none">
-        <span className={`font-serif font-semibold tracking-[0.3px] ${tamano === "grande" ? "text-[28px]" : "text-2xl"}`}>
+        <span className={`whitespace-nowrap font-serif font-semibold tracking-[0.3px] ${tamano === "grande" ? "text-[22px] sm:text-[28px]" : "text-2xl"}`}>
           Nube Aromática
         </span>
-        <span className="mt-1 text-[10px] font-semibold uppercase tracking-[3px] text-marca">Perfumería</span>
+        <span className="mt-0.5 text-[9px] font-semibold uppercase tracking-[3px] text-marca sm:mt-1 sm:text-[10px]">Perfumería</span>
       </span>
     </span>
   );

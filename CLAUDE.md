@@ -29,7 +29,8 @@ El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simp
 - `maqueta/fotos/`: fotos referenciales de Wikimedia Commons (créditos en `CREDITOS.md`). Hay que reemplazarlas por fotos propias antes de publicar.
 - `docs/ARQUITECTURA.md` y `docs/GUIA-DISENO.md`: decisiones y guía de diseño.
 - `web/`: app Next.js 16 (Turbopack, `cacheComponents`) **en modo demo**: todas las pantallas de la maqueta funcionan con datos de ejemplo guardados en localStorage y sincronizados entre pestañas. Detalles y guion de demo en `web/README.md`.
-  - Rutas: `/`, `/producto/[slug]`, `/carrito` (tienda) y `/sistema`, `/sistema/caja`, `/sistema/admin` (interno).
+  - Celular primero: tarjetas en 2 columnas, barra de navegación inferior (`barra-inferior.tsx`), portada corta y catálogo paginado. El usuario pidió expresamente no usar tarjetas a ancho completo ni páginas largas en celular.
+  - Rutas: `/`, `/catalogo`, `/producto/[slug]`, `/carrito` (tienda) y `/sistema`, `/sistema/caja`, `/sistema/admin` (interno).
   - Estado: `web/src/lib/demo-store.tsx` (`useSyncExternalStore`, sin contexto para el estado; solo los toasts usan contexto). Datos: `web/src/lib/datos.ts`.
   - Por ahora sin shadcn/ui: componentes propios con Tailwind v4 + Lucide.
   - Next 16 cambia APIs: leer `web/node_modules/next/dist/docs/` antes de usar algo nuevo (ver `web/AGENTS.md`).

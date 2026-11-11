@@ -104,7 +104,7 @@ export function Carrito() {
           <ShoppingBag className="size-12 text-marca" strokeWidth={1.6} aria-hidden />
           <h1 className="font-serif text-4xl font-semibold">Tu carrito está vacío</h1>
           <p className="text-gris">Mira el catálogo y agrega tus perfumes favoritos.</p>
-          <Link href="/#catalogo" className="inline-flex h-12 items-center rounded-[10px] bg-marca px-6 font-medium text-white">
+          <Link href="/catalogo" className="inline-flex h-12 items-center rounded-[10px] bg-marca px-6 font-medium text-white">
             Ver catálogo
           </Link>
         </div>

@@ -294,7 +294,7 @@ export function DemoProvider({ children }: { children: React.ReactNode }) {
         <div
           key={toast.id}
           role="status"
-          className="animate-subir fixed bottom-7 left-1/2 z-50 flex max-w-[calc(100%-32px)] -translate-x-1/2 items-center gap-2.5 rounded-xl bg-tinta px-5 py-3.5 text-[15px] text-white shadow-lg"
+          className="animate-subir fixed inset-x-4 bottom-[84px] z-50 mx-auto flex w-fit sm:bottom-7 items-center gap-2.5 rounded-xl bg-tinta px-5 py-3.5 text-[15px] text-white shadow-lg"
         >
           <Check className="size-[18px] shrink-0 text-[#9ED3AE]" strokeWidth={2.4} aria-hidden />
           {toast.texto}

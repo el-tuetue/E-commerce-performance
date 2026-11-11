@@ -5,39 +5,45 @@ import { ShoppingBag } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { useDemo } from "@/lib/demo-store";
 
+const MENU = [
+  { href: "/catalogo?filtro=arabe", texto: "Árabes", destacado: true },
+  { href: "/catalogo?filtro=mujer", texto: "Mujer" },
+  { href: "/catalogo?filtro=hombre", texto: "Hombre" },
+  { href: "/catalogo?filtro=unisex", texto: "Unisex" },
+  { href: "/catalogo", texto: "Catálogo" },
+];
+
 // Importante: la tienda no tiene ningún enlace al sistema interno.
 export function Encabezado() {
   const { unidadesCarrito } = useDemo();
 
   return (
     <>
-      <div className="bg-marca px-4 py-2 text-center text-[13px] text-white">
-        Especialistas en perfumería árabe · 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]
+      <div className="bg-marca px-4 py-1.5 text-center text-xs text-white sm:py-2 sm:text-[13px]">
+        <span className="sm:hidden">Especialistas en perfumería árabe · 100% originales</span>
+        <span className="hidden sm:inline">
+          Especialistas en perfumería árabe · 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]
+        </span>
       </div>
       <header className="sticky top-0 z-30 border-b border-borde bg-white/95 backdrop-blur">
-        <div className="mx-auto flex max-w-[1200px] flex-wrap items-center gap-x-8 gap-y-3 px-4 py-3.5 sm:px-6">
+        <div className="mx-auto flex max-w-[1200px] items-center gap-x-8 px-4 py-2 sm:py-3.5 sm:px-6">
           <Link href="/" className="no-underline" aria-label="Nube Aromática, inicio">
             <Logo />
           </Link>
-          <nav aria-label="Categorías" className="order-3 flex w-full flex-wrap gap-x-5 text-[15px] sm:order-none sm:w-auto">
-            <Link href="/?filtro=arabe#catalogo" className="py-2 font-semibold text-marca hover:text-marca-oscuro">
-              Árabes
-            </Link>
-            <Link href="/?filtro=mujer#catalogo" className="py-2 text-tinta hover:text-marca">
-              Mujer
-            </Link>
-            <Link href="/?filtro=hombre#catalogo" className="py-2 text-tinta hover:text-marca">
-              Hombre
-            </Link>
-            <Link href="/?filtro=unisex#catalogo" className="py-2 text-tinta hover:text-marca">
-              Unisex
-            </Link>
-            <Link href="/#marcas" className="py-2 text-tinta hover:text-marca">
-              Marcas
-            </Link>
+          {/* En celular este menú no se muestra: lo reemplaza la barra de abajo. */}
+          <nav aria-label="Categorías" className="hidden gap-x-5 text-[15px] lg:flex">
+            {MENU.map((m) => (
+              <Link
+                key={m.texto}
+                href={m.href}
+                className={`py-2 ${m.destacado ? "font-semibold text-marca hover:text-marca-oscuro" : "text-tinta hover:text-marca"}`}
+              >
+                {m.texto}
+              </Link>
+            ))}
           </nav>
           <div className="ml-auto flex flex-1 items-center justify-end gap-3">
-            <form action="/" className="hidden flex-[0_1_260px] md:block" role="search">
+            <form action="/catalogo" className="hidden flex-[0_1_240px] md:block" role="search">
               <input
                 type="search"
                 name="q"
@@ -48,20 +54,35 @@ export function Encabezado() {
             </form>
             <Link
               href="/carrito"
-              className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-marca px-4 text-sm font-medium text-white no-underline transition-colors hover:bg-marca-oscuro"
+              aria-label={`Carrito, ${unidadesCarrito} productos`}
+              className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-marca px-3.5 text-sm font-medium text-white no-underline transition-colors hover:bg-marca-oscuro sm:px-4"
             >
               <ShoppingBag className="size-[18px]" aria-hidden />
-              Carrito
+              <span className="hidden sm:inline">Carrito</span>
               <span
                 key={unidadesCarrito}
                 className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 text-xs font-bold text-marca ${unidadesCarrito > 0 ? "animate-pop" : ""}`}
               >
-                <span className="sr-only">productos en el carrito:</span>
                 {unidadesCarrito}
               </span>
             </Link>
           </div>
         </div>
+        {/* Tablet: menú en una fila que se desliza. */}
+        <nav
+          aria-label="Categorías"
+          className="sin-barra hidden gap-x-5 overflow-x-auto border-t border-linea px-6 text-[15px] sm:flex lg:hidden"
+        >
+          {MENU.map((m) => (
+            <Link
+              key={m.texto}
+              href={m.href}
+              className={`shrink-0 py-2.5 ${m.destacado ? "font-semibold text-marca" : "text-tinta"}`}
+            >
+              {m.texto}
+            </Link>
+          ))}
+        </nav>
       </header>
     </>
   );

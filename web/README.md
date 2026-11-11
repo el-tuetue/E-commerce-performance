@@ -15,7 +15,8 @@ Después abre http://localhost:3000.
 
 | Dirección | Qué es |
 |---|---|
-| `/` | Tienda: portada y catálogo (filtros, búsqueda y orden) |
+| `/` | Tienda: portada corta con lo más destacado |
+| `/catalogo` | Catálogo con filtros, búsqueda, orden y paginación (8 por página) |
 | `/producto/[slug]` | Detalle del producto con tamaños y stock |
 | `/carrito` | Carrito, tipo de entrega y pago (simulado) |
 | `/sistema` | Ingreso del personal (en la demo se elige el rol) |
