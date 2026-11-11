@@ -26,7 +26,7 @@ function Opcion({
       aria-pressed={activa}
       onClick={onClick}
       className={`min-h-11 rounded-xl p-4 text-left text-tinta transition-colors ${
-        activa ? "border-2 border-ciruela bg-rosado" : "border border-borde-fuerte bg-white"
+        activa ? "border-2 border-marca bg-marca-suave" : "border border-borde-fuerte bg-white"
       }`}
     >
       <span className="mb-1 block font-semibold">{titulo}</span>
@@ -75,11 +75,11 @@ export function Carrito() {
               : "Te avisaremos cuando esté listo para retirar en el local."}
           </p>
           <p className="text-sm text-gris">Te avisaremos por correo y WhatsApp cuando cambie el estado del pedido.</p>
-          <p className="rounded-xl bg-rosado px-4 py-3 text-sm text-ciruela">
+          <p className="rounded-xl bg-marca-suave px-4 py-3 text-sm text-marca">
             Demo: el stock ya se descontó y el pedido aparece en el panel del administrador.
           </p>
           <div className="mt-2 flex flex-wrap justify-center gap-3">
-            <Link href="/" className="inline-flex h-12 items-center rounded-[10px] bg-ciruela px-[22px] font-medium text-white">
+            <Link href="/" className="inline-flex h-12 items-center rounded-[10px] bg-marca px-[22px] font-medium text-white">
               Volver a la tienda
             </Link>
           </div>
@@ -92,10 +92,10 @@ export function Carrito() {
     return (
       <main className="mx-auto max-w-[1200px] px-4 pb-16 pt-8 sm:px-6">
         <div className="mx-auto my-10 flex max-w-[520px] flex-col items-center gap-4 rounded-[20px] border border-borde bg-white px-8 py-12 text-center">
-          <ShoppingBag className="size-12 text-ciruela" strokeWidth={1.6} aria-hidden />
+          <ShoppingBag className="size-12 text-marca" strokeWidth={1.6} aria-hidden />
           <h1 className="font-serif text-4xl font-semibold">Tu carrito está vacío</h1>
           <p className="text-gris">Mira el catálogo y agrega tus perfumes favoritos.</p>
-          <Link href="/#catalogo" className="inline-flex h-12 items-center rounded-[10px] bg-ciruela px-6 font-medium text-white">
+          <Link href="/#catalogo" className="inline-flex h-12 items-center rounded-[10px] bg-marca px-6 font-medium text-white">
             Ver catálogo
           </Link>
         </div>
@@ -224,7 +224,7 @@ export function Carrito() {
           <button
             type="button"
             onClick={pagar}
-            className="mt-1.5 h-[52px] rounded-[10px] bg-ciruela text-base font-semibold text-white transition-colors hover:bg-ciruela-oscuro"
+            className="mt-1.5 h-[52px] rounded-[10px] bg-marca text-base font-semibold text-white transition-colors hover:bg-marca-oscuro"
           >
             Ir a pagar
           </button>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
-import { IconoNube } from "@/components/logo";
+import { Emblema } from "@/components/logo";
 import { formatoPrecio, nombreVariante, type EstadoPedido } from "@/lib/datos";
 import { BASE_LOCAL, BASE_ONLINE, useDemo } from "@/lib/demo-store";
 import { BotonReiniciar } from "./encabezado-sistema";
@@ -27,7 +27,7 @@ function claseStock(n: number, minimo: number) {
 const FLUJO: Record<EstadoPedido, { txt: string; accion: string; clase: string }> = {
   pagado: { txt: "Pagado", accion: "Empezar a preparar", clase: "bg-info-fondo text-info" },
   preparando: { txt: "Preparando", accion: "Marcar listo / enviado", clase: "bg-alerta-fondo text-alerta" },
-  enviado: { txt: "Enviado o listo para retiro", accion: "Marcar entregado", clase: "bg-rosado text-ciruela" },
+  enviado: { txt: "Enviado o listo para retiro", accion: "Marcar entregado", clase: "bg-marca-suave text-marca" },
   entregado: { txt: "Entregado", accion: "", clase: "bg-ok-fondo text-ok" },
 };
 
@@ -41,11 +41,11 @@ export function Admin() {
       <div className="mx-auto flex max-w-[1240px] flex-wrap items-start gap-6 p-4 sm:p-6">
         <nav
           aria-label="Menú de administración"
-          className="flex max-w-full flex-[1_1_210px] flex-col gap-1.5 rounded-2xl border border-[#E2DDD6] bg-white p-4 lg:sticky lg:top-6"
+          className="flex max-w-full flex-[1_1_210px] flex-col gap-1.5 rounded-2xl border border-borde bg-white p-4 lg:sticky lg:top-6"
         >
           <div className="mb-0.5 ml-2 flex items-center gap-2">
-            <IconoNube className="size-[26px] text-ciruela" ondas={false} />
-            <span className="font-serif text-2xl font-semibold">Nube Aromática</span>
+            <Emblema className="size-10" />
+            <span className="font-serif text-[22px] font-semibold leading-tight">Nube Aromática</span>
           </div>
           <p className="mb-3 ml-2 text-[13px] text-gris">Sistema interno · Administrador</p>
           {TABS.map(([t, label]) => (
@@ -55,7 +55,7 @@ export function Admin() {
               aria-current={tab === t ? "page" : undefined}
               onClick={() => setTab(t)}
               className={`min-h-11 rounded-[10px] px-3 text-left text-[15px] transition-colors ${
-                tab === t ? "bg-rosado font-semibold text-ciruela" : "text-tinta hover:bg-panel"
+                tab === t ? "bg-marca-suave font-semibold text-marca" : "text-tinta hover:bg-panel"
               }`}
             >
               {label}
@@ -139,7 +139,7 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
         <button
           type="button"
           onClick={() => irA("nuevo")}
-          className="h-11 rounded-[10px] bg-ciruela px-4 text-sm font-semibold text-white hover:bg-ciruela-oscuro"
+          className="h-11 rounded-[10px] bg-marca px-4 text-sm font-semibold text-white hover:bg-marca-oscuro"
         >
           + Agregar producto
         </button>
@@ -159,12 +159,12 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
               key={k.t}
               type="button"
               onClick={() => irA(k.ir!)}
-              className="rounded-2xl border border-[#E2DDD6] bg-white p-[18px] text-left transition-colors hover:border-ciruela"
+              className="rounded-2xl border border-borde bg-white p-[18px] text-left transition-colors hover:border-marca"
             >
               {contenido}
             </button>
           ) : (
-            <div key={k.t} className="rounded-2xl border border-[#E2DDD6] bg-white p-[18px]">
+            <div key={k.t} className="rounded-2xl border border-borde bg-white p-[18px]">
               {contenido}
             </div>
           );
@@ -172,7 +172,7 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
       </div>
 
       <div className="flex flex-wrap gap-5">
-        <section className="flex-[1_1_340px] rounded-2xl border border-[#E2DDD6] bg-white p-5">
+        <section className="flex-[1_1_340px] rounded-2xl border border-borde bg-white p-5">
           <h2 className="mb-4 text-lg font-semibold">Ventas de la semana</h2>
           <div
             role="img"
@@ -182,8 +182,8 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
             {semana.map(([dia, local, online], i) => (
               <div key={i} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5">
                 <div className="flex w-full max-w-[34px] flex-col gap-0.5">
-                  <div className="rounded-t bg-ambar transition-all duration-500" style={{ height: online }} />
-                  <div className="rounded-b bg-ciruela transition-all duration-500" style={{ height: local }} />
+                  <div className="rounded-t bg-flor transition-all duration-500" style={{ height: online }} />
+                  <div className="rounded-b bg-marca transition-all duration-500" style={{ height: local }} />
                 </div>
                 <span className={`text-xs ${i === 1 ? "font-semibold text-tinta" : "text-gris"}`}>{dia}</span>
               </div>
@@ -191,17 +191,17 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
           </div>
           <div className="mt-3.5 flex gap-[18px] text-[13px] text-gris">
             <span className="inline-flex items-center gap-1.5">
-              <span className="size-3 rounded-[3px] bg-ciruela" />
+              <span className="size-3 rounded-[3px] bg-marca" />
               Local
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="size-3 rounded-[3px] bg-ambar" />
+              <span className="size-3 rounded-[3px] bg-flor" />
               Online
             </span>
           </div>
         </section>
 
-        <section className="flex flex-[1_1_340px] flex-col gap-1 rounded-2xl border border-[#E2DDD6] bg-white p-5">
+        <section className="flex flex-[1_1_340px] flex-col gap-1 rounded-2xl border border-borde bg-white p-5">
           <h2 className="mb-2 text-lg font-semibold">Por reponer</h2>
           {bajos.map(({ producto, variante }) => {
             const n = stockDe(variante.id);
@@ -228,7 +228,7 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
                       reponer(variante.id, 5);
                       avisar(`${producto.marca} ${producto.nombre} ${nombreVariante(variante)}: +5 unidades ingresadas`);
                     }}
-                    className="h-11 rounded-[10px] border border-ciruela bg-white px-3.5 text-sm font-medium text-ciruela"
+                    className="h-11 rounded-[10px] border border-marca bg-white px-3.5 text-sm font-medium text-marca"
                   >
                     +5
                   </button>
@@ -275,13 +275,13 @@ function Inventario({ irA }: { irA: (t: Tab) => void }) {
           <button
             type="button"
             onClick={() => irA("nuevo")}
-            className="h-11 rounded-[10px] bg-ciruela px-4 text-sm font-semibold text-white hover:bg-ciruela-oscuro"
+            className="h-11 rounded-[10px] bg-marca px-4 text-sm font-semibold text-white hover:bg-marca-oscuro"
           >
             + Agregar producto
           </button>
         </div>
       </div>
-      <div className="overflow-hidden rounded-2xl border border-[#E2DDD6] bg-white">
+      <div className="overflow-hidden rounded-2xl border border-borde bg-white">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[860px] text-sm">
             <caption className="sr-only">Inventario</caption>
@@ -303,7 +303,7 @@ function Inventario({ irA }: { irA: (t: Tab) => void }) {
                 const n = stockDe(v.id);
                 const canales = p.online && p.caja ? "Online y caja" : p.online ? "Solo online" : "Solo caja";
                 return (
-                  <tr key={v.id} className={`border-t border-linea ${p.nuevo ? "bg-rosado-suave" : ""}`}>
+                  <tr key={v.id} className={`border-t border-linea ${p.nuevo ? "bg-marca-tenue" : ""}`}>
                     <td className="px-4 py-2.5">
                       <div className="flex min-w-0 items-center gap-3">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -313,7 +313,7 @@ function Inventario({ irA }: { irA: (t: Tab) => void }) {
                           <p className="text-[13px] text-gris">{p.marca}</p>
                         </div>
                         {p.nuevo && (
-                          <span className="rounded-full bg-rosado px-2 py-0.5 text-xs font-semibold text-ciruela">Nuevo</span>
+                          <span className="rounded-full bg-marca-suave px-2 py-0.5 text-xs font-semibold text-marca">Nuevo</span>
                         )}
                       </div>
                     </td>
@@ -332,7 +332,7 @@ function Inventario({ irA }: { irA: (t: Tab) => void }) {
                           reponer(v.id, 1);
                           avisar(`${p.nombre} ${nombreVariante(v)}: +1 unidad ingresada`);
                         }}
-                        className="h-9 rounded-lg border border-borde-fuerte px-2.5 text-[13px] text-tinta hover:border-ciruela"
+                        className="h-9 rounded-lg border border-borde-fuerte px-2.5 text-[13px] text-tinta hover:border-marca"
                       >
                         +1
                       </button>
@@ -364,14 +364,14 @@ function Pedidos() {
           <article
             key={o.num}
             className={`flex flex-wrap items-center justify-between gap-3.5 rounded-2xl border bg-white p-[18px] ${
-              nuevo ? "border-ciruela" : "border-[#E2DDD6]"
+              nuevo ? "border-marca" : "border-borde"
             }`}
           >
             <div className="flex-[1_1_260px]">
               <p className="mb-1 font-semibold">
                 Pedido N° {o.num} · {o.cliente}
                 {nuevo && (
-                  <span className="ml-2 rounded-full bg-rosado px-2 py-0.5 text-xs font-semibold text-ciruela">Nuevo</span>
+                  <span className="ml-2 rounded-full bg-marca-suave px-2 py-0.5 text-xs font-semibold text-marca">Nuevo</span>
                 )}
               </p>
               <p className="text-sm text-gris">
@@ -387,7 +387,7 @@ function Pedidos() {
                   avanzarPedido(o.num);
                   avisar(`Pedido N° ${o.num}: aviso enviado al cliente`);
                 }}
-                className="h-11 rounded-[10px] bg-ciruela px-4 text-sm font-medium text-white hover:bg-ciruela-oscuro"
+                className="h-11 rounded-[10px] bg-marca px-4 text-sm font-medium text-white hover:bg-marca-oscuro"
               >
                 {f.accion}
               </button>

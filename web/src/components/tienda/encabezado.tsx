@@ -11,7 +11,7 @@ export function Encabezado() {
 
   return (
     <>
-      <div className="bg-ciruela px-4 py-2 text-center text-[13px] text-white">
+      <div className="bg-marca px-4 py-2 text-center text-[13px] text-white">
         Especialistas en perfumería árabe · 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]
       </div>
       <header className="sticky top-0 z-30 border-b border-borde bg-white/95 backdrop-blur">
@@ -20,19 +20,19 @@ export function Encabezado() {
             <Logo />
           </Link>
           <nav aria-label="Categorías" className="order-3 flex w-full flex-wrap gap-x-5 text-[15px] sm:order-none sm:w-auto">
-            <Link href="/?filtro=arabe#catalogo" className="py-2 font-semibold text-ciruela hover:text-ciruela-oscuro">
+            <Link href="/?filtro=arabe#catalogo" className="py-2 font-semibold text-marca hover:text-marca-oscuro">
               Árabes
             </Link>
-            <Link href="/?filtro=mujer#catalogo" className="py-2 text-tinta hover:text-ciruela">
+            <Link href="/?filtro=mujer#catalogo" className="py-2 text-tinta hover:text-marca">
               Mujer
             </Link>
-            <Link href="/?filtro=hombre#catalogo" className="py-2 text-tinta hover:text-ciruela">
+            <Link href="/?filtro=hombre#catalogo" className="py-2 text-tinta hover:text-marca">
               Hombre
             </Link>
-            <Link href="/?filtro=unisex#catalogo" className="py-2 text-tinta hover:text-ciruela">
+            <Link href="/?filtro=unisex#catalogo" className="py-2 text-tinta hover:text-marca">
               Unisex
             </Link>
-            <Link href="/#marcas" className="py-2 text-tinta hover:text-ciruela">
+            <Link href="/#marcas" className="py-2 text-tinta hover:text-marca">
               Marcas
             </Link>
           </nav>
@@ -48,13 +48,13 @@ export function Encabezado() {
             </form>
             <Link
               href="/carrito"
-              className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-ciruela px-4 text-sm font-medium text-white no-underline transition-colors hover:bg-ciruela-oscuro"
+              className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-marca px-4 text-sm font-medium text-white no-underline transition-colors hover:bg-marca-oscuro"
             >
               <ShoppingBag className="size-[18px]" aria-hidden />
               Carrito
               <span
                 key={unidadesCarrito}
-                className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 text-xs font-bold text-ciruela ${unidadesCarrito > 0 ? "animate-pop" : ""}`}
+                className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 text-xs font-bold text-marca ${unidadesCarrito > 0 ? "animate-pop" : ""}`}
               >
                 <span className="sr-only">productos en el carrito:</span>
                 {unidadesCarrito}

@@ -196,7 +196,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
 
       <div className="flex flex-wrap items-start gap-5">
         <div className="flex min-w-0 flex-[999_1_460px] flex-col gap-4">
-          <section className="flex flex-col gap-3.5 rounded-2xl border border-[#E2DDD6] bg-white p-5">
+          <section className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-white p-5">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 className="text-[17px] font-semibold">1. Foto</h2>
               <span className="text-[13px] text-gris">JPG o PNG, fondo claro, mínimo 800 px</span>
@@ -212,8 +212,8 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                 setArrastrando(false);
                 cargarArchivo(e.dataTransfer.files?.[0]);
               }}
-              className={`relative flex min-h-[180px] cursor-pointer flex-wrap items-center justify-center gap-6 rounded-[14px] border-2 border-dashed p-5 transition-colors focus-within:border-ciruela hover:border-ciruela hover:bg-rosado-suave ${
-                arrastrando ? "border-ciruela bg-rosado" : error && !f.foto ? "border-error bg-fondo" : "border-borde-fuerte bg-fondo"
+              className={`relative flex min-h-[180px] cursor-pointer flex-wrap items-center justify-center gap-6 rounded-[14px] border-2 border-dashed p-5 transition-colors focus-within:border-marca hover:border-marca hover:bg-marca-tenue ${
+                arrastrando ? "border-marca bg-marca-suave" : error && !f.foto ? "border-error bg-fondo" : "border-borde-fuerte bg-fondo"
               }`}
             >
               <input
@@ -227,14 +227,14 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                 <img src={f.foto} alt="Foto del producto" className="animate-subir h-[180px] w-[150px] rounded-xl bg-crema object-cover" />
               )}
               <span className="flex flex-col items-center gap-1.5 text-center">
-                <Upload className="size-9 text-ciruela" strokeWidth={1.8} aria-hidden />
+                <Upload className="size-9 text-marca" strokeWidth={1.8} aria-hidden />
                 <span className="font-semibold">{f.foto ? "Cambiar foto" : "Subir foto del perfume"}</span>
                 <span className="text-sm text-gris">Arrastra la imagen aquí o haz clic para elegirla</span>
               </span>
             </label>
           </section>
 
-          <section className="flex flex-col gap-3.5 rounded-2xl border border-[#E2DDD6] bg-white p-5">
+          <section className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-white p-5">
             <h2 className="text-[17px] font-semibold">2. Información</h2>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3.5">
               <label className="flex flex-col gap-1.5 text-sm font-medium">
@@ -359,7 +359,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             </div>
           </section>
 
-          <section className="flex flex-col gap-3 rounded-2xl border border-[#E2DDD6] bg-white p-5">
+          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-white p-5">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 className="text-[17px] font-semibold">3. Tamaños, precio y stock</h2>
               <span className="text-[13px] text-gris">Con la pistola puedes escanear el código directo en el campo</span>
@@ -420,7 +420,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                       aria-label="Quitar este tamaño"
                       disabled={f.variantes.length === 1}
                       onClick={() => cambiar({ variantes: f.variantes.filter((_, j) => j !== i) })}
-                      className="inline-flex size-11 items-center justify-center rounded-[10px] border border-[#E2DDD6] bg-white text-error disabled:text-[#C9C3CC]"
+                      className="inline-flex size-11 items-center justify-center rounded-[10px] border border-borde bg-white text-error disabled:text-[#C9C3CC]"
                     >
                       <Trash2 className="size-[18px]" aria-hidden />
                     </button>
@@ -431,13 +431,13 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             <button
               type="button"
               onClick={() => cambiar({ variantes: [...f.variantes, { ml: "", precio: "", stock: "", codigo: "" }] })}
-              className="h-11 self-start rounded-[10px] border border-dashed border-ciruela bg-white px-3.5 text-sm font-medium text-ciruela"
+              className="h-11 self-start rounded-[10px] border border-dashed border-marca bg-white px-3.5 text-sm font-medium text-marca"
             >
               + Agregar otro tamaño
             </button>
           </section>
 
-          <section className="flex flex-col gap-3 rounded-2xl border border-[#E2DDD6] bg-white p-5">
+          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-white p-5">
             <h2 className="text-[17px] font-semibold">4. Dónde se vende</h2>
             {(
               [
@@ -450,7 +450,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                   type="checkbox"
                   checked={f[k]}
                   onChange={(e) => cambiar({ [k]: e.target.checked })}
-                  className="size-5 accent-ciruela"
+                  className="size-5 accent-marca"
                 />
                 <span>
                   <strong className="font-semibold">{titulo}</strong>
@@ -462,7 +462,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
         </div>
 
         <aside className="flex flex-[1_1_300px] flex-col gap-4 lg:sticky lg:top-6">
-          <section className="flex flex-col gap-3 rounded-2xl border border-[#E2DDD6] bg-white p-[18px]">
+          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-white p-[18px]">
             <h2 className="text-[15px] font-semibold text-gris">Así se verá en la tienda</h2>
             <div className="overflow-hidden rounded-[14px] border border-borde">
               <div className="relative flex aspect-[4/5] items-center justify-center bg-crema">
@@ -488,7 +488,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             </div>
           </section>
 
-          <section className="flex flex-col gap-3 rounded-2xl border border-[#E2DDD6] bg-white p-[18px]">
+          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-white p-[18px]">
             <div className="flex items-baseline justify-between">
               <h2 className="text-[15px] font-semibold">Antes de publicar</h2>
               <span className="text-[13px] text-gris">{listos} de 5</span>
@@ -517,7 +517,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             <button
               type="button"
               onClick={publicar}
-              className={`h-[50px] rounded-xl bg-ciruela text-base font-semibold text-white transition-opacity ${completo ? "" : "opacity-60"}`}
+              className={`h-[50px] rounded-xl bg-marca text-base font-semibold text-white transition-opacity ${completo ? "" : "opacity-60"}`}
             >
               Publicar producto
             </button>

@@ -34,10 +34,11 @@ El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simp
   - Por ahora sin shadcn/ui: componentes propios con Tailwind v4 + Lucide.
   - Next 16 cambia APIs: leer `web/node_modules/next/dist/docs/` antes de usar algo nuevo (ver `web/AGENTS.md`).
 
-## Identidad visual (sacada de la maqueta)
-- Color de marca: ciruela `#5B2A4E`. Texto `#1D1B20`, gris `#5F5A63`, fondo cálido `#FBFAF8`, bordes `#E7E2DC`. Acento online `#B5761C`.
+## Identidad visual (sacada del logo oficial, `web/public/logo.png`)
+- El logo es un emblema circular en acuarela: aguamarina, crema, hojas verdes y una flor rosada. La web sigue esa paleta (antes era ciruela, según la maqueta; la maqueta quedó desactualizada en color).
+- Colores (tokens en `web/src/app/globals.css`): marca petróleo `#1F6F78`, aguamarina `#BBE9E9`, rosado flor `#D9779A`, texto `#12383D`, fondo crema `#FCFAF5`, bordes `#DBE7E5`.
 - Tipografías: Cormorant Garamond (títulos) e Inter (texto).
-- Logo: ícono de nube con línea ondulada + "Nube Aromática".
+- El archivo del logo que hay es chico (150 px): pedir el original en alta resolución.
 - Botones de al menos 44 px; contraste mínimo de 4.5:1.
 
 ## Próximos pasos

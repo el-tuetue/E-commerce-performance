@@ -1,8 +1,11 @@
+import { Emblema } from "@/components/logo";
+
 export function Pie() {
   return (
     <footer className="border-t border-borde bg-white">
       <div className="mx-auto grid max-w-[1200px] grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-6 px-4 pb-5 pt-10 text-sm leading-relaxed sm:px-6">
         <div>
+          <Emblema className="mb-3 size-20" />
           <p className="mb-2 font-serif text-[26px] font-semibold">Nube Aromática</p>
           <p className="text-gris">Perfumes originales con stock real del local.</p>
         </div>

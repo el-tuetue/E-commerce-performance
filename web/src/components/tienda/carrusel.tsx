@@ -79,11 +79,11 @@ export function Carrusel() {
                 style={{ objectPosition: s.pos, transform: `scale(${on ? 1.06 : 1})` }}
               />
               <div
-                className={`absolute bottom-4 flex w-[calc(100%-32px)] max-w-[470px] flex-col gap-[clamp(8px,1vw,12px)] rounded-[18px] bg-[rgba(22,20,26,0.86)] p-[clamp(16px,2.2vw,28px)] text-white transition duration-900 ${
+                className={`absolute bottom-4 flex w-[calc(100%-32px)] max-w-[470px] flex-col gap-[clamp(8px,1vw,12px)] rounded-[18px] bg-[rgba(12,44,48,0.86)] p-[clamp(16px,2.2vw,28px)] text-white transition duration-900 ${
                   s.lado === "right" ? "right-4" : "left-4"
                 } ${on ? "translate-y-0" : "translate-y-4"}`}
               >
-                <p className="text-xs font-semibold uppercase tracking-[2px] text-lila">{s.eyebrow}</p>
+                <p className="text-xs font-semibold uppercase tracking-[2px] text-agua">{s.eyebrow}</p>
                 {i === 0 ? (
                   <h1 className="font-serif text-[clamp(28px,4.2vw,46px)] font-semibold leading-none">{s.titulo}</h1>
                 ) : (

@@ -125,7 +125,7 @@ export function Caja() {
   if (cobrado) {
     return (
       <main className="mx-auto max-w-[1240px] p-4 sm:p-6">
-        <div className="animate-subir mx-auto my-12 flex max-w-[520px] flex-col items-center gap-3 rounded-[20px] border border-[#E2DDD6] bg-white px-8 py-10 text-center">
+        <div className="animate-subir mx-auto my-12 flex max-w-[520px] flex-col items-center gap-3 rounded-[20px] border border-borde bg-white px-8 py-10 text-center">
           <CircleCheck className="size-14 text-ok" aria-label="Venta registrada" />
           <h1 className="text-[28px] font-semibold">Venta registrada</h1>
           <p className="text-4xl font-semibold">{formatoPrecio(cobrado.total)}</p>
@@ -138,7 +138,7 @@ export function Caja() {
             type="button"
             autoFocus
             onClick={nuevaVenta}
-            className="mt-2.5 h-[52px] rounded-xl bg-ciruela px-7 text-base font-semibold text-white"
+            className="mt-2.5 h-[52px] rounded-xl bg-marca px-7 text-base font-semibold text-white"
           >
             Nueva venta
           </button>
@@ -151,13 +151,13 @@ export function Caja() {
     <main className="mx-auto max-w-[1240px] p-4 sm:p-6">
       <div className="flex flex-wrap items-start gap-6">
         <section className="flex min-w-0 flex-[999_1_600px] flex-col gap-5">
-          <div className="rounded-2xl border border-[#E2DDD6] bg-white p-[18px]">
+          <div className="rounded-2xl border border-borde bg-white p-[18px]">
             <label htmlFor="scan" className="mb-2 block font-semibold">
               Escanea el código de barras o escríbelo y presiona Enter
             </label>
             <div className="flex flex-wrap gap-2.5">
               <div className="relative flex-[1_1_260px]">
-                <ScanBarcode className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-ciruela" aria-hidden />
+                <ScanBarcode className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-marca" aria-hidden />
                 <input
                   id="scan"
                   ref={campo}
@@ -174,7 +174,7 @@ export function Caja() {
                     }
                   }}
                   placeholder="Ej: 7800001000017"
-                  className="h-[52px] w-full rounded-xl border-2 border-ciruela pl-12 pr-4 text-lg tracking-[1px] focus:outline-none focus:ring-4 focus:ring-ciruela/15"
+                  className="h-[52px] w-full rounded-xl border-2 border-marca pl-12 pr-4 text-lg tracking-[1px] focus:outline-none focus:ring-4 focus:ring-marca/15"
                 />
               </div>
               <button
@@ -206,7 +206,7 @@ export function Caja() {
                       agregar(c.id);
                       enfocar();
                     }}
-                    className="min-h-16 rounded-xl border border-[#E2DDD6] bg-white px-3.5 py-3 text-left text-tinta transition-colors hover:border-ciruela disabled:cursor-not-allowed disabled:opacity-50"
+                    className="min-h-16 rounded-xl border border-borde bg-white px-3.5 py-3 text-left text-tinta transition-colors hover:border-marca disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <span className="block text-sm font-semibold">{c.nombre}</span>
                     <span className="block text-[13px] text-gris">
@@ -221,7 +221,7 @@ export function Caja() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-[#E2DDD6] bg-white">
+          <div className="overflow-hidden rounded-2xl border border-borde bg-white">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[600px] text-[15px]">
                 <caption className="sr-only">Productos de la venta</caption>
@@ -311,7 +311,7 @@ export function Caja() {
                   aria-pressed={medio === m}
                   onClick={() => setMedio(m)}
                   className={`h-12 rounded-xl text-[15px] ${
-                    medio === m ? "border-2 border-white bg-white font-semibold text-tinta" : "border border-gris text-white"
+                    medio === m ? "border-2 border-white bg-white font-semibold text-tinta" : "border border-white/40 text-white"
                   }`}
                 >
                   {label}
@@ -330,7 +330,7 @@ export function Caja() {
                     aria-pressed={efectivo === b}
                     onClick={() => setRecibido({ monto: b, total })}
                     className={`h-11 rounded-[10px] text-sm ${
-                      efectivo === b ? "border border-white bg-white font-semibold text-tinta" : "border border-gris text-white"
+                      efectivo === b ? "border border-white bg-white font-semibold text-tinta" : "border border-white/40 text-white"
                     }`}
                   >
                     {b === total ? "Exacto" : formatoPrecio(b)}
@@ -357,7 +357,7 @@ export function Caja() {
               setAviso("");
               enfocar();
             }}
-            className="h-11 rounded-xl border border-gris text-white"
+            className="h-11 rounded-xl border border-white/40 text-white"
           >
             Cancelar venta
           </button>

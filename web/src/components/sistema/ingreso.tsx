@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Emblema } from "@/components/logo";
 import { useDemo, type Rol } from "@/lib/demo-store";
 
 // Ingreso del personal. En la demo se entra eligiendo un rol.
@@ -19,7 +20,8 @@ export function Ingreso() {
   return (
     <main className="flex min-h-dvh items-center justify-center bg-tinta px-4 py-10">
       <div className="flex w-full max-w-[440px] flex-col gap-5">
-        <div className="text-center text-white">
+        <div className="flex flex-col items-center text-center text-white">
+          <Emblema className="mb-3 size-24 ring-2 ring-white/30" />
           <p className="mb-1 font-serif text-[40px] font-semibold">Nube Aromática</p>
           <p className="text-sm text-humo">Sistema interno · solo personal autorizado</p>
         </div>
@@ -40,7 +42,7 @@ export function Ingreso() {
             Contraseña
             <input type="password" placeholder="••••••••" autoComplete="current-password" className="campo h-12 font-normal" />
           </label>
-          <button type="submit" className="mt-1 h-[50px] rounded-[10px] bg-ciruela font-semibold text-white hover:bg-ciruela-oscuro">
+          <button type="submit" className="mt-1 h-[50px] rounded-[10px] bg-marca font-semibold text-white hover:bg-marca-oscuro">
             Ingresar
           </button>
           {aviso && (
@@ -56,7 +58,7 @@ export function Ingreso() {
             <button
               type="button"
               onClick={() => entrar("vendedor")}
-              className="flex min-h-16 flex-col justify-center rounded-xl border border-gris px-3.5 py-2.5 text-left transition-colors hover:border-white"
+              className="flex min-h-16 flex-col justify-center rounded-xl border border-white/40 px-3.5 py-2.5 text-left transition-colors hover:border-white"
             >
               <span className="font-semibold">Vendedor</span>
               <span className="text-[13px] text-humo">Solo caja</span>
@@ -64,7 +66,7 @@ export function Ingreso() {
             <button
               type="button"
               onClick={() => entrar("admin")}
-              className="flex min-h-16 flex-col justify-center rounded-xl border border-gris px-3.5 py-2.5 text-left transition-colors hover:border-white"
+              className="flex min-h-16 flex-col justify-center rounded-xl border border-white/40 px-3.5 py-2.5 text-left transition-colors hover:border-white"
             >
               <span className="font-semibold">Administrador</span>
               <span className="text-[13px] text-humo">Todo el sistema</span>

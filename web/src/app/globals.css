@@ -1,27 +1,28 @@
 @import "tailwindcss";
 
-/* Identidad visual de Nube Aromática (sacada de la maqueta). */
+/* Identidad visual de Nube Aromática, sacada de su logo:
+   aguamarina, crema, verde hoja y un toque rosado. */
 @theme {
-  --color-ciruela: #5b2a4e;
-  --color-ciruela-oscuro: #46203c;
-  --color-rosado: #f6eef3;
-  --color-rosado-suave: #fbf7fa;
-  --color-lila: #e3c7da;
-  --color-ambar: #b5761c;
+  --color-marca: #1f6f78; /* petróleo: botones y enlaces (contraste 5.8:1 con blanco) */
+  --color-marca-oscuro: #17555c;
+  --color-marca-suave: #e0f3f1;
+  --color-marca-tenue: #f1faf9;
+  --color-agua: #bbe9e9; /* aguamarina del logo: detalles sobre fondo oscuro */
+  --color-flor: #d9779a; /* rosado de la flor: acento */
 
-  --color-tinta: #1d1b20;
-  --color-tinta-2: #2a2830;
-  --color-gris: #5f5a63;
-  --color-humo: #cfc8d0;
-  --color-niebla: #e4dee6;
+  --color-tinta: #12383d; /* texto y bloques oscuros */
+  --color-tinta-2: #1b4b51;
+  --color-gris: #55686b;
+  --color-humo: #c3d9d9;
+  --color-niebla: #dcebeb;
 
-  --color-fondo: #fbfaf8;
-  --color-panel: #f3f1ee;
-  --color-crema: #f5f0eb;
-  --color-tabla: #faf8f5;
-  --color-borde: #e7e2dc;
-  --color-borde-fuerte: #d6d0c8;
-  --color-linea: #efeae4;
+  --color-fondo: #fcfaf5; /* crema del logo */
+  --color-panel: #eef5f4;
+  --color-crema: #eaf4f2;
+  --color-tabla: #f4f9f8;
+  --color-borde: #dbe7e5;
+  --color-borde-fuerte: #c4d6d4;
+  --color-linea: #e6efee;
 
   --color-ok: #2e6b3f;
   --color-ok-fondo: #e6f2e9;
@@ -108,12 +109,12 @@ body {
 }
 .campo:focus {
   outline: none;
-  border-color: var(--color-ciruela);
-  box-shadow: 0 0 0 3px rgb(91 42 78 / 0.15);
+  border-color: var(--color-marca);
+  box-shadow: 0 0 0 3px rgb(31 111 120 / 0.18);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-ciruela);
+  outline: 2px solid var(--color-marca);
   outline-offset: 2px;
 }
 

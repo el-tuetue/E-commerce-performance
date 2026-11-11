@@ -39,7 +39,7 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
 
   return (
     <article
-      className="group animate-subir flex flex-col overflow-hidden rounded-2xl border border-borde bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(29,27,32,.10)]"
+      className="group animate-subir flex flex-col overflow-hidden rounded-2xl border border-borde bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(12,44,48,.12)]"
       style={{ animationDelay: `${indice * 0.05}s` }}
     >
       <Link href={href} className="relative block aspect-[4/5] overflow-hidden bg-crema">
@@ -73,7 +73,7 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
           {stockPrincipal === 0 && !agotado ? (
             <Link
               href={href}
-              className="inline-flex h-11 items-center rounded-[10px] border border-ciruela bg-white px-4 text-sm font-medium text-ciruela"
+              className="inline-flex h-11 items-center rounded-[10px] border border-marca bg-white px-4 text-sm font-medium text-marca"
             >
               Ver tamaños
             </Link>
@@ -86,8 +86,8 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
                 agotado
                   ? "cursor-not-allowed border-linea bg-linea text-gris"
                   : enCarrito
-                    ? "border-ciruela bg-white text-ciruela"
-                    : "border-ciruela bg-ciruela text-white hover:bg-ciruela-oscuro"
+                    ? "border-marca bg-white text-marca"
+                    : "border-marca bg-marca text-white hover:bg-marca-oscuro"
               }`}
             >
               {agotado ? "Sin stock" : enCarrito ? "Agregar otro" : "Agregar"}

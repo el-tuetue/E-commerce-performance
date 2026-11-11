@@ -27,14 +27,14 @@ export function Destacado() {
           />
         </div>
         <div className="flex flex-[1.3_1_380px] flex-col justify-center gap-4 p-[clamp(24px,4vw,52px)]">
-          <p className="text-xs font-semibold uppercase tracking-[2px] text-lila">La joya de la casa</p>
+          <p className="text-xs font-semibold uppercase tracking-[2px] text-agua">La joya de la casa</p>
           <h2 className="font-serif text-[clamp(38px,5vw,58px)] font-semibold leading-none">Rasasi Dhan Oud Kambodi</h2>
           <p className="max-w-[480px] text-[17px] leading-relaxed text-niebla">
             Aceite de oud camboyano, sin alcohol, en frasco de cristal tallado. Unas gotas duran todo el día.
           </p>
           <div className="flex flex-wrap gap-2">
             {["Oud camboyano", "Rosa", "Ámbar"].map((n) => (
-              <span key={n} className="rounded-full border border-gris px-3 py-1.5 text-[13px]">
+              <span key={n} className="rounded-full border border-white/40 px-3 py-1.5 text-[13px]">
                 {n}
               </span>
             ))}

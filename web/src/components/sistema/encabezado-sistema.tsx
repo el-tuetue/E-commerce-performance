@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { RotateCcw } from "lucide-react";
+import { Emblema } from "@/components/logo";
 import { BASE_LOCAL, useDemo } from "@/lib/demo-store";
 
 export function BotonReiniciar({ className = "" }: { className?: string }) {
@@ -29,11 +30,12 @@ export function EncabezadoCaja() {
   const ventasHoy = BASE_LOCAL.ventas + estado.ventasCaja.length;
 
   return (
-    <header className="border-b border-[#E2DDD6] bg-white">
+    <header className="border-b border-borde bg-white">
       <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-x-6 gap-y-3 px-4 py-3.5 sm:px-6">
-        <div className="flex flex-wrap items-baseline gap-3.5">
+        <div className="flex flex-wrap items-center gap-3">
+          <Emblema className="size-11" />
           <span className="font-serif text-[28px] font-semibold">Nube Aromática</span>
-          <span className="rounded-full bg-rosado px-2.5 py-1 text-sm font-semibold text-ciruela">Sistema interno · Caja</span>
+          <span className="rounded-full bg-marca-suave px-2.5 py-1 text-sm font-semibold text-marca">Sistema interno · Caja</span>
         </div>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gris">
           <span>
@@ -45,7 +47,7 @@ export function EncabezadoCaja() {
           {estado.rol === "admin" && (
             <Link
               href="/sistema/admin"
-              className="inline-flex min-h-11 items-center rounded-[10px] border border-ciruela px-3.5 font-medium text-ciruela"
+              className="inline-flex min-h-11 items-center rounded-[10px] border border-marca px-3.5 font-medium text-marca"
             >
               Administración
             </Link>

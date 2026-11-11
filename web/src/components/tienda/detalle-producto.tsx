@@ -18,7 +18,7 @@ export function DetalleProducto({ slug }: { slug: string }) {
     return (
       <main className="mx-auto max-w-[1200px] px-4 py-24 text-center sm:px-6">
         <h1 className="mb-3 font-serif text-4xl font-semibold">No encontramos este perfume</h1>
-        <Link href="/#catalogo" className="text-ciruela underline">
+        <Link href="/#catalogo" className="text-marca underline">
           Volver al catálogo
         </Link>
       </main>
@@ -157,7 +157,7 @@ function Detalle({ producto }: { producto: Producto }) {
               type="button"
               disabled={stock === 0}
               onClick={() => agregar(false)}
-              className="h-12 flex-[1_1_180px] rounded-[10px] bg-ciruela font-semibold text-white transition-colors hover:bg-ciruela-oscuro disabled:cursor-not-allowed disabled:bg-linea disabled:text-gris"
+              className="h-12 flex-[1_1_180px] rounded-[10px] bg-marca font-semibold text-white transition-colors hover:bg-marca-oscuro disabled:cursor-not-allowed disabled:bg-linea disabled:text-gris"
             >
               {stock === 0 ? "Sin stock" : "Agregar al carrito"}
             </button>
@@ -165,7 +165,7 @@ function Detalle({ producto }: { producto: Producto }) {
               <button
                 type="button"
                 onClick={() => agregar(true)}
-                className="h-12 flex-[1_1_140px] rounded-[10px] border border-ciruela bg-white font-semibold text-ciruela"
+                className="h-12 flex-[1_1_140px] rounded-[10px] border border-marca bg-white font-semibold text-marca"
               >
                 Comprar ahora
               </button>
@@ -174,7 +174,7 @@ function Detalle({ producto }: { producto: Producto }) {
           {enCarrito > 0 && (
             <p className="-mt-2 text-sm text-gris">
               Tienes {enCarrito} en el carrito ·{" "}
-              <Link href="/carrito" className="text-ciruela underline">
+              <Link href="/carrito" className="text-marca underline">
                 Ver carrito
               </Link>
             </p>
@@ -182,11 +182,11 @@ function Detalle({ producto }: { producto: Producto }) {
 
           <div className="flex flex-col gap-2.5 rounded-[14px] border border-borde bg-white px-[18px] py-4 text-sm">
             <div className="flex items-center gap-2.5">
-              <Store className="size-5 shrink-0 text-ciruela" aria-hidden />
+              <Store className="size-5 shrink-0 text-marca" aria-hidden />
               <span>Retiro gratis en el local: listo en [TIEMPO DE PREPARACIÓN]</span>
             </div>
             <div className="flex items-center gap-2.5">
-              <Truck className="size-5 shrink-0 text-ciruela" aria-hidden />
+              <Truck className="size-5 shrink-0 text-marca" aria-hidden />
               <span>Despacho a domicilio desde [COSTO DE ENVÍO]</span>
             </div>
           </div>

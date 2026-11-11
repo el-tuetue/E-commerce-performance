@@ -30,7 +30,7 @@ export default function Inicio() {
         <div className="grid grid-cols-[repeat(auto-fit,minmax(240px,1fr))] gap-4">
           {BENEFICIOS.map(({ icono: Icono, titulo, texto }) => (
             <div key={titulo} className="flex items-start gap-3.5 rounded-[14px] border border-borde bg-white p-5">
-              <Icono className="size-6 shrink-0 text-ciruela" aria-hidden />
+              <Icono className="size-6 shrink-0 text-marca" aria-hidden />
               <div>
                 <p className="mb-1 font-semibold">{titulo}</p>
                 <p className="text-sm leading-normal text-gris">{texto}</p>
@@ -56,7 +56,7 @@ export default function Inicio() {
                 className="size-full object-cover transition duration-700 group-hover:scale-[1.06]"
                 style={{ objectPosition: c.pos }}
               />
-              <span className="absolute inset-x-3.5 bottom-3.5 flex items-center justify-between gap-3 rounded-xl bg-[rgba(22,20,26,0.86)] px-4 py-3.5 text-white">
+              <span className="absolute inset-x-3.5 bottom-3.5 flex items-center justify-between gap-3 rounded-xl bg-[rgba(12,44,48,0.86)] px-4 py-3.5 text-white">
                 <span>
                   <span className="block font-serif text-[26px] font-semibold leading-tight">{c.titulo}</span>
                   <span className="mt-0.5 block text-[13px] text-niebla">{c.texto}</span>
@@ -75,7 +75,7 @@ export default function Inicio() {
       >
         <div className="flex w-max animate-marquesina hover:[animation-play-state:paused]" aria-hidden>
           {[0, 1].map((k) => (
-            <div key={k} className="flex gap-16 whitespace-nowrap pr-16 font-serif text-[26px] font-semibold text-[#3A3640]">
+            <div key={k} className="flex gap-16 whitespace-nowrap pr-16 font-serif text-[26px] font-semibold text-tinta">
               {marcas.map((m, i) => (
                 <span key={i}>{m}</span>
               ))}

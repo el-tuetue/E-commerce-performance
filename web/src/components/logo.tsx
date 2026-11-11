@@ -1,29 +1,26 @@
-export function IconoNube({ className = "size-[34px]", ondas = true }: { className?: string; ondas?: boolean }) {
+// Emblema oficial de la perfumería (public/logo.png) + nombre.
+export function Emblema({ className = "size-12" }: { className?: string }) {
   return (
-    <svg
-      className={className}
-      viewBox="0 0 40 40"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={2.2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M12 28h17a6 6 0 0 0 .7-12A8.5 8.5 0 0 0 13.4 14 7 7 0 0 0 12 28z" />
-      {ondas && <path d="M16 33c1.5-1 3-1 4.5 0s3 1 4.5 0" />}
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img
+      src="/logo.png"
+      alt=""
+      width={150}
+      height={150}
+      className={`${className} shrink-0 rounded-full object-cover ring-1 ring-borde`}
+    />
   );
 }
 
 export function Logo({ tamano = "grande" }: { tamano?: "grande" | "chico" }) {
   return (
     <span className="inline-flex items-center gap-2.5 text-tinta">
-      <IconoNube className={`${tamano === "grande" ? "size-[34px]" : "size-[26px]"} text-ciruela`} />
-      <span
-        className={`font-serif font-semibold leading-none tracking-[0.3px] ${tamano === "grande" ? "text-[30px]" : "text-2xl"}`}
-      >
-        Nube Aromática
+      <Emblema className={tamano === "grande" ? "size-12" : "size-10"} />
+      <span className="flex flex-col leading-none">
+        <span className={`font-serif font-semibold tracking-[0.3px] ${tamano === "grande" ? "text-[28px]" : "text-2xl"}`}>
+          Nube Aromática
+        </span>
+        <span className="mt-1 text-[10px] font-semibold uppercase tracking-[3px] text-marca">Perfumería</span>
       </span>
     </span>
   );

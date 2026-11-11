@@ -26,7 +26,7 @@ export function VitrinaArabe() {
         </div>
         <Link
           href="/?filtro=arabe#catalogo"
-          className="inline-flex h-11 items-center gap-2 rounded-[10px] border border-ciruela px-4 text-sm font-medium text-ciruela hover:bg-rosado"
+          className="inline-flex h-11 items-center gap-2 rounded-[10px] border border-marca px-4 text-sm font-medium text-marca hover:bg-marca-suave"
         >
           Ver todos los árabes
           <ArrowRight className="size-4" aria-hidden />
