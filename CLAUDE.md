@@ -46,7 +46,7 @@ El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simp
 1. ✅ Subido a GitHub (público): https://github.com/el-tuetue/E-commerce-performance
    - Los commits usan el correo privado de GitHub (`173995679+el-tuetue@users.noreply.github.com`), configurado solo en este repo. Nunca usar el correo personal.
 2. ✅ Front de la demo hecho en `web/`.
-3. ✅ Demo publicada en Vercel: https://e-commerce-performance.vercel.app (proyecto `e-commerce-performance`, conectado al repo, Root Directory `web`).
+3. ✅ Demo publicada en Vercel: https://nube-aromatica-prototipo.vercel.app (proyecto `e-commerce-performance`, conectado al repo, Root Directory `web`).
 4. Conectar Supabase: login real, productos y stock desde `schema.sql`, fotos en Storage. Orden: admin (productos) → caja → tienda → pagos online.
 5. Variables en `web/.env.local` (nunca subirlas): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (esta última solo en el servidor).
 
