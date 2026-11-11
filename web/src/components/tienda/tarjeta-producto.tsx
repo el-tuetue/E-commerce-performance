@@ -53,6 +53,9 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
         {badge && (
           <span className={`absolute left-3 top-3 rounded-full px-2.5 py-1 text-xs font-semibold ${badgeClase}`}>{badge}</span>
         )}
+        {producto.ilustracion && (
+          <span className="absolute bottom-3 right-3 rounded-full bg-white/85 px-2 py-0.5 text-[11px] text-gris">Ilustración</span>
+        )}
       </Link>
       <div className="flex flex-1 flex-col gap-1.5 px-[18px] pb-[18px] pt-4">
         <p className="text-xs uppercase tracking-[1.2px] text-gris">{producto.marca}</p>

@@ -32,8 +32,9 @@ export function Pie() {
         </div>
       </div>
       <p className="mx-auto max-w-[1200px] px-4 pb-6 text-xs text-gris sm:px-6">
-        Fotos referenciales de Wikimedia Commons (CC BY / CC BY-SA, dominio público): DYVER, arz, Gonna Fly Now, Jacek
-        Halicki, Brownchl, Javier Velez, CoffeeAddict, Bruce The Deus. Precios referenciales.
+        Fotos referenciales de Wikimedia Commons (CC0, CC BY, CC BY-SA): DYVER, Kevin Rheese, Brownchl, Dsuarez04, Jacek
+        Halicki, Javier Velez, Rypptc, Miansari66, Tauseef perfumes, Fseddiqi1983, آية سعيد البيطار. Las ilustraciones de
+        frascos son referenciales. Precios referenciales.
       </p>
     </footer>
   );

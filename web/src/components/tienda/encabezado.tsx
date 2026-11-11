@@ -12,21 +12,24 @@ export function Encabezado() {
   return (
     <>
       <div className="bg-ciruela px-4 py-2 text-center text-[13px] text-white">
-        Perfumes 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]
+        Especialistas en perfumería árabe · 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]
       </div>
       <header className="sticky top-0 z-30 border-b border-borde bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-[1200px] flex-wrap items-center gap-x-8 gap-y-3 px-4 py-3.5 sm:px-6">
           <Link href="/" className="no-underline" aria-label="Nube Aromática, inicio">
             <Logo />
           </Link>
-          <nav aria-label="Categorías" className="order-3 flex w-full gap-5 text-[15px] sm:order-none sm:w-auto">
-            <Link href="/?genero=mujer#catalogo" className="py-2 text-tinta hover:text-ciruela">
+          <nav aria-label="Categorías" className="order-3 flex w-full flex-wrap gap-x-5 text-[15px] sm:order-none sm:w-auto">
+            <Link href="/?filtro=arabe#catalogo" className="py-2 font-semibold text-ciruela hover:text-ciruela-oscuro">
+              Árabes
+            </Link>
+            <Link href="/?filtro=mujer#catalogo" className="py-2 text-tinta hover:text-ciruela">
               Mujer
             </Link>
-            <Link href="/?genero=hombre#catalogo" className="py-2 text-tinta hover:text-ciruela">
+            <Link href="/?filtro=hombre#catalogo" className="py-2 text-tinta hover:text-ciruela">
               Hombre
             </Link>
-            <Link href="/?genero=unisex#catalogo" className="py-2 text-tinta hover:text-ciruela">
+            <Link href="/?filtro=unisex#catalogo" className="py-2 text-tinta hover:text-ciruela">
               Unisex
             </Link>
             <Link href="/#marcas" className="py-2 text-tinta hover:text-ciruela">

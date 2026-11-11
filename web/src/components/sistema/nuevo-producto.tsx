@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Check, Trash2, Upload } from "lucide-react";
-import { MARCAS, formatoPrecio, type Genero, type Producto } from "@/lib/datos";
+import { MARCAS, formatoPrecio, type Genero, type Linea, type Producto } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
 
 type FilaVariante = { ml: string; precio: string; stock: string; codigo: string };
@@ -11,6 +11,7 @@ type Form = {
   marca: string;
   concentracion: string;
   genero: Genero;
+  linea: Linea;
   descripcion: string;
   salida: string;
   corazon: string;
@@ -26,6 +27,7 @@ const vacio = (): Form => ({
   marca: "",
   concentracion: "Eau de Parfum",
   genero: "mujer",
+  linea: "arabe",
   descripcion: "",
   salida: "",
   corazon: "",
@@ -41,11 +43,12 @@ const EJEMPLO: Form = {
   marca: "Rabanne",
   concentracion: "Parfum",
   genero: "hombre",
+  linea: "disenador",
   descripcion: "La versión más intensa del clásico dorado: cuero, ámbar y flor de naranjo. Ideal para la noche.",
   salida: "Mandarina",
   corazon: "Flor de naranjo, tuberosa",
   fondo: "Cuero, ámbar",
-  foto: "/fotos/banner1.jpg",
+  foto: "/fotos/banner-million.jpg",
   online: true,
   caja: true,
   variantes: [
@@ -146,6 +149,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
       marca: f.marca.trim(),
       concentracion: f.concentracion,
       genero: f.genero,
+      linea: f.linea,
       familia: "",
       foto: f.foto,
       descripcion: f.descripcion.trim(),
@@ -266,7 +270,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                   onChange={(e) => cambiar({ concentracion: e.target.value })}
                   className="campo font-normal"
                 >
-                  {["Eau de Parfum", "Eau de Toilette", "Parfum", "Eau de Cologne", "Body Mist"].map((c) => (
+                  {["Eau de Parfum", "Eau de Toilette", "Parfum", "Aceite perfumado (attar)", "Eau de Cologne", "Body Mist"].map((c) => (
                     <option key={c}>{c}</option>
                   ))}
                 </select>
@@ -296,6 +300,31 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                     </button>
                   ))}
                 </div>
+              </div>
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <span id="lbl-linea" className="text-sm font-medium">
+                Línea
+              </span>
+              <div role="group" aria-labelledby="lbl-linea" className="grid max-w-[360px] grid-cols-2 gap-1.5 rounded-xl bg-panel p-[3px]">
+                {(
+                  [
+                    ["arabe", "Perfumería árabe"],
+                    ["disenador", "Diseñador"],
+                  ] as const
+                ).map(([l, label]) => (
+                  <button
+                    key={l}
+                    type="button"
+                    aria-pressed={f.linea === l}
+                    onClick={() => cambiar({ linea: l })}
+                    className={`h-10 rounded-[9px] text-sm transition ${
+                      f.linea === l ? "bg-white font-semibold text-tinta shadow-[0_1px_3px_rgba(0,0,0,.12)]" : "text-gris"
+                    }`}
+                  >
+                    {label}
+                  </button>
+                ))}
               </div>
             </div>
             <label className="flex flex-col gap-1.5 text-sm font-medium">

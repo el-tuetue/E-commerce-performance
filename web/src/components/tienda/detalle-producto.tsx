@@ -68,8 +68,8 @@ function Detalle({ producto }: { producto: Producto }) {
           Inicio
         </Link>
         <span aria-hidden>/</span>
-        <Link href={`/?genero=${producto.genero}#catalogo`} className="text-gris underline-offset-2 hover:underline">
-          {GENERO[producto.genero]}
+        <Link href={`/?filtro=${producto.linea === "arabe" ? "arabe" : producto.genero}#catalogo`} className="text-gris underline-offset-2 hover:underline">
+          {producto.linea === "arabe" ? "Perfumería árabe" : GENERO[producto.genero]}
         </Link>
         <span aria-hidden>/</span>
         <span className="text-tinta">
@@ -83,7 +83,9 @@ function Detalle({ producto }: { producto: Producto }) {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={producto.foto} alt={`${producto.marca} ${producto.nombre}`} className="size-full object-cover" />
           </div>
-          {producto.creditoFoto && <p className="text-xs text-gris">Foto referencial · {producto.creditoFoto}</p>}
+          {producto.creditoFoto && (
+            <p className="text-xs text-gris">{producto.ilustracion ? producto.creditoFoto : `Foto referencial · ${producto.creditoFoto}`}</p>
+          )}
         </div>
 
         <div className="flex flex-[1_1_420px] flex-col gap-5">

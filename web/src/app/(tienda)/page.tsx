@@ -4,6 +4,7 @@ import { ArrowRight, CreditCard, MessageCircle, ShieldCheck, Store, Truck } from
 import { Carrusel } from "@/components/tienda/carrusel";
 import { Catalogo } from "@/components/tienda/catalogo";
 import { Destacado } from "@/components/tienda/destacado";
+import { VitrinaArabe } from "@/components/tienda/vitrina-arabe";
 import { MARCAS } from "@/lib/datos";
 
 const BENEFICIOS = [
@@ -14,9 +15,9 @@ const BENEFICIOS = [
 ];
 
 const CATEGORIAS = [
-  { titulo: "Para ella", texto: "Chanel, Lancôme y más", foto: "/fotos/coco.jpg", pos: "center", genero: "mujer" },
-  { titulo: "Para él", texto: "Dior, Armani, Rabanne", foto: "/fotos/banner3.jpg", pos: "20% center", genero: "hombre" },
-  { titulo: "Unisex", texto: "Frescos para compartir", foto: "/fotos/ckone.jpg", pos: "center", genero: "unisex" },
+  { titulo: "Perfumería árabe", texto: "Oud, ámbar y bakhoor", foto: "/fotos/bakhoor.jpg", pos: "center 40%", filtro: "arabe" },
+  { titulo: "Para ella", texto: "Lattafa Yara, Chanel, YSL", foto: "/fotos/coco.jpg", pos: "center", filtro: "mujer" },
+  { titulo: "Para él", texto: "Lattafa Asad, Armaf, Dior", foto: "/fotos/acqua.jpg", pos: "center 35%", filtro: "hombre" },
 ];
 
 export default function Inicio() {
@@ -44,7 +45,7 @@ export default function Inicio() {
           {CATEGORIAS.map((c) => (
             <Link
               key={c.titulo}
-              href={`/?genero=${c.genero}#catalogo`}
+              href={`/?filtro=${c.filtro}#catalogo`}
               className="group relative block h-[300px] overflow-hidden rounded-[18px] bg-crema"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -82,6 +83,8 @@ export default function Inicio() {
           ))}
         </div>
       </section>
+
+      <VitrinaArabe />
 
       <Destacado />
 

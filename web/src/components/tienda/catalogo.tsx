@@ -3,29 +3,37 @@
 import { useSearchParams } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import type { Genero } from "@/lib/datos";
+import type { Genero, Linea, Producto } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
 import { TarjetaProducto } from "./tarjeta-producto";
 
-type Filtro = "todos" | Genero;
+type Filtro = "todos" | Genero | Linea;
 const FILTROS: [Filtro, string][] = [
   ["todos", "Todos"],
+  ["arabe", "Árabes"],
+  ["disenador", "Diseñador"],
   ["mujer", "Mujer"],
   ["hombre", "Hombre"],
   ["unisex", "Unisex"],
 ];
 
-// Lee ?genero= y ?q= de la URL (los usan el menú y el buscador del encabezado).
+function pasaFiltro(p: Producto, f: Filtro) {
+  if (f === "todos") return true;
+  if (f === "arabe" || f === "disenador") return p.linea === f;
+  return p.genero === f;
+}
+
+// Lee ?filtro= y ?q= de la URL (los usan el menú y el buscador del encabezado).
 export function Catalogo() {
   const params = useSearchParams();
   // Al cambiar la URL se vuelve a montar con los filtros nuevos.
-  return <CatalogoInterno key={params.toString()} generoInicial={params.get("genero")} qInicial={params.get("q") ?? ""} />;
+  return <CatalogoInterno key={params.toString()} filtroInicial={params.get("filtro")} qInicial={params.get("q") ?? ""} />;
 }
 
-function CatalogoInterno({ generoInicial, qInicial }: { generoInicial: string | null; qInicial: string }) {
+function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | null; qInicial: string }) {
   const { productos, stockDe } = useDemo();
   const [filtro, setFiltro] = useState<Filtro>(
-    FILTROS.some(([f]) => f === generoInicial) ? (generoInicial as Filtro) : "todos",
+    FILTROS.some(([f]) => f === filtroInicial) ? (filtroInicial as Filtro) : "todos",
   );
   const [busqueda, setBusqueda] = useState(qInicial);
   const [orden, setOrden] = useState<"destacados" | "menor" | "mayor">("destacados");
@@ -35,7 +43,7 @@ function CatalogoInterno({ generoInicial, qInicial }: { generoInicial: string | 
     const lista = productos.filter(
       (p) =>
         p.online &&
-        (filtro === "todos" || p.genero === filtro) &&
+        pasaFiltro(p, filtro) &&
         (q === "" || `${p.nombre} ${p.marca}`.toLowerCase().includes(q)),
     );
     const precio = (p: (typeof lista)[number]) => Math.min(...p.variantes.map((v) => v.precio));

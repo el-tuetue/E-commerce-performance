@@ -19,7 +19,7 @@ import {
   nombreVariante,
 } from "./datos";
 
-const CLAVE = "nube-demo-v1";
+const CLAVE = "nube-demo-v2"; // cambia la versión si cambian los datos de ejemplo
 
 export type Rol = "vendedor" | "admin";
 export type MedioCaja = "efectivo" | "debito" | "credito" | "transferencia";
