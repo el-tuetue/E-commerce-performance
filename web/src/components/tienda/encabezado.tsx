@@ -52,13 +52,14 @@ export function Encabezado() {
                 className="campo h-11 bg-fondo text-sm"
               />
             </form>
+            {/* En celular el carrito está en la barra de abajo; aquí solo desde tablet. */}
             <Link
               href="/carrito"
               aria-label={`Carrito, ${unidadesCarrito} productos`}
-              className="inline-flex h-11 items-center gap-2 rounded-[10px] bg-marca px-3.5 text-sm font-medium text-white no-underline transition-colors hover:bg-marca-oscuro sm:px-4"
+              className="hidden h-11 items-center gap-2 rounded-[10px] bg-marca px-4 text-sm font-medium text-white no-underline transition-colors hover:bg-marca-oscuro sm:inline-flex"
             >
               <ShoppingBag className="size-[18px]" aria-hidden />
-              <span className="hidden sm:inline">Carrito</span>
+              Carrito
               <span
                 key={unidadesCarrito}
                 className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 text-xs font-bold text-marca ${unidadesCarrito > 0 ? "animate-pop" : ""}`}
