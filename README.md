@@ -19,10 +19,11 @@ Proyecto para la perfumería **Nube Aromática** con **dos partes separadas** qu
 | `database/schema.sql` | Base de datos completa: tablas, funciones de stock (`confirmar_pago`, `anular_venta`, `mover_stock`) y seguridad por roles (RLS). Se pega en el SQL Editor de Supabase. |
 | `docs/ARQUITECTURA.md` | Cómo se organiza el sistema, el flujo de una venta y los pasos para partir. |
 | `docs/GUIA-DISENO.md` | Tecnologías, herramientas y reglas de diseño del proyecto. |
+| `web/` | App Next.js: tienda y sistema interno, en modo demo. |
 | `maqueta/` | Maqueta provisional de las 7 pantallas (portada, tienda, ingreso, caja, administración). |
 
 ## Estado
 
-🟡 **Maqueta y diseño de base de datos.** Falta crear la app Next.js (ver `docs/ARQUITECTURA.md` → "Pasos para partir").
+🟡 **Demo navegable lista** en `web/` (datos de ejemplo, sin base de datos todavía). Para abrirla: `cd web`, `npm install` y `npm run dev`. Guion de demo en `web/README.md`.
 
 > Los precios de la maqueta son referenciales. Stock, pedidos y cifras de ventas son datos de ejemplo.

@@ -28,7 +28,11 @@ El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simp
   - Versión navegable: https://claude.ai/artifact/12GocothS3D3jDWxmgNo9m
 - `maqueta/fotos/`: fotos referenciales de Wikimedia Commons (créditos en `CREDITOS.md`). Hay que reemplazarlas por fotos propias antes de publicar.
 - `docs/ARQUITECTURA.md` y `docs/GUIA-DISENO.md`: decisiones y guía de diseño.
-- **Todavía no existe la app Next.js.**
+- `web/`: app Next.js 16 (Turbopack, `cacheComponents`) **en modo demo**: todas las pantallas de la maqueta funcionan con datos de ejemplo guardados en localStorage y sincronizados entre pestañas. Detalles y guion de demo en `web/README.md`.
+  - Rutas: `/`, `/producto/[slug]`, `/carrito` (tienda) y `/sistema`, `/sistema/caja`, `/sistema/admin` (interno).
+  - Estado: `web/src/lib/demo-store.tsx` (`useSyncExternalStore`, sin contexto para el estado; solo los toasts usan contexto). Datos: `web/src/lib/datos.ts`.
+  - Por ahora sin shadcn/ui: componentes propios con Tailwind v4 + Lucide.
+  - Next 16 cambia APIs: leer `web/node_modules/next/dist/docs/` antes de usar algo nuevo (ver `web/AGENTS.md`).
 
 ## Identidad visual (sacada de la maqueta)
 - Color de marca: ciruela `#5B2A4E`. Texto `#1D1B20`, gris `#5F5A63`, fondo cálido `#FBFAF8`, bordes `#E7E2DC`. Acento online `#B5761C`.
@@ -39,9 +43,10 @@ El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simp
 ## Próximos pasos
 1. ✅ Subido a GitHub (público): https://github.com/el-tuetue/E-commerce-performance
    - Los commits usan el correo privado de GitHub (`173995679+el-tuetue@users.noreply.github.com`), configurado solo en este repo. Nunca usar el correo personal.
-2. Crear la app: `npx create-next-app@latest web --typescript --tailwind --app`, después `npx shadcn@latest init`.
-3. Construir en este orden: admin (productos) → caja → tienda → pagos online.
-4. Variables en `web/.env.local` (nunca subirlas): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (esta última solo en el servidor).
+2. ✅ Front de la demo hecho en `web/`.
+3. Publicar la demo en Vercel (Root Directory: `web`) para mostrarla con un link.
+4. Conectar Supabase: login real, productos y stock desde `schema.sql`, fotos en Storage. Orden: admin (productos) → caja → tienda → pagos online.
+5. Variables en `web/.env.local` (nunca subirlas): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (esta última solo en el servidor).
 
 ## Pendientes con el dueño
 - Datos marcados como `[CORCHETES]` en la maqueta: dirección, horario, comunas de despacho, WhatsApp, Instagram y costo de envío.
