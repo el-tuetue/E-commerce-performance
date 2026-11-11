@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useLayoutEffect, useMemo, useRef, useState } from "react";
 import { CircleCheck, Minus, Plus, ScanBarcode } from "lucide-react";
 import { formatoPrecio, nombreVariante } from "@/lib/datos";
 import { useDemo, type Linea, type MedioCaja } from "@/lib/demo-store";
@@ -22,6 +22,25 @@ export function Caja() {
   const [medio, setMedio] = useState<MedioCaja>("efectivo");
   const [recibido, setRecibido] = useState<{ monto: number; total: number } | null>(null);
   const [cobrado, setCobrado] = useState<{ total: number; medio: MedioCaja; vuelto: number | null } | null>(null);
+
+  // Al salir de la caja (Next.js la deja "dormida"), se cierra el aviso de venta registrada
+  // y la venta queda lista para empezar de nuevo al volver.
+  // Si había una venta a medias, se conserva tal cual.
+  const yaCobrado = useRef(false);
+  useLayoutEffect(() => {
+    yaCobrado.current = cobrado !== null;
+  }, [cobrado]);
+  useLayoutEffect(() => {
+    return () => {
+      if (yaCobrado.current) {
+        setCobrado(null);
+        setLineas([]);
+        setRecibido(null);
+        setMedio("efectivo");
+      }
+      setAviso("");
+    };
+  }, []);
   const simulados = useRef(0);
   const campo = useRef<HTMLInputElement>(null);
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { CircleCheck, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { COSTO_ENVIO, formatoPrecio, nombreVariante } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
@@ -42,6 +42,15 @@ export function Carrito() {
   const [nombre, setNombre] = useState("");
   const [error, setError] = useState("");
   const [pagado, setPagado] = useState<{ num: number; medio: Medio; entrega: Entrega } | null>(null);
+
+  // Next.js deja la página "dormida" al salir y la muestra igual al volver.
+  // Al ocultarse, se borra el "¡Gracias por tu compra!" para partir de cero la próxima vez.
+  useLayoutEffect(() => {
+    return () => {
+      setPagado(null);
+      setError("");
+    };
+  }, []);
 
   const items = Object.entries(estado.carrito)
     .map(([id, cantidad]) => ({ id, cantidad, info: buscarVariante(id) }))
