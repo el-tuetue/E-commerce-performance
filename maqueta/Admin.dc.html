@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Nube Aromática · Administración</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Inter:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#F3F1EE}
+a{color:#5B2A4E}a:hover{color:#46203C}
+@keyframes nubeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.nube-in{animation:nubeUp .35s ease both}
+.nube-campo:focus{outline:none;border-color:#5B2A4E!important;box-shadow:0 0 0 3px rgba(91,42,78,.15)}
+.nube-drop{transition:border-color .2s ease,background .2s ease}
+.nube-drop:hover{border-color:#5B2A4E!important;background:#FBF7FA!important}
+.nube-drop:focus-within{border-color:#5B2A4E!important;box-shadow:0 0 0 3px rgba(91,42,78,.15)}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="font-family: Inter, system-ui, sans-serif; color: #1D1B20; background: #F3F1EE; min-height: 100vh">
+
+<div style="max-width: 1240px; margin: 0 auto; padding: 24px; display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start">
+
+<nav aria-label="Menú de administración" style="flex: 1 1 210px; max-width: 100%; background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; gap: 6px">
+<div style="display: flex; align-items: center; gap: 8px; margin: 0 0 2px 8px">
+<svg width="26" height="26" viewBox="0 0 40 40" fill="none" stroke="#5B2A4E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 28h17a6 6 0 0 0 .7-12A8.5 8.5 0 0 0 13.4 14 7 7 0 0 0 12 28z"></path></svg>
+<span style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 600">Nube Aromática</span>
+</div>
+<p style="margin: 0 0 12px 8px; font-size: 13px; color: #5F5A63">Sistema interno · Administrador</p>
+<sc-for list="{{tabs}}" as="t" hint-placeholder-count="4">
+<button type="button" onClick="{{t.pick}}" style="{{t.estilo}}">{{t.label}}</button>
+</sc-for>
+<a href="Caja.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #1D1B20; text-decoration: none; font-size: 15px">Abrir caja</a>
+<a href="Main.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #1D1B20; text-decoration: none; font-size: 15px">Ver tienda pública</a>
+<a href="Login.dc.html" style="display: flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 10px; color: #A3243B; text-decoration: none; font-size: 15px; border-top: 1px solid #EFEAE4; margin-top: 6px">Cerrar sesión</a>
+</nav>
+
+<main style="flex: 999 1 640px; min-width: 0; display: flex; flex-direction: column; gap: 20px">
+
+<sc-if value="{{enResumen}}" hint-placeholder-val="{{ true }}">
+<div class="nube-in" style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px">
+<div><h1 style="margin: 0 0 4px; font-size: 28px">Resumen de hoy</h1><p style="margin: 0; color: #5F5A63">Martes · cifras de ejemplo</p></div>
+<button type="button" onClick="{{irNuevo}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 10px; background: #5B2A4E; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer">+ Agregar producto</button>
+</div>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px">
+<div style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 18px"><p style="margin: 0 0 6px; font-size: 14px; color: #5F5A63">Ventas en el local</p><p style="margin: 0; font-size: 30px; font-weight: 600">$849.930</p><p style="margin: 6px 0 0; font-size: 13px; color: #5F5A63">7 ventas</p></div>
+<div style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 18px"><p style="margin: 0 0 6px; font-size: 14px; color: #5F5A63">Ventas online</p><p style="margin: 0; font-size: 30px; font-weight: 600">$548.940</p><p style="margin: 6px 0 0; font-size: 13px; color: #5F5A63">3 pedidos</p></div>
+<div style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 18px"><p style="margin: 0 0 6px; font-size: 14px; color: #5F5A63">Pedidos por preparar</p><p style="margin: 0; font-size: 30px; font-weight: 600">{{porPreparar}}</p><p style="margin: 6px 0 0; font-size: 13px; color: #5F5A63">Revisar en Pedidos online</p></div>
+<div style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 18px"><p style="margin: 0 0 6px; font-size: 14px; color: #5F5A63">Stock bajo</p><p style="margin: 0; font-size: 30px; font-weight: 600; color: #8A4B00">{{bajos}}</p><p style="margin: 6px 0 0; font-size: 13px; color: #5F5A63">productos por reponer</p></div>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px">
+<section style="flex: 1 1 340px; background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 20px">
+<h2 style="margin: 0 0 16px; font-size: 18px">Ventas de la semana</h2>
+<div role="img" aria-label="Ventas de lunes a domingo, separadas entre local y online. Datos de ejemplo." style="display: flex; align-items: flex-end; gap: 14px; height: 180px">
+<sc-for list="{{semana}}" as="d" hint-placeholder-count="7">
+<div style="flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; height: 100%; justify-content: flex-end">
+<div style="width: 100%; max-width: 34px; display: flex; flex-direction: column; gap: 2px">
+<div style="height: {{d.online}}px; background: #B5761C; border-radius: 4px 4px 0 0"></div>
+<div style="height: {{d.local}}px; background: #5B2A4E; border-radius: 0 0 4px 4px"></div>
+</div>
+<span style="font-size: 12px; color: #5F5A63">{{d.dia}}</span>
+</div>
+</sc-for>
+</div>
+<div style="display: flex; gap: 18px; margin-top: 14px; font-size: 13px; color: #5F5A63">
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 3px; background: #5B2A4E"></span>Local</span>
+<span style="display: inline-flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 3px; background: #B5761C"></span>Online</span>
+</div>
+</section>
+
+<section style="flex: 1 1 340px; background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 4px">
+<h2 style="margin: 0 0 8px; font-size: 18px">Por reponer</h2>
+<sc-for list="{{listaBajos}}" as="b" hint-placeholder-count="3">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid #EFEAE4">
+<div style="display: flex; align-items: center; gap: 12px">
+<img src="{{b.foto}}" alt="" style="width: 44px; height: 52px; border-radius: 8px; object-fit: cover; background: #F5F0EB">
+<div><p style="margin: 0; font-weight: 600">{{b.nombre}}</p><p style="margin: 0; font-size: 13px; color: #5F5A63">{{b.ml}} ml · mínimo {{b.minimo}}</p></div>
+</div>
+<div style="display: flex; align-items: center; gap: 10px">
+<span style="{{b.badge}}">{{b.stockTxt}}</span>
+<button type="button" aria-label="Ingresar 5 unidades" onClick="{{b.reponer}}" style="height: 44px; padding: 0 14px; border-radius: 10px; border: 1px solid #5B2A4E; background: #FFFFFF; color: #5B2A4E; font: inherit; font-size: 14px; font-weight: 500; cursor: pointer">+5</button>
+</div>
+</div>
+</sc-for>
+<sc-if value="{{sinBajos}}" hint-placeholder-val="{{ false }}">
+<p style="margin: 0; color: #2E6B3F">Todo el stock está sobre el mínimo.</p>
+</sc-if>
+</section>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{enInventario}}" hint-placeholder-val="{{ false }}">
+<div class="nube-in" style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px">
+<div><h1 style="margin: 0 0 4px; font-size: 28px">Inventario</h1><p style="margin: 0; color: #5F5A63">El mismo stock para la caja y la tienda online · {{totalProductos}} productos</p></div>
+<div style="display: flex; gap: 10px; flex-wrap: wrap">
+<input class="nube-campo" type="search" aria-label="Buscar en inventario" value="{{busqueda}}" onChange="{{buscar}}" placeholder="Buscar por nombre, marca o código" style="height: 44px; width: 280px; max-width: 100%; box-sizing: border-box; padding: 0 12px; border: 1px solid #D6D0C8; border-radius: 10px; font: inherit; font-size: 14px; background: #FFFFFF">
+<button type="button" onClick="{{irNuevo}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 10px; background: #5B2A4E; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer">+ Agregar producto</button>
+</div>
+</div>
+<div style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; overflow: hidden">
+<div style="overflow-x: auto">
+<div role="table" aria-label="Inventario" style="min-width: 820px; font-size: 14px">
+<div role="row" style="display: grid; grid-template-columns: minmax(240px, 2.2fr) minmax(70px, .6fr) minmax(140px, 1.2fr) minmax(140px, 1.2fr) minmax(90px, .8fr) minmax(70px, .6fr); gap: 12px; align-items: center; padding: 12px 16px; background: #FAF8F5; color: #5F5A63; font-size: 13px; font-weight: 600">
+<span role="columnheader">Producto</span><span role="columnheader">Tamaño</span><span role="columnheader">Código de barras</span><span role="columnheader">Canales</span><span role="columnheader" style="text-align: right">Precio</span><span role="columnheader" style="text-align: right">Stock</span>
+</div>
+<sc-for list="{{inventario}}" as="p" hint-placeholder-count="8">
+<div role="row" style="display: grid; grid-template-columns: minmax(240px, 2.2fr) minmax(70px, .6fr) minmax(140px, 1.2fr) minmax(140px, 1.2fr) minmax(90px, .8fr) minmax(70px, .6fr); gap: 12px; align-items: center; padding: 10px 16px; {{p.filaEstilo}}">
+<div role="cell" style="display: flex; align-items: center; gap: 12px; min-width: 0">
+<img src="{{p.foto}}" alt="" style="width: 40px; height: 48px; border-radius: 8px; object-fit: cover; background: #F5F0EB; flex: none">
+<div style="min-width: 0"><p style="margin: 0; font-weight: 600">{{p.nombre}}</p><p style="margin: 0; font-size: 13px; color: #5F5A63">{{p.marca}}</p></div>
+<sc-if value="{{p.esNuevo}}" hint-placeholder-val="{{ false }}"><span style="font-size: 12px; font-weight: 600; color: #5B2A4E; background: #F6EEF3; padding: 3px 8px; border-radius: 999px">Nuevo</span></sc-if>
+</div>
+<span role="cell">{{p.ml}} ml</span>
+<span role="cell" style="font-family: ui-monospace, monospace; color: #5F5A63">{{p.codigo}}</span>
+<span role="cell" style="color: #5F5A63">{{p.canales}}</span>
+<span role="cell" style="text-align: right">{{p.precioTxt}}</span>
+<span role="cell" style="text-align: right"><span style="{{p.badge}}">{{p.stock}}</span></span>
+</div>
+</sc-for>
+</div>
+</div>
+</div>
+</div>
+</sc-if>
+
+<sc-if value="{{enPedidos}}" hint-placeholder-val="{{ false }}">
+<div class="nube-in" style="display: flex; flex-direction: column; gap: 16px">
+<div><h1 style="margin: 0 0 4px; font-size: 28px">Pedidos online</h1><p style="margin: 0; color: #5F5A63">Avanza cada pedido y el cliente recibe el aviso</p></div>
+<sc-for list="{{pedidos}}" as="o" hint-placeholder-count="4">
+<article style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 18px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between">
+<div style="flex: 1 1 260px">
+<p style="margin: 0 0 4px; font-weight: 600">Pedido N° {{o.num}} · {{o.cliente}}</p>
+<p style="margin: 0; font-size: 14px; color: #5F5A63">{{o.resumen}} · {{o.entrega}}</p>
+</div>
+<span style="font-weight: 600; min-width: 90px">{{o.totalTxt}}</span>
+<span style="{{o.badge}}">{{o.estadoTxt}}</span>
+<sc-if value="{{o.puedeAvanzar}}" hint-placeholder-val="{{ true }}">
+<button type="button" onClick="{{o.avanzar}}" style="height: 44px; padding: 0 16px; border: 0; border-radius: 10px; background: #5B2A4E; color: #FFFFFF; font: inherit; font-size: 14px; font-weight: 500; cursor: pointer">{{o.accion}}</button>
+</sc-if>
+</article>
+</sc-for>
+</div>
+</sc-if>
+
+<sc-if value="{{enNuevo}}" hint-placeholder-val="{{ false }}">
+<div class="nube-in" style="display: flex; flex-direction: column; gap: 20px">
+<div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 12px">
+<div><h1 style="margin: 0 0 4px; font-size: 28px">Agregar producto</h1><p style="margin: 0; color: #5F5A63">Se publica en la tienda online y queda disponible en la caja con el mismo stock</p></div>
+<button type="button" onClick="{{rellenarEjemplo}}" style="height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid #D6D0C8; background: #FFFFFF; color: #1D1B20; font: inherit; font-size: 14px; cursor: pointer">Rellenar con un ejemplo</button>
+</div>
+
+<div style="display: flex; flex-wrap: wrap; gap: 20px; align-items: flex-start">
+<div style="flex: 999 1 460px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+
+<section style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap"><h2 style="margin: 0; font-size: 17px">1. Foto</h2><span style="font-size: 13px; color: #5F5A63">JPG o PNG, fondo claro, mínimo 800 px</span></div>
+<label class="nube-drop" onDragOver="{{arrastrar}}" onDragLeave="{{salirArrastre}}" onDrop="{{soltar}}" style="{{dropEstilo}}">
+<input type="file" accept="image/*" onChange="{{elegirFoto}}" style="position: absolute; width: 1px; height: 1px; opacity: 0">
+<sc-if value="{{tieneFoto}}" hint-placeholder-val="{{ false }}">
+<img src="{{fotoUrl}}" alt="Foto del producto" style="width: 150px; height: 180px; object-fit: cover; border-radius: 12px; background: #F5F0EB; animation: nubeUp .3s ease both">
+</sc-if>
+<span style="display: flex; flex-direction: column; gap: 6px; align-items: center; text-align: center">
+<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#5B2A4E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4"></path><path d="M7 9l5-5 5 5"></path><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"></path></svg>
+<span style="font-weight: 600">{{dropTitulo}}</span>
+<span style="font-size: 14px; color: #5F5A63">Arrastra la imagen aquí o haz clic para elegirla</span>
+</span>
+</label>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px">
+<h2 style="margin: 0; font-size: 17px">2. Información</h2>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px">
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500">Nombre del perfume
+<input class="nube-campo" type="text" value="{{f.nombre}}" onChange="{{cNombre}}" placeholder="Ej: Sauvage" style="{{campoNombre}}"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500">Marca
+<input class="nube-campo" type="text" list="marcas-lista" value="{{f.marca}}" onChange="{{cMarca}}" placeholder="Escribe o elige" style="{{campoMarca}}"></label>
+<datalist id="marcas-lista"><option value="Dior"></option><option value="Chanel"></option><option value="Lancôme"></option><option value="Rabanne"></option><option value="Giorgio Armani"></option><option value="Calvin Klein"></option><option value="Hugo Boss"></option><option value="Carolina Herrera"></option></datalist>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500">Concentración
+<select class="nube-campo" value="{{f.conc}}" onChange="{{cConc}}" style="height: 46px; padding: 0 12px; border: 1px solid #D6D0C8; border-radius: 10px; font: inherit; font-weight: 400; background: #FFFFFF">
+<option value="Eau de Parfum">Eau de Parfum</option>
+<option value="Eau de Toilette">Eau de Toilette</option>
+<option value="Parfum">Parfum</option>
+<option value="Eau de Cologne">Eau de Cologne</option>
+<option value="Body Mist">Body Mist</option>
+</select></label>
+<div style="display: flex; flex-direction: column; gap: 6px">
+<span id="lbl-genero" style="font-size: 14px; font-weight: 500">Para</span>
+<div role="group" aria-labelledby="lbl-genero" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; background: #F3F1EE; padding: 3px; border-radius: 12px">
+<sc-for list="{{generos}}" as="g" hint-placeholder-count="3">
+<button type="button" onClick="{{g.pick}}" style="{{g.estilo}}">{{g.label}}</button>
+</sc-for>
+</div>
+</div>
+</div>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500">Descripción para la tienda
+<textarea class="nube-campo" rows="3" value="{{f.descripcion}}" onChange="{{cDescripcion}}" placeholder="Cómo huele, para qué ocasión, por qué regalarlo" style="padding: 12px; border: 1px solid #D6D0C8; border-radius: 10px; font: inherit; font-weight: 400; resize: vertical"></textarea></label>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px">
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500">Notas de salida<input class="nube-campo" type="text" value="{{f.salida}}" onChange="{{cSalida}}" placeholder="Ej: bergamota" style="height: 46px; padding: 0 12px; border: 1px solid #D6D0C8; border-radius: 10px; font: inherit; font-weight: 400"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500">Notas de corazón<input class="nube-campo" type="text" value="{{f.corazon}}" onChange="{{cCorazon}}" placeholder="Ej: lavanda" style="height: 46px; padding: 0 12px; border: 1px solid #D6D0C8; border-radius: 10px; font: inherit; font-weight: 400"></label>
+<label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; font-weight: 500">Notas de fondo<input class="nube-campo" type="text" value="{{f.fondo}}" onChange="{{cFondo}}" placeholder="Ej: vainilla" style="height: 46px; padding: 0 12px; border: 1px solid #D6D0C8; border-radius: 10px; font: inherit; font-weight: 400"></label>
+</div>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; align-items: baseline; justify-content: space-between; gap: 8px; flex-wrap: wrap"><h2 style="margin: 0; font-size: 17px">3. Tamaños, precio y stock</h2><span style="font-size: 13px; color: #5F5A63">Con la pistola puedes escanear el código directo en el campo</span></div>
+<div style="overflow-x: auto">
+<div role="table" aria-label="Tamaños del producto" style="min-width: 560px; font-size: 14px; display: flex; flex-direction: column; gap: 8px">
+<div role="row" style="display: grid; grid-template-columns: minmax(80px, 1fr) minmax(110px, 1.3fr) minmax(80px, 1fr) minmax(150px, 1.8fr) 44px; gap: 8px; align-items: center; color: #5F5A63; font-size: 13px; font-weight: 600">
+<span role="columnheader">Tamaño (ml)</span><span role="columnheader">Precio ($)</span><span role="columnheader">Stock inicial</span><span role="columnheader">Código de barras</span><span role="columnheader" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Quitar</span>
+</div>
+<sc-for list="{{variantes}}" as="v" hint-placeholder-count="1">
+<div role="row" style="display: grid; grid-template-columns: minmax(80px, 1fr) minmax(110px, 1.3fr) minmax(80px, 1fr) minmax(150px, 1.8fr) 44px; gap: 8px; align-items: center; animation: nubeUp .25s ease both">
+<input class="nube-campo" type="number" inputmode="numeric" aria-label="Tamaño en ml" value="{{v.ml}}" onChange="{{v.cMl}}" placeholder="100" style="{{v.mlEstilo}}">
+<input class="nube-campo" type="number" inputmode="numeric" aria-label="Precio" value="{{v.precio}}" onChange="{{v.cPrecio}}" placeholder="99990" style="{{v.precioEstilo}}">
+<input class="nube-campo" type="number" inputmode="numeric" aria-label="Stock inicial" value="{{v.stock}}" onChange="{{v.cStock}}" placeholder="0" style="width: 100%; box-sizing: border-box; height: 44px; padding: 0 10px; border: 1px solid #D6D0C8; border-radius: 10px; font: inherit">
+<input class="nube-campo" type="text" inputmode="numeric" aria-label="Código de barras" value="{{v.codigo}}" onChange="{{v.cCodigo}}" placeholder="Escanea o escribe" style="width: 100%; box-sizing: border-box; height: 44px; padding: 0 10px; border: 1px solid #D6D0C8; border-radius: 10px; font: inherit; font-family: ui-monospace, monospace; font-size: 14px">
+<button type="button" aria-label="Quitar este tamaño" onClick="{{v.quitar}}" disabled="{{v.unico}}" style="{{v.quitarEstilo}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16"></path><path d="M10 11v6"></path><path d="M14 11v6"></path><path d="M6 7l1 13h10l1-13"></path><path d="M9 7V4h6v3"></path></svg></button>
+</div>
+</sc-for>
+</div>
+</div>
+<button type="button" onClick="{{agregarVariante}}" style="align-self: flex-start; height: 44px; padding: 0 14px; border-radius: 10px; border: 1px dashed #5B2A4E; background: #FFFFFF; color: #5B2A4E; font: inherit; font-size: 14px; font-weight: 500; cursor: pointer">+ Agregar otro tamaño</button>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 17px">4. Dónde se vende</h2>
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px; cursor: pointer"><input type="checkbox" checked="{{f.online}}" onChange="{{cOnline}}" style="width: 20px; height: 20px; accent-color: #5B2A4E"><span><strong style="font-weight: 600">Tienda online</strong><span style="display: block; font-size: 13px; color: #5F5A63">Aparece en el catálogo público de Nube Aromática</span></span></label>
+<label style="display: flex; align-items: center; gap: 12px; min-height: 44px; cursor: pointer"><input type="checkbox" checked="{{f.caja}}" onChange="{{cCaja}}" style="width: 20px; height: 20px; accent-color: #5B2A4E"><span><strong style="font-weight: 600">Caja del local</strong><span style="display: block; font-size: 13px; color: #5F5A63">Se puede vender escaneando el código de barras</span></span></label>
+</section>
+</div>
+
+<aside style="flex: 1 1 300px; display: flex; flex-direction: column; gap: 16px">
+<section style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<h2 style="margin: 0; font-size: 15px; color: #5F5A63; font-weight: 600">Así se verá en la tienda</h2>
+<div style="border: 1px solid #E7E2DC; border-radius: 14px; overflow: hidden">
+<div style="aspect-ratio: 4 / 5; background: #F5F0EB; position: relative; display: flex; align-items: center; justify-content: center">
+<sc-if value="{{tieneFoto}}" hint-placeholder-val="{{ false }}"><img src="{{fotoUrl}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block; animation: nubeUp .3s ease both"></sc-if>
+<sc-if value="{{sinFoto}}" hint-placeholder-val="{{ true }}"><span style="font-size: 14px; color: #5F5A63">Sin foto todavía</span></sc-if>
+<span style="position: absolute; top: 12px; left: 12px; font-size: 12px; font-weight: 600; padding: 5px 10px; border-radius: 999px; background: #1D1B20; color: #FFFFFF">Nuevo</span>
+</div>
+<div style="padding: 14px 16px; display: flex; flex-direction: column; gap: 4px">
+<p style="margin: 0; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; color: #5F5A63">{{vistaMarca}}</p>
+<p style="margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; font-weight: 600; line-height: 1.15">{{vistaNombre}}</p>
+<p style="margin: 0; font-size: 14px; color: #5F5A63">{{vistaDetalle}}</p>
+<p style="margin: 8px 0 0; font-size: 18px; font-weight: 600">{{vistaPrecio}}</p>
+</div>
+</div>
+</section>
+
+<section style="background: #FFFFFF; border: 1px solid #E2DDD6; border-radius: 16px; padding: 18px; display: flex; flex-direction: column; gap: 12px">
+<div style="display: flex; justify-content: space-between; align-items: baseline"><h2 style="margin: 0; font-size: 15px; font-weight: 600">Antes de publicar</h2><span style="font-size: 13px; color: #5F5A63">{{listos}} de 5</span></div>
+<div style="height: 6px; background: #EFEAE4; border-radius: 999px; overflow: hidden"><div style="{{barra}}"></div></div>
+<sc-for list="{{checklist}}" as="c" hint-placeholder-count="5">
+<div style="display: flex; align-items: center; gap: 10px; font-size: 14px">
+<span aria-hidden="true" style="{{c.icono}}">{{c.marca}}</span>
+<span style="{{c.texto}}">{{c.label}}</span>
+</div>
+</sc-for>
+<button type="button" onClick="{{publicar}}" style="{{publicarEstilo}}">Publicar producto</button>
+<button type="button" onClick="{{limpiar}}" style="height: 44px; border: 0; background: transparent; color: #5F5A63; font: inherit; font-size: 14px; cursor: pointer">Limpiar formulario</button>
+<sc-if value="{{hayError}}" hint-placeholder-val="{{ false }}"><p role="alert" style="margin: 0; font-size: 14px; color: #A3243B">Completa lo que falta en la lista para poder publicar.</p></sc-if>
+</section>
+</aside>
+</div>
+</div>
+</sc-if>
+
+</main>
+</div>
+
+<sc-if value="{{hayToast}}" hint-placeholder-val="{{ false }}">
+<div role="status" style="position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); background: #1D1B20; color: #FFFFFF; padding: 14px 20px; border-radius: 12px; font-size: 15px; display: flex; gap: 10px; align-items: center; animation: nubeUp .3s ease both; z-index: 10">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#9ED3AE" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4 4 10-10"></path></svg>
+{{toast}}
+</div>
+</sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1600}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = {
+      tab: 'resumen', busqueda: '', toast: '', error: false, arrastrando: false,
+      stock: { 1: 6, 2: 3, 3: 2, 4: 5, 5: 4, 6: 1, 7: 9, 8: 0 },
+      estados: { 1045: 0, 1044: 1, 1043: 2, 1042: 3 },
+      nuevos: [],
+      f: this.formVacio()
+    };
+  }
+  formVacio() {
+    return { nombre: '', marca: '', conc: 'Eau de Parfum', genero: 'mujer', descripcion: '', salida: '', corazon: '', fondo: '', foto: '', online: true, caja: true, variantes: [{ ml: '', precio: '', stock: '', codigo: '' }] };
+  }
+  componentWillUnmount() { clearTimeout(this.toastTimer); }
+  avisar(txt) {
+    var self = this;
+    this.setState({ toast: txt });
+    clearTimeout(this.toastTimer);
+    this.toastTimer = setTimeout(function () { self.setState({ toast: '' }); }, 2600);
+  }
+  setF(cambios) { this.setState({ f: Object.assign({}, this.state.f, cambios), error: false }); }
+  leerArchivo(file) {
+    if (!file || !/^image\//.test(file.type || '')) { this.avisar('Elige un archivo de imagen (JPG o PNG)'); return; }
+    this.setF({ foto: URL.createObjectURL(file) });
+  }
+  renderVals() {
+    var self = this;
+    var s = this.state;
+    var f = s.f;
+    var fmt = function (n) { return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); };
+    var base = [
+      { id: 1, nombre: 'Sauvage EDT', marca: 'Dior', ml: 100, precio: 129990, codigo: '7800001000017', minimo: 2, foto: '/_blob/5edfbb527dd39545370ae3edcaf1408b' },
+      { id: 2, nombre: 'N°5 EDP', marca: 'Chanel', ml: 100, precio: 189990, codigo: '7800001000024', minimo: 2, foto: '/_blob/bb989a657101a591f6f0953e6177b511' },
+      { id: 3, nombre: 'Trésor EDP', marca: 'Lancôme', ml: 100, precio: 119990, codigo: '7800001000031', minimo: 3, foto: '/_blob/f766ea486ec683fcdc52c43f15c0e684' },
+      { id: 4, nombre: '1 Million EDT', marca: 'Rabanne', ml: 100, precio: 99990, codigo: '7800001000048', minimo: 2, foto: '/_blob/098d950141193263e5cc8ecdaf1edd32' },
+      { id: 5, nombre: 'Coco Mademoiselle EDP', marca: 'Chanel', ml: 100, precio: 184990, codigo: '7800001000079', minimo: 2, foto: '/_blob/5dcf65874e9326d5dbb3d48314db71e5' },
+      { id: 6, nombre: 'Acqua di Giò EDT', marca: 'Giorgio Armani', ml: 100, precio: 109990, codigo: '7800001000055', minimo: 2, foto: '/_blob/17980129c5253490b1a494bafddc56d2' },
+      { id: 7, nombre: 'CK One EDT', marca: 'Calvin Klein', ml: 200, precio: 59990, codigo: '7800001000062', minimo: 3, foto: '/_blob/23cb72bf45d85a58310ea84660317012' },
+      { id: 8, nombre: 'Boss Bottled EDT', marca: 'Hugo Boss', ml: 100, precio: 94990, codigo: '7800001000086', minimo: 2, foto: '/_blob/bf2aeb5c07ddd5b21a20a89c1cb81b7a' }
+    ];
+    var prods = s.nuevos.concat(base);
+    var st = s.stock;
+    var chip = 'display: inline-block; min-width: 28px; text-align: center; padding: 4px 10px; border-radius: 999px; font-size: 13px; font-weight: 600; ';
+    var badgeStock = function (n, min) {
+      if (n === 0) return chip + 'background: #FBE7EA; color: #A3243B';
+      if (n <= min) return chip + 'background: #FDF0DC; color: #8A4B00';
+      return chip + 'background: #E6F2E9; color: #2E6B3F';
+    };
+    var tabBase = 'text-align: left; min-height: 44px; padding: 0 12px; border-radius: 10px; font: inherit; font-size: 15px; cursor: pointer; border: 0; transition: background .2s ease, color .2s ease; ';
+    var tabs = [['resumen', 'Resumen'], ['inventario', 'Inventario'], ['pedidos', 'Pedidos online'], ['nuevo', 'Agregar producto']].map(function (t) {
+      var on = s.tab === t[0];
+      return { label: t[1], estilo: tabBase + (on ? 'background: #F6EEF3; color: #5B2A4E; font-weight: 600' : 'background: transparent; color: #1D1B20'), pick: function () { self.setState({ tab: t[0] }); } };
+    });
+    var bajosArr = base.filter(function (p) { return st[p.id] <= p.minimo; });
+    var q = s.busqueda.toLowerCase();
+    var inventario = prods.filter(function (p) { return q === '' || (p.nombre + ' ' + p.marca).toLowerCase().indexOf(q) >= 0 || String(p.codigo).indexOf(q) >= 0; }).map(function (p) {
+      var n = st[p.id];
+      return {
+        nombre: p.nombre, marca: p.marca, ml: p.ml, codigo: p.codigo || '—', precioTxt: fmt(p.precio), stock: n, badge: badgeStock(n, p.minimo), foto: p.foto,
+        esNuevo: !!p.nuevo, canales: p.canales || 'Online y caja',
+        filaEstilo: 'border-top: 1px solid #EFEAE4; ' + (p.nuevo ? 'background: #FBF7FA' : '')
+      };
+    });
+    var flujo = [
+      { txt: 'Pagado', accion: 'Empezar a preparar', badge: chip + 'background: #E8EEF7; color: #24497A' },
+      { txt: 'Preparando', accion: 'Marcar listo / enviado', badge: chip + 'background: #FDF0DC; color: #8A4B00' },
+      { txt: 'Enviado o listo para retiro', accion: 'Marcar entregado', badge: chip + 'background: #F6EEF3; color: #5B2A4E' },
+      { txt: 'Entregado', accion: '', badge: chip + 'background: #E6F2E9; color: #2E6B3F' }
+    ];
+    var lista = [
+      { num: 1045, cliente: 'Camila R.', resumen: 'Dior Sauvage 100 ml, CK One 200 ml ×2', entrega: 'Retiro en tienda', total: 249970 },
+      { num: 1044, cliente: 'Jorge P.', resumen: 'Acqua di Giò 100 ml', entrega: 'Despacho', total: 113980 },
+      { num: 1043, cliente: 'Valentina S.', resumen: 'Coco Mademoiselle 100 ml', entrega: 'Retiro en tienda', total: 184990 },
+      { num: 1042, cliente: 'Andrés M.', resumen: '1 Million 100 ml', entrega: 'Despacho', total: 103980 }
+    ];
+    var est = s.estados;
+    var pedidos = lista.map(function (o) {
+      var e = est[o.num];
+      return {
+        num: o.num, cliente: o.cliente, resumen: o.resumen, entrega: o.entrega, totalTxt: fmt(o.total),
+        estadoTxt: flujo[e].txt, badge: flujo[e].badge, accion: flujo[e].accion, puedeAvanzar: e < 3,
+        avanzar: function () { var n = Object.assign({}, est); n[o.num] = Math.min(3, e + 1); self.setState({ estados: n }); }
+      };
+    });
+    var semana = [['L', 70, 30], ['M', 92, 40], ['M', 64, 22], ['J', 84, 46], ['V', 118, 52], ['S', 130, 34], ['D', 40, 18]].map(function (d) { return { dia: d[0], local: d[1], online: d[2] }; });
+
+    var campo = 'height: 46px; padding: 0 12px; border-radius: 10px; font: inherit; font-weight: 400; transition: border-color .2s ease, box-shadow .2s ease; ';
+    var borde = function (malo) { return 'border: 1px solid ' + (malo ? '#A3243B' : '#D6D0C8'); };
+    var vars = f.variantes;
+    var v0 = vars[0] || {};
+    var precioOk = vars.some(function (v) { return Number(v.precio) > 0; });
+    var mlOk = vars.every(function (v) { return Number(v.ml) > 0; });
+    var checks = [
+      ['Foto del producto', !!f.foto],
+      ['Nombre y marca', f.nombre.trim() !== '' && f.marca.trim() !== ''],
+      ['Tamaño en ml', mlOk],
+      ['Precio', precioOk],
+      ['Al menos un canal de venta', f.online || f.caja]
+    ];
+    var listos = checks.filter(function (c) { return c[1]; }).length;
+    var completo = listos === checks.length;
+    var setVar = function (i, nombreCampo) {
+      return function (e) {
+        var nv = self.state.f.variantes.map(function (v, j) { if (j !== i) return v; var c = Object.assign({}, v); c[nombreCampo] = e.target.value; return c; });
+        self.setF({ variantes: nv });
+      };
+    };
+    var inputNum = 'width: 100%; box-sizing: border-box; height: 44px; padding: 0 10px; border-radius: 10px; font: inherit; ';
+    var variantes = vars.map(function (v, i) {
+      return {
+        ml: v.ml, precio: v.precio, stock: v.stock, codigo: v.codigo,
+        cMl: setVar(i, 'ml'), cPrecio: setVar(i, 'precio'), cStock: setVar(i, 'stock'), cCodigo: setVar(i, 'codigo'),
+        mlEstilo: inputNum + borde(s.error && !(Number(v.ml) > 0)),
+        precioEstilo: inputNum + borde(s.error && !precioOk),
+        unico: vars.length === 1,
+        quitarEstilo: 'width: 44px; height: 44px; border-radius: 10px; border: 1px solid #E2DDD6; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; color: ' + (vars.length === 1 ? '#C9C3CC' : '#A3243B'),
+        quitar: function () { if (vars.length > 1) self.setF({ variantes: vars.filter(function (x, j) { return j !== i; }) }); }
+      };
+    });
+    var seg = 'height: 40px; border: 0; border-radius: 9px; font: inherit; font-size: 14px; cursor: pointer; transition: background .2s ease, box-shadow .2s ease; ';
+    var generos = [['mujer', 'Mujer'], ['hombre', 'Hombre'], ['unisex', 'Unisex']].map(function (g) {
+      var on = f.genero === g[0];
+      return { label: g[1], estilo: seg + (on ? 'background: #FFFFFF; color: #1D1B20; font-weight: 600; box-shadow: 0 1px 3px rgba(0,0,0,.12)' : 'background: transparent; color: #5F5A63'), pick: function () { self.setF({ genero: g[0] }); } };
+    });
+    var icoBase = 'display: inline-flex; width: 22px; height: 22px; border-radius: 50%; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex: none; box-sizing: border-box; transition: background .25s ease; ';
+    var checklist = checks.map(function (c) {
+      return {
+        label: c[0], marca: c[1] ? '✓' : '',
+        icono: icoBase + (c[1] ? 'background: #2E6B3F; color: #FFFFFF' : 'background: #FFFFFF; border: 2px solid ' + (s.error ? '#A3243B' : '#D6D0C8')),
+        texto: c[1] ? 'color: #1D1B20' : (s.error ? 'color: #A3243B' : 'color: #5F5A63')
+      };
+    });
+    var drop = 'position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 24px; min-height: 180px; padding: 20px; border-radius: 14px; cursor: pointer; ';
+    var dropEstilo = drop + 'border: 2px dashed ' + (s.arrastrando ? '#5B2A4E' : (s.error && !f.foto ? '#A3243B' : '#D6D0C8')) + '; background: ' + (s.arrastrando ? '#F6EEF3' : '#FBFAF8');
+    var precios = vars.map(function (v) { return Number(v.precio); }).filter(function (n) { return n > 0; });
+    var ejemplo = {
+      nombre: '1 Million Parfum', marca: 'Rabanne', conc: 'Parfum', genero: 'hombre',
+      descripcion: 'La versión más intensa del clásico dorado: cuero, ámbar y flor de naranjo. Ideal para la noche.',
+      salida: 'Mandarina', corazon: 'Flor de naranjo, tuberosa', fondo: 'Cuero, ámbar',
+      foto: '/_blob/0465f06b401941b3c87cb63e848c23d2', online: true, caja: true,
+      variantes: [{ ml: '50', precio: '104990', stock: '4', codigo: '7800001000093' }, { ml: '100', precio: '139990', stock: '3', codigo: '7800001000109' }]
+    };
+    return {
+      tabs: tabs,
+      enResumen: s.tab === 'resumen', enInventario: s.tab === 'inventario', enPedidos: s.tab === 'pedidos', enNuevo: s.tab === 'nuevo',
+      irNuevo: function () { self.setState({ tab: 'nuevo' }); },
+      porPreparar: lista.filter(function (o) { return est[o.num] <= 1; }).length,
+      bajos: bajosArr.length, sinBajos: bajosArr.length === 0,
+      listaBajos: bajosArr.map(function (p) {
+        return {
+          nombre: p.nombre, ml: p.ml, minimo: p.minimo, foto: p.foto,
+          stockTxt: st[p.id] === 0 ? 'Agotado' : st[p.id] + ' en stock',
+          badge: badgeStock(st[p.id], p.minimo),
+          reponer: function () { var n = Object.assign({}, self.state.stock); n[p.id] = n[p.id] + 5; self.setState({ stock: n }); self.avisar(p.nombre + ': +5 unidades ingresadas'); }
+        };
+      }),
+      semana: semana,
+      busqueda: s.busqueda,
+      buscar: function (e) { self.setState({ busqueda: e.target.value }); },
+      inventario: inventario, totalProductos: prods.length,
+      pedidos: pedidos,
+
+      f: f,
+      cNombre: function (e) { self.setF({ nombre: e.target.value }); },
+      cMarca: function (e) { self.setF({ marca: e.target.value }); },
+      cConc: function (e) { self.setF({ conc: e.target.value }); },
+      cDescripcion: function (e) { self.setF({ descripcion: e.target.value }); },
+      cSalida: function (e) { self.setF({ salida: e.target.value }); },
+      cCorazon: function (e) { self.setF({ corazon: e.target.value }); },
+      cFondo: function (e) { self.setF({ fondo: e.target.value }); },
+      cOnline: function (e) { self.setF({ online: e.target.checked }); },
+      cCaja: function (e) { self.setF({ caja: e.target.checked }); },
+      campoNombre: campo + borde(s.error && f.nombre.trim() === ''),
+      campoMarca: campo + borde(s.error && f.marca.trim() === ''),
+      generos: generos,
+      variantes: variantes,
+      agregarVariante: function () { self.setF({ variantes: self.state.f.variantes.concat([{ ml: '', precio: '', stock: '', codigo: '' }]) }); },
+      tieneFoto: !!f.foto, sinFoto: !f.foto, fotoUrl: f.foto,
+      dropTitulo: f.foto ? 'Cambiar foto' : 'Subir foto del perfume',
+      dropEstilo: dropEstilo,
+      arrastrar: function (e) { e.preventDefault(); if (!self.state.arrastrando) self.setState({ arrastrando: true }); },
+      salirArrastre: function () { self.setState({ arrastrando: false }); },
+      soltar: function (e) { e.preventDefault(); self.setState({ arrastrando: false }); var fl = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; self.leerArchivo(fl); },
+      elegirFoto: function (e) { self.leerArchivo(e.target.files && e.target.files[0]); },
+      vistaMarca: f.marca || 'Marca',
+      vistaNombre: f.nombre || 'Nombre del perfume',
+      vistaDetalle: f.conc + (v0.ml ? ' · ' + v0.ml + ' ml' : ''),
+      vistaPrecio: precios.length ? (precios.length > 1 ? 'Desde ' : '') + fmt(Math.min.apply(null, precios)) : '$ —',
+      listos: listos,
+      barra: 'height: 100%; background: #2E6B3F; border-radius: 999px; transition: width .35s ease; width: ' + (listos / checks.length * 100) + '%',
+      checklist: checklist,
+      hayError: s.error,
+      publicarEstilo: 'height: 50px; border: 0; border-radius: 12px; font: inherit; font-size: 16px; font-weight: 600; cursor: pointer; transition: opacity .2s ease; background: #5B2A4E; color: #FFFFFF; ' + (completo ? '' : 'opacity: 0.6'),
+      publicar: function () {
+        if (!completo) { self.setState({ error: true }); return; }
+        var nuevoId = 100 + self.state.nuevos.length;
+        var v = vars.filter(function (x) { return Number(x.precio) > 0; })[0];
+        var totalStock = vars.reduce(function (a, x) { return a + (Number(x.stock) || 0); }, 0);
+        var canales = f.online && f.caja ? 'Online y caja' : (f.online ? 'Solo online' : 'Solo caja');
+        var nuevo = { id: nuevoId, nombre: f.nombre.trim(), marca: f.marca.trim(), ml: Number(v.ml), precio: Number(v.precio), codigo: v.codigo, minimo: 2, foto: f.foto, nuevo: true, canales: canales + (vars.length > 1 ? ' · ' + vars.length + ' tamaños' : '') };
+        var stock = Object.assign({}, self.state.stock); stock[nuevoId] = totalStock;
+        self.setState({ nuevos: [nuevo].concat(self.state.nuevos), stock: stock, tab: 'inventario', busqueda: '', f: self.formVacio(), error: false });
+        self.avisar(nuevo.marca + ' ' + nuevo.nombre + ' publicado en la tienda y la caja');
+      },
+      limpiar: function () { self.setState({ f: self.formVacio(), error: false }); },
+      rellenarEjemplo: function () { self.setState({ f: ejemplo, error: false }); },
+      hayToast: s.toast !== '', toast: s.toast
+    };
+  }
+}
+</script>
+</body>
+</html>

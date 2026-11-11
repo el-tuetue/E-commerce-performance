@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Nube Aromática · Detalle de producto</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Inter:wght@400;500;600&amp;display=swap">
+<style>
+body{margin:0;background:#FBFAF8}
+a{color:#5B2A4E}a:hover{color:#46203C}
+@keyframes nubeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="font-family: Inter, system-ui, sans-serif; color: #1D1B20; background: #FBFAF8; min-height: 100vh">
+
+<div style="background: #5B2A4E; color: #FFFFFF; font-size: 13px; text-align: center; padding: 9px 16px">Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]</div>
+
+<header style="background: #FFFFFF; border-bottom: 1px solid #E7E2DC">
+<div style="max-width: 1200px; margin: 0 auto; padding: 18px 24px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between">
+<a href="Main.dc.html" style="font-family: 'Cormorant Garamond', Georgia, serif; font-size: 32px; font-weight: 600; color: #1D1B20; text-decoration: none">Nube Aromática</a>
+<a href="Carrito.dc.html" style="display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px; border-radius: 10px; background: #5B2A4E; color: #FFFFFF; text-decoration: none; font-weight: 500; font-size: 14px">
+<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7z"></path><path d="M9 7a3 3 0 0 1 6 0"></path></svg>
+Carrito
+</a>
+</div>
+</header>
+
+<main style="max-width: 1200px; margin: 0 auto; padding: 24px 24px 64px">
+<nav aria-label="Ruta" style="font-size: 14px; color: #5F5A63; margin-bottom: 24px; display: flex; gap: 8px; flex-wrap: wrap">
+<a href="Main.dc.html" style="color: #5F5A63">Inicio</a><span aria-hidden="true">/</span>
+<a href="Main.dc.html" style="color: #5F5A63">Hombre</a><span aria-hidden="true">/</span>
+<span style="color: #1D1B20">Dior Sauvage</span>
+</nav>
+
+<div style="display: flex; flex-wrap: wrap; gap: 48px">
+<div style="flex: 1 1 440px; display: flex; flex-direction: column; gap: 12px">
+<div style="aspect-ratio: 4 / 5; max-height: 640px; border-radius: 20px; overflow: hidden; background: #F1EAE4; animation: nubeUp .5s ease both">
+<img src="/_blob/5edfbb527dd39545370ae3edcaf1408b" alt="Caja de Dior Sauvage" style="width: 100%; height: 100%; object-fit: cover; display: block">
+</div>
+<p style="margin: 0; font-size: 12px; color: #5F5A63">Foto referencial · DYVER, Wikimedia Commons, CC BY-SA 4.0</p>
+</div>
+
+<div style="flex: 1 1 420px; display: flex; flex-direction: column; gap: 20px">
+<div>
+<p style="margin: 0 0 6px; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: #5F5A63">Dior</p>
+<h1 style="margin: 0 0 8px; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: 52px; line-height: 1.05">Sauvage</h1>
+<p style="margin: 0; color: #5F5A63">Eau de Toilette · Hombre · Aromática fougère</p>
+</div>
+
+<div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap">
+<p style="margin: 0; font-size: 34px; font-weight: 600">{{precioTxt}}</p>
+<p style="margin: 0; font-size: 14px; color: #5F5A63">Precio referencial · hasta 3 cuotas sin interés</p>
+</div>
+
+<div>
+<p style="margin: 0 0 10px; font-weight: 600; font-size: 15px">Tamaño</p>
+<div role="group" aria-label="Elegir tamaño" style="display: flex; gap: 10px; flex-wrap: wrap">
+<sc-for list="{{tamanos}}" as="t" hint-placeholder-count="3">
+<button type="button" onClick="{{t.pick}}" style="{{t.estilo}}">{{t.label}}</button>
+</sc-for>
+</div>
+<p style="margin: 10px 0 0; font-size: 14px; color: {{stockColor}}">{{stockTxt}}</p>
+</div>
+
+<div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center">
+<div style="display: flex; align-items: center; border: 1px solid #D6D0C8; border-radius: 10px; background: #FFFFFF">
+<button type="button" aria-label="Quitar uno" onClick="{{menos}}" style="width: 44px; height: 48px; border: 0; background: transparent; font-size: 20px; cursor: pointer; color: #1D1B20">−</button>
+<span aria-live="polite" style="min-width: 32px; text-align: center; font-weight: 600">{{cantidad}}</span>
+<button type="button" aria-label="Agregar uno" onClick="{{mas}}" style="width: 44px; height: 48px; border: 0; background: transparent; font-size: 20px; cursor: pointer; color: #1D1B20">+</button>
+</div>
+<a href="Carrito.dc.html" style="flex: 1 1 220px; display: inline-flex; align-items: center; justify-content: center; height: 48px; border-radius: 10px; background: #5B2A4E; color: #FFFFFF; text-decoration: none; font-weight: 600">Agregar al carrito</a>
+</div>
+
+<div style="background: #FFFFFF; border: 1px solid #E7E2DC; border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 10px; font-size: 14px">
+<div style="display: flex; gap: 10px; align-items: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5B2A4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l9-6 9 6v11H3z"></path></svg><span>Retiro gratis en el local: listo en [TIEMPO DE PREPARACIÓN]</span></div>
+<div style="display: flex; gap: 10px; align-items: center"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5B2A4E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h11v9H3z"></path><path d="M14 10h4l3 3v3h-7"></path></svg><span>Despacho a domicilio desde [COSTO DE ENVÍO]</span></div>
+</div>
+
+<div>
+<h2 style="margin: 0 0 12px; font-size: 18px">Notas olfativas</h2>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+<div style="background: #FFFFFF; border: 1px solid #E7E2DC; border-radius: 12px; padding: 14px"><p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #5F5A63">Salida</p><p style="margin: 0; font-weight: 500">Bergamota, pimienta</p></div>
+<div style="background: #FFFFFF; border: 1px solid #E7E2DC; border-radius: 12px; padding: 14px"><p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #5F5A63">Corazón</p><p style="margin: 0; font-weight: 500">Lavanda, geranio, pimienta rosa</p></div>
+<div style="background: #FFFFFF; border: 1px solid #E7E2DC; border-radius: 12px; padding: 14px"><p style="margin: 0 0 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; color: #5F5A63">Fondo</p><p style="margin: 0; font-weight: 500">Ambroxan, cedro, ládano</p></div>
+</div>
+</div>
+
+<p style="margin: 0; color: #5F5A63; line-height: 1.6">Fresco y especiado, con una estela amaderada que dura todo el día. Uno de los perfumes masculinos más vendidos: sirve para la oficina, para salir o para regalar.</p>
+
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; padding-top: 4px; border-top: 1px solid #E7E2DC">
+<div style="padding-top: 14px"><p style="margin: 0 0 2px; font-size: 13px; color: #5F5A63">Ocasión</p><p style="margin: 0; font-weight: 500">Día y noche</p></div>
+<div style="padding-top: 14px"><p style="margin: 0 0 2px; font-size: 13px; color: #5F5A63">Temporada</p><p style="margin: 0; font-weight: 500">Todo el año</p></div>
+<div style="padding-top: 14px"><p style="margin: 0 0 2px; font-size: 13px; color: #5F5A63">Origen</p><p style="margin: 0; font-weight: 500">Francia</p></div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1080}}'>
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.state = { tam: 1, cantidad: 1 };
+  }
+  renderVals() {
+    var self = this;
+    var fmt = function (n) { return '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); };
+    var opciones = [
+      { ml: 30, label: '30 ml', precio: 69990, stock: 2 },
+      { ml: 100, label: '100 ml', precio: 129990, stock: 6 },
+      { ml: 300, label: 'Recarga 300 ml', precio: 219990, stock: 0 }
+    ];
+    var base = 'min-width: 84px; height: 48px; padding: 0 16px; border-radius: 10px; font: inherit; font-size: 15px; cursor: pointer; ';
+    var tamanos = opciones.map(function (o, i) {
+      var activo = i === self.state.tam;
+      return {
+        label: o.label,
+        estilo: base + (activo ? 'background: #1D1B20; color: #FFFFFF; border: 1px solid #1D1B20; font-weight: 600' : 'background: #FFFFFF; color: #1D1B20; border: 1px solid #D6D0C8'),
+        pick: function () { self.setState({ tam: i, cantidad: 1 }); }
+      };
+    });
+    var sel = opciones[this.state.tam];
+    var stockTxt = sel.stock === 0 ? 'Agotado en este tamaño' : (sel.stock <= 2 ? 'Quedan ' + sel.stock + ' unidades en el local' : 'Disponible · ' + sel.stock + ' unidades en el local');
+    var stockColor = sel.stock === 0 ? '#A3243B' : (sel.stock <= 2 ? '#8A4B00' : '#2E6B3F');
+    var max = Math.max(sel.stock, 1);
+    return {
+      tamanos: tamanos,
+      precioTxt: fmt(sel.precio),
+      stockTxt: stockTxt,
+      stockColor: stockColor,
+      cantidad: this.state.cantidad,
+      menos: function () { self.setState({ cantidad: Math.max(1, self.state.cantidad - 1) }); },
+      mas: function () { self.setState({ cantidad: Math.min(max, self.state.cantidad + 1) }); }
+    };
+  }
+}
+</script>
+</body>
+</html>
