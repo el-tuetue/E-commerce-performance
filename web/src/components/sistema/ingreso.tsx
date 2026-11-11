@@ -21,7 +21,7 @@ export function Ingreso() {
     <main className="flex min-h-dvh items-center justify-center bg-tinta px-4 py-10">
       <div className="flex w-full max-w-[440px] flex-col gap-5">
         <div className="flex flex-col items-center text-center text-white">
-          <Emblema className="mb-3 size-24 ring-2 ring-white/30" />
+          <Emblema className="mb-3 size-[72px] ring-2 ring-white/30" />
           <p className="mb-1 font-serif text-[40px] font-semibold">Nube Aromática</p>
           <p className="text-sm text-humo">Sistema interno · solo personal autorizado</p>
         </div>
