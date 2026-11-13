@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { House, LayoutGrid, ShoppingBag, Sparkles } from "lucide-react";
+import { TIENDA, categoriaPorId } from "@/config/tienda";
 import { useDemo } from "@/lib/demo-store";
 
 // Barra fija de abajo, solo en celular: lo más usado queda siempre a un toque del pulgar.
@@ -10,10 +11,11 @@ export function BarraInferior() {
   const ruta = usePathname();
   const { unidadesCarrito } = useDemo();
 
+  const destacada = categoriaPorId(TIENDA.categoriaDestacada) ?? TIENDA.categorias[0];
   const items = [
     { href: "/", texto: "Inicio", icono: House, activo: ruta === "/" },
     { href: "/catalogo", texto: "Catálogo", icono: LayoutGrid, activo: ruta.startsWith("/catalogo") || ruta.startsWith("/producto") },
-    { href: "/catalogo?filtro=arabe", texto: "Árabes", icono: Sparkles, activo: false },
+    { href: `/catalogo?filtro=${destacada.id}`, texto: destacada.nombre, icono: Sparkles, activo: false },
     { href: "/carrito", texto: "Carrito", icono: ShoppingBag, activo: ruta.startsWith("/carrito"), cantidad: unidadesCarrito },
   ];
 
@@ -38,7 +40,7 @@ export function BarraInferior() {
                 {cantidad !== undefined && cantidad > 0 && (
                   <span
                     key={cantidad}
-                    className="animate-pop absolute -right-2.5 -top-1.5 inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-flor px-1 text-[11px] font-bold text-white"
+                    className="animate-pop absolute -right-2.5 -top-1.5 inline-flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-acento px-1 text-[11px] font-bold text-white"
                   >
                     {cantidad}
                   </span>

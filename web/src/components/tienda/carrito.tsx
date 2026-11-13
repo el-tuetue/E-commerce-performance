@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useLayoutEffect, useState } from "react";
 import { CircleCheck, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { TIENDA } from "@/config/tienda";
 import { COSTO_ENVIO, formatoPrecio, nombreVariante } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
 
@@ -103,7 +104,7 @@ export function Carrito() {
         <div className="mx-auto my-10 flex max-w-[520px] flex-col items-center gap-4 rounded-[20px] border border-borde bg-white px-8 py-12 text-center">
           <ShoppingBag className="size-12 text-marca" strokeWidth={1.6} aria-hidden />
           <h1 className="font-serif text-4xl font-semibold">Tu carrito está vacío</h1>
-          <p className="text-gris">Mira el catálogo y agrega tus perfumes favoritos.</p>
+          <p className="text-gris">Mira el catálogo y agrega tus productos favoritos.</p>
           <Link href="/catalogo" className="inline-flex h-12 items-center rounded-[10px] bg-marca px-6 font-medium text-white">
             Ver catálogo
           </Link>
@@ -135,7 +136,7 @@ export function Carrito() {
                       {producto.nombre}
                     </Link>
                     <p className="text-sm text-gris">
-                      {producto.concentracion} · {nombreVariante(variante)}
+                      {producto.variantes.length > 1 ? nombreVariante(variante) : producto.resumen}
                       {cantidad >= max && <span className="text-alerta"> · máximo disponible</span>}
                     </p>
                   </div>
@@ -168,7 +169,7 @@ export function Carrito() {
           <div className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-white p-5">
             <h2 className="text-lg font-semibold">¿Cómo lo quieres recibir?</h2>
             <div role="group" aria-label="Tipo de entrega" className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
-              <Opcion activa={entrega === "retiro"} onClick={() => setEntrega("retiro")} titulo="Retiro en tienda" texto="Gratis · [DIRECCIÓN DEL LOCAL]" />
+              <Opcion activa={entrega === "retiro"} onClick={() => setEntrega("retiro")} titulo="Retiro en tienda" texto={`Gratis · ${TIENDA.contacto.direccion}`} />
               <Opcion
                 activa={entrega === "despacho"}
                 onClick={() => setEntrega("despacho")}
@@ -200,7 +201,7 @@ export function Carrito() {
                   </label>
                   <label className="flex flex-col gap-1.5 text-sm font-medium">
                     Comuna
-                    <input type="text" placeholder="Ej: Cabrero" className="campo h-11 font-normal" />
+                    <input type="text" placeholder="Tu comuna" className="campo h-11 font-normal" />
                   </label>
                 </>
               )}
@@ -243,7 +244,7 @@ export function Carrito() {
             </p>
           )}
           <p className="text-[13px] leading-normal text-gris">
-            El stock se descuenta al confirmarse el pago, así nadie compra un perfume que ya se vendió en el local.
+            El stock se descuenta al confirmarse el pago, así nadie compra un producto que ya se vendió en el local.
           </p>
           <p className="text-xs text-gris">Demo: el pago es simulado, no se cobra nada.</p>
         </aside>

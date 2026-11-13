@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { useDemo } from "@/lib/demo-store";
 import { TarjetaProducto } from "./tarjeta-producto";
 
-// Fila de perfumes elegidos para la portada, con un enlace al catálogo.
+// Fila de productos elegidos para la portada, con un enlace al catálogo.
 export function Vitrina({
   id,
   eyebrow,

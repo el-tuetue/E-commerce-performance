@@ -8,6 +8,7 @@
 
 import { createContext, useCallback, useContext, useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { Check } from "lucide-react";
+import { TIENDA } from "@/config/tienda";
 import {
   COSTO_ENVIO,
   PEDIDOS_INICIALES,
@@ -19,7 +20,8 @@ import {
   nombreVariante,
 } from "./datos";
 
-const CLAVE = "nube-demo-v2"; // cambia la versión si cambian los datos de ejemplo
+// La clave se define en src/config/tienda.ts (claveDemo).
+const CLAVE = TIENDA.claveDemo;
 
 export type Rol = "vendedor" | "admin";
 export type MedioCaja = "efectivo" | "debito" | "credito" | "transferencia";
@@ -37,8 +39,8 @@ type Estado = {
 };
 
 // Cifras de ejemplo con las que parte el día.
-export const BASE_LOCAL = { ventas: 7, monto: 849930 };
-export const BASE_ONLINE = { pedidos: 3, monto: 548940 };
+export const BASE_LOCAL = { ventas: 7, monto: 189930 };
+export const BASE_ONLINE = { pedidos: 3, monto: 82940 };
 
 function estadoInicial(): Estado {
   return {

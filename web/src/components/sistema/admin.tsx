@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Emblema } from "@/components/logo";
 import { formatoPrecio, nombreVariante, type EstadoPedido } from "@/lib/datos";
+import { TIENDA } from "@/config/tienda";
 import { BASE_LOCAL, BASE_ONLINE, useDemo } from "@/lib/demo-store";
 import { BotonReiniciar } from "./encabezado-sistema";
 import { NuevoProducto } from "./nuevo-producto";
@@ -45,7 +46,7 @@ export function Admin() {
         >
           <div className="mb-0.5 ml-2 flex items-center gap-2">
             <Emblema className="size-10" />
-            <span className="font-serif text-[22px] font-semibold leading-tight">Nube Aromática</span>
+            <span className="font-serif text-[22px] font-semibold leading-tight">{TIENDA.nombre}</span>
           </div>
           <p className="mb-3 ml-2 text-[13px] text-gris">Sistema interno · Administrador</p>
           {TABS.map(([t, label]) => (
@@ -182,7 +183,7 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
             {semana.map(([dia, local, online], i) => (
               <div key={i} className="flex h-full flex-1 flex-col items-center justify-end gap-1.5">
                 <div className="flex w-full max-w-[34px] flex-col gap-0.5">
-                  <div className="rounded-t bg-flor transition-all duration-500" style={{ height: online }} />
+                  <div className="rounded-t bg-acento transition-all duration-500" style={{ height: online }} />
                   <div className="rounded-b bg-marca transition-all duration-500" style={{ height: local }} />
                 </div>
                 <span className={`text-xs ${i === 1 ? "font-semibold text-tinta" : "text-gris"}`}>{dia}</span>
@@ -195,7 +196,7 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
               Local
             </span>
             <span className="inline-flex items-center gap-1.5">
-              <span className="size-3 rounded-[3px] bg-flor" />
+              <span className="size-3 rounded-[3px] bg-acento" />
               Online
             </span>
           </div>
@@ -288,7 +289,7 @@ function Inventario({ irA }: { irA: (t: Tab) => void }) {
             <thead className="bg-tabla text-left text-[13px] text-gris">
               <tr>
                 <th className="px-4 py-3 font-semibold">Producto</th>
-                <th className="px-2 py-3 font-semibold">Tamaño</th>
+                <th className="px-2 py-3 font-semibold">Opción</th>
                 <th className="px-2 py-3 font-semibold">Código de barras</th>
                 <th className="px-2 py-3 font-semibold">Canales</th>
                 <th className="px-2 py-3 text-right font-semibold">Precio</th>

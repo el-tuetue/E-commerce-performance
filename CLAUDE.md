@@ -1,59 +1,42 @@
-# Nube Aromática: contexto para Claude Code
+# Plantilla e-commerce: contexto para Claude Code
 
 ## Qué es
-Proyecto freelance para la perfumería **Nube Aromática**. Tiene dos partes separadas que comparten el mismo inventario:
-1. **Tienda online pública** (clientes): catálogo, carrito, pago con Webpay o Mercado Pago, retiro en tienda o despacho. El cliente solo compra: la tienda no debe tener ningún enlace ni botón al sistema interno.
-2. **Sistema interno** (solo personal, con login y una dirección propia, ej. `sistema.dominio.cl`):
-   - Vendedor: caja con lector de código de barras.
-   - Admin (dueño): caja, inventario, pedidos online, reportes y formulario para agregar productos.
+Plantilla base reutilizable (maqueta en blanco) para tiendas que venden **online y en un local físico con el mismo stock**. No pertenece a ningún cliente: se copia y se personaliza para cada proyecto nuevo.
+
+Tiene dos partes que comparten el inventario:
+1. **Tienda online pública**: portada, catálogo, ficha de producto, carrito y pago. No tiene ningún enlace al sistema interno.
+2. **Sistema interno** (`/sistema`, solo personal): caja con lector de código de barras para el vendedor; panel del administrador con resumen, inventario, pedidos online y formulario para agregar productos.
 
 El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simple y en español.
 
-## Stack decidido
-- Next.js + TypeScript (una sola app; rutas internas protegidas por login)
-- Tailwind CSS v4 (configuración en CSS con `@theme`, sin `tailwind.config.js`) + shadcn/ui + Lucide
-- PostgreSQL en Supabase (auth, storage de fotos, RLS)
-- Hosting en Vercel
+## Stack
+- Next.js 16 + TypeScript (Turbopack, `cacheComponents`). Next 16 cambia APIs: leer `web/node_modules/next/dist/docs/` antes de usar algo nuevo (ver `web/AGENTS.md`).
+- Tailwind CSS v4 (configuración en CSS con `@theme`, sin `tailwind.config.js`) + Lucide. Sin shadcn/ui: componentes propios.
+- PostgreSQL en Supabase (auth, storage de fotos, RLS): esquema listo en `database/schema.sql`, **todavía no conectado**.
+- Hosting en Vercel (Root Directory: `web`).
+
+## Cómo se personaliza (lo más importante)
+- `web/src/config/tienda.ts`: **todo lo de la marca y la portada**: nombre, logo, contacto, envío, categorías, banners, beneficios, vitrinas, producto destacado y `claveDemo`. Ningún componente debe tener textos, nombres o categorías de un cliente escritos a mano: siempre se leen de aquí.
+- `web/src/app/globals.css`: colores (`@theme`: `marca`, `tinta`, `acento`, `claro`…).
+- `web/src/app/layout.tsx`: tipografía de títulos (`--font-titulos`).
+- `web/src/lib/datos.ts`: tipos `Producto` / `Variante` y productos de ejemplo. Un producto tiene `categoria` (id de la config), `resumen`, `caracteristicas`, `atributos` y `variantes` (cada opción: talla, color, tamaño; o una sola "Única").
+- `web/public/ejemplo/`: imágenes SVG de ejemplo (generadas, neutras). Se reemplazan por fotos reales.
 
 ## Estado actual
-- `database/schema.sql`: esquema completo **probado** en PostgreSQL 16 local con un stub de `auth` de Supabase. Incluye tablas, RLS por rol (cliente, vendedor, admin) y las funciones:
-  - `confirmar_pago(venta, medio)`: descuenta el stock de forma atómica.
-  - `anular_venta(venta, motivo)`: devuelve el stock.
-  - `mover_stock(variante, cantidad, tipo, nota)`.
-  - Vista `stock_bajo`.
-  - Falta probarlo en un proyecto real de Supabase.
-- `maqueta/`: maqueta aprobada visualmente (formato `.dc.html` del lienzo de diseño de Claude). Es la **referencia visual** para construir las pantallas reales; no se abre directo en el navegador.
-  - Pantallas: Main (tienda), Producto, Carrito, Login, Caja, Admin.
-  - Portada: es solo para presentarle la propuesta al dueño, no es parte del sitio.
-  - Versión navegable: https://claude.ai/artifact/12GocothS3D3jDWxmgNo9m
-- `maqueta/fotos/`: fotos referenciales de Wikimedia Commons (créditos en `CREDITOS.md`). Hay que reemplazarlas por fotos propias antes de publicar.
-- `docs/ARQUITECTURA.md` y `docs/GUIA-DISENO.md`: decisiones y guía de diseño.
-- `web/`: app Next.js 16 (Turbopack, `cacheComponents`) **en modo demo**: todas las pantallas de la maqueta funcionan con datos de ejemplo guardados en localStorage y sincronizados entre pestañas. Detalles y guion de demo en `web/README.md`.
-  - Celular primero: tarjetas en 2 columnas, barra de navegación inferior (`barra-inferior.tsx`), portada corta y catálogo paginado. El usuario pidió expresamente no usar tarjetas a ancho completo ni páginas largas en celular.
-  - Rutas: `/`, `/catalogo`, `/producto/[slug]`, `/carrito` (tienda) y `/sistema`, `/sistema/caja`, `/sistema/admin` (interno).
-  - Estado: `web/src/lib/demo-store.tsx` (`useSyncExternalStore`, sin contexto para el estado; solo los toasts usan contexto). Datos: `web/src/lib/datos.ts`.
-  - Por ahora sin shadcn/ui: componentes propios con Tailwind v4 + Lucide.
-  - Next 16 cambia APIs: leer `web/node_modules/next/dist/docs/` antes de usar algo nuevo (ver `web/AGENTS.md`).
+- `web/`: demo navegable. Estado en `web/src/lib/demo-store.tsx` (`useSyncExternalStore` + localStorage, sincronizado entre pestañas); solo los avisos (toasts) usan contexto.
+- Celular primero: tarjetas en 2 columnas, barra de navegación inferior (`barra-inferior.tsx`), portada corta y catálogo paginado. El usuario pidió expresamente no usar tarjetas a ancho completo ni páginas largas en celular.
+- Next 16 conserva el estado de las páginas al navegar (Activity): los mensajes de "compra lista" / "venta registrada" se limpian con `useLayoutEffect` al ocultarse la página.
+- Rutas: `/`, `/catalogo`, `/producto/[slug]`, `/carrito` (tienda) y `/sistema`, `/sistema/caja`, `/sistema/admin` (interno).
+- Demo publicada en Vercel: https://nube-aromatica-prototipo.vercel.app (proyecto `e-commerce-performance`, conectado al repo; el nombre del dominio viene de un proyecto anterior y se puede cambiar en Vercel).
+- Repo: https://github.com/el-tuetue/E-commerce-performance. Commits con el correo privado de GitHub (`173995679+el-tuetue@users.noreply.github.com`), configurado solo en este repo. Nunca usar el correo personal.
 
-## Identidad visual (sacada del logo oficial, `web/public/logo.png`)
-- El logo es un emblema circular en acuarela: aguamarina, crema, hojas verdes y una flor rosada. La web sigue esa paleta (antes era ciruela, según la maqueta; la maqueta quedó desactualizada en color).
-- Colores (tokens en `web/src/app/globals.css`): marca petróleo `#1F6F78`, aguamarina `#BBE9E9`, rosado flor `#D9779A`, texto `#12383D`, fondo crema `#FCFAF5`, bordes `#DBE7E5`.
-- Tipografías: Cormorant Garamond (títulos) e Inter (texto).
-- El archivo del logo es chico (150 px) y el usuario no tiene el original: no mostrarlo a más de 72 px. Si el dueño consigue el original (por ejemplo desde Canva), reemplazar `web/public/logo.png`.
+## Próximos pasos (cuando haya un cliente)
+1. Copiar la plantilla y personalizar `tienda.ts`, colores, productos e imágenes.
+2. Conectar Supabase: login real, productos y stock desde `schema.sql`, fotos en Storage. Orden: login → admin (productos) → caja → tienda → pagos online.
+3. Variables en `web/.env.local` (nunca subirlas): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (esta última solo en el servidor).
+4. Con cada cliente: datos de los `[CORCHETES]` de `tienda.ts`, fotos y precios reales, logo, boleta electrónica del SII, contrato de Webpay o Mercado Pago y políticas (cambios y devoluciones, retracto, privacidad).
+
+## Identidad visual de la plantilla
+- Neutra a propósito: marca índigo `#4338CA`, texto `#0F172A`, gris `#5B6474`, fondo `#FAFAF9`, acento `#E11D48`.
+- Tipografías: Fraunces (títulos) e Inter (texto).
 - Botones de al menos 44 px; contraste mínimo de 4.5:1.
-
-## Próximos pasos
-1. ✅ Subido a GitHub (público): https://github.com/el-tuetue/E-commerce-performance
-   - Los commits usan el correo privado de GitHub (`173995679+el-tuetue@users.noreply.github.com`), configurado solo en este repo. Nunca usar el correo personal.
-2. ✅ Front de la demo hecho en `web/`.
-3. ✅ Demo publicada en Vercel: https://nube-aromatica-prototipo.vercel.app (proyecto `e-commerce-performance`, conectado al repo, Root Directory `web`).
-4. Conectar Supabase: login real, productos y stock desde `schema.sql`, fotos en Storage. Orden: admin (productos) → caja → tienda → pagos online.
-5. Variables en `web/.env.local` (nunca subirlas): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (esta última solo en el servidor).
-
-## Pendientes con el dueño
-- Datos marcados como `[CORCHETES]` en la maqueta: dirección, horario, comunas de despacho, WhatsApp, Instagram y costo de envío.
-- Fotos reales, precios reales, nombre del vendedor y logo, si el dueño tiene uno.
-- Boleta electrónica del SII, contrato de Webpay o Mercado Pago, y políticas de cambios y devoluciones, retracto y privacidad.
-
-## Notas privadas
-La cotización y las notas comerciales están en `NOTAS-PRIVADAS.md`, que **no se sube** a GitHub (está en `.gitignore`), porque el repo es público.

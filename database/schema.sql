@@ -1,5 +1,5 @@
 -- =====================================================================
--- Perfumería: tienda online + caja en local físico (stock compartido)
+-- Plantilla e-commerce: tienda online + caja en local físico (stock compartido)
 -- Base de datos: PostgreSQL en Supabase
 -- Cómo usarlo: Supabase > SQL Editor > pegar todo este archivo > Run
 -- =====================================================================
@@ -13,7 +13,8 @@ create table marcas (
 
 create table categorias (
   id      bigint generated always as identity primary key,
-  nombre  text not null unique          -- ej: Mujer, Hombre, Unisex, Sets de regalo
+  nombre  text not null unique,         -- ej: Hogar, Oficina, Accesorios
+  slug    text not null unique          -- se usa en la URL: /catalogo?filtro=<slug>
 );
 
 create table productos (
@@ -21,24 +22,23 @@ create table productos (
   nombre          text not null,
   marca_id        bigint not null references marcas(id),
   categoria_id    bigint references categorias(id),
-  genero          text not null default 'unisex'
-                  check (genero in ('mujer','hombre','unisex')),
-  concentracion   text not null
-                  check (concentracion in ('parfum','eau_de_parfum','eau_de_toilette','eau_de_cologne','body_mist')),
+  resumen         text,                 -- línea corta bajo el nombre, ej: "Cerámica · 350 ml"
   descripcion     text,
-  notas_olfativas text,                 -- ej: "vainilla, ámbar, sándalo"
+  caracteristicas text[] not null default '{}',   -- etiquetas cortas, ej: {"Hecho a mano"}
+  atributos       jsonb not null default '[]',    -- ficha técnica, ej: [{"nombre":"Material","valor":"Lino"}]
   foto_url        text,
   activo          boolean not null default true,
   creado_en       timestamptz not null default now()
 );
 
--- Cada tamaño de un perfume es una variante con su propio precio, stock y código de barras
+-- Cada opción de un producto (talla, color, tamaño…) es una variante con su propio precio, stock y código de barras.
+-- Si el producto no tiene opciones, lleva una sola variante (ej: "Única").
 create table variantes (
   id             bigint generated always as identity primary key,
   producto_id    bigint not null references productos(id) on delete cascade,
   sku            text not null unique,
   codigo_barras  text unique,           -- lo que lee la pistola en la caja
-  ml             integer not null check (ml > 0),
+  nombre         text not null default 'Única',   -- ej: "Talla M", "Azul", "500 ml"
   precio         integer not null check (precio >= 0),          -- en pesos chilenos, sin decimales
   precio_oferta  integer check (precio_oferta >= 0),
   stock          integer not null default 0 check (stock >= 0),
@@ -249,7 +249,7 @@ grant execute on function mover_stock(bigint, integer, text, text) to authentica
 -- ---------- Vista: productos con poco stock (para avisos en el panel) ----------
 
 create view stock_bajo with (security_invoker = true) as
-select v.id as variante_id, p.nombre, m.nombre as marca, v.ml, v.stock, v.stock_minimo
+select v.id as variante_id, p.nombre, m.nombre as marca, v.nombre as opcion, v.stock, v.stock_minimo
   from variantes v
   join productos p on p.id = v.producto_id
   join marcas m on m.id = p.marca_id

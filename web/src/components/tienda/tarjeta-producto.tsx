@@ -1,20 +1,21 @@
 "use client";
 
 import Link from "next/link";
-import { formatoPrecio, nombreVariante, type Producto } from "@/lib/datos";
+import { formatoPrecio, nombreVariante, variantePrincipal, type Producto } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
 
 export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; indice?: number }) {
   const { stockDe, agregarAlCarrito, avisar, estado } = useDemo();
 
-  // La tarjeta muestra la variante principal (la de 100 ml si existe).
-  const principal = producto.variantes.find((v) => v.ml === 100) ?? producto.variantes[0];
+  // La tarjeta agrega la primera variante con stock.
+  const principal = variantePrincipal(producto, stockDe);
   const stockTotal = producto.variantes.reduce((s, v) => s + stockDe(v.id), 0);
   const stockPrincipal = stockDe(principal.id);
   const agotado = stockTotal === 0;
   const enCarrito = (estado.carrito[principal.id] ?? 0) > 0;
   const minimo = Math.min(...producto.variantes.map((v) => v.precio));
-  const varios = producto.variantes.length > 1;
+  // "Desde" solo si las opciones tienen precios distintos.
+  const varios = new Set(producto.variantes.map((v) => v.precio)).size > 1;
 
   let badge = producto.nuevo ? "Nuevo" : producto.badge;
   let badgeClase = "bg-tinta text-white";
@@ -39,7 +40,7 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
 
   return (
     <article
-      className="group animate-subir flex flex-col overflow-hidden rounded-2xl border border-borde bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(12,44,48,.12)]"
+      className="group animate-subir flex flex-col overflow-hidden rounded-2xl border border-borde bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(15,23,42,.12)]"
       style={{ animationDelay: `${indice * 0.05}s` }}
     >
       <Link href={href} className="relative block aspect-square overflow-hidden bg-crema sm:aspect-[4/5]">
@@ -53,9 +54,6 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
         {badge && (
           <span className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[11px] font-semibold sm:left-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-xs ${badgeClase}`}>{badge}</span>
         )}
-        {producto.ilustracion && (
-          <span className="absolute bottom-2 right-2 rounded-full bg-white/85 px-2 py-0.5 text-[10px] text-gris sm:bottom-3 sm:right-3 sm:text-[11px]">Ilustración</span>
-        )}
       </Link>
       <div className="flex flex-1 flex-col gap-1 p-3 sm:gap-1.5 sm:px-[18px] sm:pb-[18px] sm:pt-4">
         <p className="text-[11px] uppercase tracking-[1.2px] text-gris sm:text-xs">{producto.marca}</p>
@@ -63,7 +61,7 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
           {producto.nombre}
         </Link>
         <p className="text-xs text-gris sm:text-sm">
-          {producto.concentracion} · {varios ? producto.variantes.map((v) => v.ml).join(" / ") : principal.ml} ml
+          {producto.resumen}
         </p>
         <div className="mt-auto flex flex-col gap-2 pt-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3 sm:pt-3">
           <span className="text-base font-semibold sm:text-lg">
@@ -75,7 +73,7 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
               href={href}
               className="inline-flex h-11 items-center justify-center rounded-[10px] border border-marca bg-white px-4 text-sm font-medium text-marca"
             >
-              Ver tamaños
+              Ver opciones
             </Link>
           ) : (
             <button

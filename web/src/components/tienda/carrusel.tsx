@@ -3,42 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { TIENDA } from "@/config/tienda";
 
-const SLIDES = [
-  {
-    foto: "/fotos/tienda-oud.jpg",
-    alt: "Vitrina con perfumes árabes, oud y bakhoor",
-    eyebrow: "Perfumería árabe",
-    titulo: "El arte del oud",
-    texto: "Lattafa, Armaf, Al Haramain, Rasasi y más. Perfumes intensos y duraderos, originales y con stock real del local.",
-    cta: "Ver perfumes árabes",
-    href: "/catalogo?filtro=arabe",
-    lado: "left",
-    pos: "center",
-  },
-  {
-    foto: "/fotos/banner-million.jpg",
-    alt: "Frasco dorado de Rabanne 1 Million Parfum",
-    eyebrow: "Para él",
-    titulo: "Brilla con 1 Million",
-    texto: "El clásico dorado de Rabanne, especiado y cálido. Disponible en el local y online.",
-    cta: "Ver perfumes de hombre",
-    href: "/catalogo?filtro=hombre",
-    lado: "right",
-    pos: "30% center",
-  },
-  {
-    foto: "/fotos/chanel5.jpg",
-    alt: "Frasco de Chanel N°5 iluminado",
-    eyebrow: "Para ella",
-    titulo: "La elegancia de Chanel",
-    texto: "N°5 y Coco Mademoiselle, dos íconos que nunca fallan como regalo.",
-    cta: "Ver perfumes de mujer",
-    href: "/catalogo?filtro=mujer",
-    lado: "left",
-    pos: "center",
-  },
-] as const;
+// Los banners se editan en src/config/tienda.ts (slides).
+const SLIDES = TIENDA.slides;
 
 export function Carrusel() {
   const [actual, setActual] = useState(0);
@@ -76,14 +44,14 @@ export function Carrusel() {
                 src={s.foto}
                 alt={s.alt}
                 className="absolute inset-0 size-full object-cover transition-transform duration-[6s] ease-out"
-                style={{ objectPosition: s.pos, transform: `scale(${on ? 1.06 : 1})` }}
+                style={{ objectPosition: s.pos ?? "center", transform: `scale(${on ? 1.06 : 1})` }}
               />
               <div
-                className={`absolute bottom-3 flex w-[calc(100%-24px)] max-w-[470px] sm:bottom-4 sm:w-[calc(100%-32px)] flex-col gap-[clamp(8px,1vw,12px)] rounded-[18px] bg-[rgba(12,44,48,0.86)] p-[clamp(16px,2.2vw,28px)] text-white transition duration-900 ${
+                className={`absolute bottom-3 flex w-[calc(100%-24px)] max-w-[470px] sm:bottom-4 sm:w-[calc(100%-32px)] flex-col gap-[clamp(8px,1vw,12px)] rounded-[18px] bg-[rgba(15,23,42,0.84)] p-[clamp(16px,2.2vw,28px)] text-white transition duration-900 ${
                   s.lado === "right" ? "right-3 sm:right-4" : "left-3 sm:left-4"
                 } ${on ? "translate-y-0" : "translate-y-4"}`}
               >
-                <p className="text-xs font-semibold uppercase tracking-[2px] text-agua">{s.eyebrow}</p>
+                <p className="text-xs font-semibold uppercase tracking-[2px] text-claro">{s.eyebrow}</p>
                 {i === 0 ? (
                   <h1 className="font-serif text-[clamp(28px,4.2vw,46px)] font-semibold leading-none">{s.titulo}</h1>
                 ) : (

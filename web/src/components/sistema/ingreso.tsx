@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Emblema } from "@/components/logo";
+import { TIENDA } from "@/config/tienda";
 import { useDemo, type Rol } from "@/lib/demo-store";
 
 // Ingreso del personal. En la demo se entra eligiendo un rol.
@@ -22,7 +23,7 @@ export function Ingreso() {
       <div className="flex w-full max-w-[440px] flex-col gap-5">
         <div className="flex flex-col items-center text-center text-white">
           <Emblema className="mb-3 size-[72px] ring-2 ring-white/30" />
-          <p className="mb-1 font-serif text-[40px] font-semibold">Nube Aromática</p>
+          <p className="mb-1 font-serif text-[40px] font-semibold">{TIENDA.nombre}</p>
           <p className="text-sm text-humo">Sistema interno · solo personal autorizado</p>
         </div>
 
@@ -74,7 +75,7 @@ export function Ingreso() {
           </div>
         </div>
         <p className="text-center text-[13px] text-humo">
-          Esta pantalla no se enlaza desde la tienda: se entra por una dirección propia, por ejemplo sistema.[tu-dominio].cl
+          Esta pantalla no se enlaza desde la tienda: se entra por una dirección propia, por ejemplo sistema.tu-dominio.cl
         </p>
       </div>
     </main>

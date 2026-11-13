@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { RotateCcw } from "lucide-react";
 import { Emblema } from "@/components/logo";
+import { TIENDA } from "@/config/tienda";
 import { BASE_LOCAL, useDemo } from "@/lib/demo-store";
 
 export function BotonReiniciar({ className = "" }: { className?: string }) {
@@ -34,7 +35,7 @@ export function EncabezadoCaja() {
       <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-x-6 gap-y-3 px-4 py-3.5 sm:px-6">
         <div className="flex flex-wrap items-center gap-3">
           <Emblema className="size-11" />
-          <span className="font-serif text-[28px] font-semibold">Nube Aromática</span>
+          <span className="font-serif text-[28px] font-semibold">{TIENDA.nombre}</span>
           <span className="rounded-full bg-marca-suave px-2.5 py-1 text-sm font-semibold text-marca">Sistema interno · Caja</span>
         </div>
         <div className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-gris">

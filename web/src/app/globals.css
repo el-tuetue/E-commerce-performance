@@ -1,28 +1,32 @@
 @import "tailwindcss";
 
-/* Identidad visual de Nube Aromática, sacada de su logo:
-   aguamarina, crema, verde hoja y un toque rosado. */
+/* ============================================================================
+   COLORES DE LA MARCA: cámbialos aquí para cada cliente.
+   - marca: botones, enlaces y detalles (debe tener buen contraste con blanco).
+   - tinta: texto y bloques oscuros.
+   - acento: detalles llamativos (contador del carrito, gráfico del panel).
+   ========================================================================== */
 @theme {
-  --color-marca: #1f6f78; /* petróleo: botones y enlaces (contraste 5.8:1 con blanco) */
-  --color-marca-oscuro: #17555c;
-  --color-marca-suave: #e0f3f1;
-  --color-marca-tenue: #f1faf9;
-  --color-agua: #bbe9e9; /* aguamarina del logo: detalles sobre fondo oscuro */
-  --color-flor: #d9779a; /* rosado de la flor: acento */
+  --color-marca: #4338ca;
+  --color-marca-oscuro: #3730a3;
+  --color-marca-suave: #eef0ff;
+  --color-marca-tenue: #f6f7ff;
+  --color-claro: #c7d2fe; /* detalles sobre fondo oscuro */
+  --color-acento: #e11d48;
 
-  --color-tinta: #12383d; /* texto y bloques oscuros */
-  --color-tinta-2: #1b4b51;
-  --color-gris: #55686b;
-  --color-humo: #c3d9d9;
-  --color-niebla: #dcebeb;
+  --color-tinta: #0f172a;
+  --color-tinta-2: #1e293b;
+  --color-gris: #5b6474;
+  --color-humo: #cbd5e1;
+  --color-niebla: #e2e8f0;
 
-  --color-fondo: #fcfaf5; /* crema del logo */
-  --color-panel: #eef5f4;
-  --color-crema: #eaf4f2;
-  --color-tabla: #f4f9f8;
-  --color-borde: #dbe7e5;
-  --color-borde-fuerte: #c4d6d4;
-  --color-linea: #e6efee;
+  --color-fondo: #fafaf9;
+  --color-panel: #f1f5f9;
+  --color-crema: #f5f5f4;
+  --color-tabla: #f8fafc;
+  --color-borde: #e2e8f0;
+  --color-borde-fuerte: #cbd5e1;
+  --color-linea: #edf2f7;
 
   --color-ok: #2e6b3f;
   --color-ok-fondo: #e6f2e9;
@@ -34,7 +38,7 @@
   --color-info-fondo: #e8eef7;
 
   --font-sans: var(--font-inter), system-ui, sans-serif;
-  --font-serif: var(--font-cormorant), Georgia, serif;
+  --font-serif: var(--font-titulos), Georgia, serif;
 
   --animate-subir: subir 0.4s ease both;
   --animate-marquesina: marquesina 40s linear infinite;
@@ -97,7 +101,7 @@ body {
   .campo:focus {
     outline: none;
     border-color: var(--color-marca);
-    box-shadow: 0 0 0 3px rgb(31 111 120 / 0.18);
+    box-shadow: 0 0 0 3px rgb(67 56 202 / 0.18);
   }
 }
 

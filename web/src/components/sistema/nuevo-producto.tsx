@@ -2,58 +2,53 @@
 
 import { useState } from "react";
 import { Check, Trash2, Upload } from "lucide-react";
-import { MARCAS, formatoPrecio, type Genero, type Linea, type Producto } from "@/lib/datos";
+import { TIENDA } from "@/config/tienda";
+import { MARCAS, formatoPrecio, type Producto } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
 
-type FilaVariante = { ml: string; precio: string; stock: string; codigo: string };
+// Una fila por variante: talla, color, tamaño… Si el producto no tiene variantes, se deja una sola fila.
+type FilaVariante = { nombre: string; precio: string; stock: string; codigo: string };
 type Form = {
   nombre: string;
   marca: string;
-  concentracion: string;
-  genero: Genero;
-  linea: Linea;
+  categoria: string;
+  resumen: string;
   descripcion: string;
-  salida: string;
-  corazon: string;
-  fondo: string;
+  caracteristicas: string; // separadas por coma
   foto: string;
   online: boolean;
   caja: boolean;
   variantes: FilaVariante[];
 };
 
+const filaVacia = (): FilaVariante => ({ nombre: "", precio: "", stock: "", codigo: "" });
+
 const vacio = (): Form => ({
   nombre: "",
   marca: "",
-  concentracion: "Eau de Parfum",
-  genero: "mujer",
-  linea: "arabe",
+  categoria: TIENDA.categorias[0].id,
+  resumen: "",
   descripcion: "",
-  salida: "",
-  corazon: "",
-  fondo: "",
+  caracteristicas: "",
   foto: "",
   online: true,
   caja: true,
-  variantes: [{ ml: "", precio: "", stock: "", codigo: "" }],
+  variantes: [filaVacia()],
 });
 
 const EJEMPLO: Form = {
-  nombre: "1 Million Parfum",
-  marca: "Rabanne",
-  concentracion: "Parfum",
-  genero: "hombre",
-  linea: "disenador",
-  descripcion: "La versión más intensa del clásico dorado: cuero, ámbar y flor de naranjo. Ideal para la noche.",
-  salida: "Mandarina",
-  corazon: "Flor de naranjo, tuberosa",
-  fondo: "Cuero, ámbar",
-  foto: "/fotos/banner-million.jpg",
+  nombre: "Florero de vidrio",
+  marca: "Casa Alba",
+  categoria: TIENDA.categorias[0].id,
+  resumen: "Vidrio soplado · 25 cm",
+  descripcion: "Florero de vidrio soplado a mano. Cada pieza es única.",
+  caracteristicas: "Hecho a mano, Pieza única",
+  foto: "/ejemplo/planta-maceta.svg",
   online: true,
   caja: true,
   variantes: [
-    { ml: "50", precio: "104990", stock: "4", codigo: "7800001000093" },
-    { ml: "100", precio: "139990", stock: "3", codigo: "7800001000109" },
+    { nombre: "Transparente", precio: "16990", stock: "4", codigo: "7800001000192" },
+    { nombre: "Ámbar", precio: "17990", stock: "3", codigo: "7800001000208" },
   ],
 };
 
@@ -84,7 +79,7 @@ function slugDe(texto: string) {
   return texto
     .toLowerCase()
     .normalize("NFD")
-    .replace(/[̀-ͯ]/g, "")
+    .replace(/[\u0300-\u036f]/g, "") // quita los acentos
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 }
@@ -115,18 +110,17 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
   };
 
   const precioOk = f.variantes.some((v) => Number(v.precio) > 0);
-  const mlOk = f.variantes.every((v) => Number(v.ml) > 0);
+  const opcionesOk = f.variantes.length === 1 || f.variantes.every((v) => v.nombre.trim() !== "");
   const checks: [string, boolean][] = [
     ["Foto del producto", !!f.foto],
     ["Nombre y marca", f.nombre.trim() !== "" && f.marca.trim() !== ""],
-    ["Tamaño en ml", mlOk],
+    ["Nombre de cada opción", opcionesOk],
     ["Precio", precioOk],
     ["Al menos un canal de venta", f.online || f.caja],
   ];
   const listos = checks.filter((c) => c[1]).length;
   const completo = listos === checks.length;
   const precios = f.variantes.map((v) => Number(v.precio)).filter((n) => n > 0);
-  const v0 = f.variantes[0];
 
   const publicar = () => {
     if (!completo) {
@@ -139,24 +133,23 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
     const variantes = f.variantes
       .filter((v) => Number(v.precio) > 0)
       .map((v, i) => {
-        const id = `${slug}-${v.ml}-${i}`;
+        const id = `${slug}-${i}`;
         stock[id] = Math.max(0, Math.floor(Number(v.stock) || 0));
-        return { id, ml: Number(v.ml), precio: Number(v.precio), codigo: v.codigo.trim(), minimo: 2 };
+        return { id, nombre: v.nombre.trim() || "Única", precio: Number(v.precio), codigo: v.codigo.trim(), minimo: 2 };
       });
     const producto: Producto = {
       slug,
       nombre: f.nombre.trim(),
       marca: f.marca.trim(),
-      concentracion: f.concentracion,
-      genero: f.genero,
-      linea: f.linea,
-      familia: "",
+      categoria: f.categoria,
+      resumen: f.resumen.trim(),
       foto: f.foto,
       descripcion: f.descripcion.trim(),
-      notas: { salida: f.salida.trim(), corazon: f.corazon.trim(), fondo: f.fondo.trim() },
-      ocasion: "",
-      temporada: "",
-      origen: "",
+      caracteristicas: f.caracteristicas
+        .split(",")
+        .map((c) => c.trim())
+        .filter(Boolean),
+      atributos: [],
       online: f.online,
       caja: f.caja,
       nuevo: true,
@@ -228,7 +221,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
               )}
               <span className="flex flex-col items-center gap-1.5 text-center">
                 <Upload className="size-9 text-marca" strokeWidth={1.8} aria-hidden />
-                <span className="font-semibold">{f.foto ? "Cambiar foto" : "Subir foto del perfume"}</span>
+                <span className="font-semibold">{f.foto ? "Cambiar foto" : "Subir foto del producto"}</span>
                 <span className="text-sm text-gris">Arrastra la imagen aquí o haz clic para elegirla</span>
               </span>
             </label>
@@ -238,12 +231,12 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             <h2 className="text-[17px] font-semibold">2. Información</h2>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3.5">
               <label className="flex flex-col gap-1.5 text-sm font-medium">
-                Nombre del perfume
+                Nombre del producto
                 <input
                   type="text"
                   value={f.nombre}
                   onChange={(e) => cambiar({ nombre: e.target.value })}
-                  placeholder="Ej: Sauvage"
+                  placeholder="Ej: Taza de cerámica"
                   className={`campo font-normal ${borde(error && !f.nombre.trim())}`}
                 />
               </label>
@@ -259,73 +252,30 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                 />
               </label>
               <datalist id="marcas-lista">
-                {[...MARCAS, "Carolina Herrera"].map((m) => (
+                {MARCAS.map((m) => (
                   <option key={m} value={m} />
                 ))}
               </datalist>
               <label className="flex flex-col gap-1.5 text-sm font-medium">
-                Concentración
-                <select
-                  value={f.concentracion}
-                  onChange={(e) => cambiar({ concentracion: e.target.value })}
-                  className="campo font-normal"
-                >
-                  {["Eau de Parfum", "Eau de Toilette", "Parfum", "Aceite perfumado (attar)", "Eau de Cologne", "Body Mist"].map((c) => (
-                    <option key={c}>{c}</option>
+                Categoría
+                <select value={f.categoria} onChange={(e) => cambiar({ categoria: e.target.value })} className="campo font-normal">
+                  {TIENDA.categorias.map((c) => (
+                    <option key={c.id} value={c.id}>
+                      {c.nombre}
+                    </option>
                   ))}
                 </select>
               </label>
-              <div className="flex flex-col gap-1.5">
-                <span id="lbl-genero" className="text-sm font-medium">
-                  Para
-                </span>
-                <div role="group" aria-labelledby="lbl-genero" className="grid grid-cols-3 gap-1.5 rounded-xl bg-panel p-[3px]">
-                  {(
-                    [
-                      ["mujer", "Mujer"],
-                      ["hombre", "Hombre"],
-                      ["unisex", "Unisex"],
-                    ] as const
-                  ).map(([g, label]) => (
-                    <button
-                      key={g}
-                      type="button"
-                      aria-pressed={f.genero === g}
-                      onClick={() => cambiar({ genero: g })}
-                      className={`h-10 rounded-[9px] text-sm transition ${
-                        f.genero === g ? "bg-white font-semibold text-tinta shadow-[0_1px_3px_rgba(0,0,0,.12)]" : "text-gris"
-                      }`}
-                    >
-                      {label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col gap-1.5">
-              <span id="lbl-linea" className="text-sm font-medium">
-                Línea
-              </span>
-              <div role="group" aria-labelledby="lbl-linea" className="grid max-w-[360px] grid-cols-2 gap-1.5 rounded-xl bg-panel p-[3px]">
-                {(
-                  [
-                    ["arabe", "Perfumería árabe"],
-                    ["disenador", "Diseñador"],
-                  ] as const
-                ).map(([l, label]) => (
-                  <button
-                    key={l}
-                    type="button"
-                    aria-pressed={f.linea === l}
-                    onClick={() => cambiar({ linea: l })}
-                    className={`h-10 rounded-[9px] text-sm transition ${
-                      f.linea === l ? "bg-white font-semibold text-tinta shadow-[0_1px_3px_rgba(0,0,0,.12)]" : "text-gris"
-                    }`}
-                  >
-                    {label}
-                  </button>
-                ))}
-              </div>
+              <label className="flex flex-col gap-1.5 text-sm font-medium">
+                Detalle corto
+                <input
+                  type="text"
+                  value={f.resumen}
+                  onChange={(e) => cambiar({ resumen: e.target.value })}
+                  placeholder="Ej: Cerámica · 350 ml"
+                  className="campo font-normal"
+                />
+              </label>
             </div>
             <label className="flex flex-col gap-1.5 text-sm font-medium">
               Descripción para la tienda
@@ -333,41 +283,31 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                 rows={3}
                 value={f.descripcion}
                 onChange={(e) => cambiar({ descripcion: e.target.value })}
-                placeholder="Cómo huele, para qué ocasión, por qué regalarlo"
+                placeholder="Qué es, para qué sirve, por qué comprarlo"
                 className="campo h-auto resize-y p-3 font-normal"
               />
             </label>
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(160px,1fr))] gap-3">
-              {(
-                [
-                  ["salida", "Notas de salida", "Ej: bergamota"],
-                  ["corazon", "Notas de corazón", "Ej: lavanda"],
-                  ["fondo", "Notas de fondo", "Ej: vainilla"],
-                ] as const
-              ).map(([k, label, ph]) => (
-                <label key={k} className="flex flex-col gap-1.5 text-sm font-medium">
-                  {label}
-                  <input
-                    type="text"
-                    value={f[k]}
-                    onChange={(e) => cambiar({ [k]: e.target.value })}
-                    placeholder={ph}
-                    className="campo font-normal"
-                  />
-                </label>
-              ))}
-            </div>
+            <label className="flex flex-col gap-1.5 text-sm font-medium">
+              Características (separadas por coma)
+              <input
+                type="text"
+                value={f.caracteristicas}
+                onChange={(e) => cambiar({ caracteristicas: e.target.value })}
+                placeholder="Ej: Apta para lavavajillas, Hecha a mano"
+                className="campo font-normal"
+              />
+            </label>
           </section>
 
           <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-white p-5">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 className="text-[17px] font-semibold">3. Tamaños, precio y stock</h2>
+              <h2 className="text-[17px] font-semibold">3. Opciones, precio y stock</h2>
               <span className="text-[13px] text-gris">Con la pistola puedes escanear el código directo en el campo</span>
             </div>
             <div className="overflow-x-auto">
               <div className="flex min-w-[560px] flex-col gap-2 text-sm">
                 <div className="grid grid-cols-[minmax(80px,1fr)_minmax(110px,1.3fr)_minmax(80px,1fr)_minmax(150px,1.8fr)_44px] gap-2 text-[13px] font-semibold text-gris">
-                  <span>Tamaño (ml)</span>
+                  <span>Opción (talla, color…)</span>
                   <span>Precio ($)</span>
                   <span>Stock inicial</span>
                   <span>Código de barras</span>
@@ -379,13 +319,12 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                     className="animate-subir grid grid-cols-[minmax(80px,1fr)_minmax(110px,1.3fr)_minmax(80px,1fr)_minmax(150px,1.8fr)_44px] items-center gap-2"
                   >
                     <input
-                      type="number"
-                      inputMode="numeric"
-                      aria-label="Tamaño en ml"
-                      value={v.ml}
-                      onChange={(e) => cambiarVariante(i, "ml", e.target.value)}
-                      placeholder="100"
-                      className={`campo h-11 px-2.5 ${borde(error && !(Number(v.ml) > 0))}`}
+                      type="text"
+                      aria-label="Nombre de la opción"
+                      value={v.nombre}
+                      onChange={(e) => cambiarVariante(i, "nombre", e.target.value)}
+                      placeholder={f.variantes.length === 1 ? "Única" : "Ej: Talla M"}
+                      className={`campo h-11 px-2.5 ${borde(error && !opcionesOk && !v.nombre.trim())}`}
                     />
                     <input
                       type="number"
@@ -393,7 +332,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                       aria-label="Precio"
                       value={v.precio}
                       onChange={(e) => cambiarVariante(i, "precio", e.target.value)}
-                      placeholder="99990"
+                      placeholder="9990"
                       className={`campo h-11 px-2.5 ${borde(error && !precioOk)}`}
                     />
                     <input
@@ -417,10 +356,10 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                     />
                     <button
                       type="button"
-                      aria-label="Quitar este tamaño"
+                      aria-label="Quitar esta opción"
                       disabled={f.variantes.length === 1}
                       onClick={() => cambiar({ variantes: f.variantes.filter((_, j) => j !== i) })}
-                      className="inline-flex size-11 items-center justify-center rounded-[10px] border border-borde bg-white text-error disabled:text-[#C9C3CC]"
+                      className="inline-flex size-11 items-center justify-center rounded-[10px] border border-borde bg-white text-error disabled:text-borde-fuerte"
                     >
                       <Trash2 className="size-[18px]" aria-hidden />
                     </button>
@@ -430,10 +369,10 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             </div>
             <button
               type="button"
-              onClick={() => cambiar({ variantes: [...f.variantes, { ml: "", precio: "", stock: "", codigo: "" }] })}
+              onClick={() => cambiar({ variantes: [...f.variantes, filaVacia()] })}
               className="h-11 self-start rounded-[10px] border border-dashed border-marca bg-white px-3.5 text-sm font-medium text-marca"
             >
-              + Agregar otro tamaño
+              + Agregar otra opción
             </button>
           </section>
 
@@ -441,7 +380,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             <h2 className="text-[17px] font-semibold">4. Dónde se vende</h2>
             {(
               [
-                ["online", "Tienda online", "Aparece en el catálogo público de Nube Aromática"],
+                ["online", "Tienda online", `Aparece en el catálogo público de ${TIENDA.nombre}`],
                 ["caja", "Caja del local", "Se puede vender escaneando el código de barras"],
               ] as const
             ).map(([k, titulo, texto]) => (
@@ -476,10 +415,9 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
               </div>
               <div className="flex flex-col gap-1 px-4 py-3.5">
                 <p className="text-xs uppercase tracking-[1.2px] text-gris">{f.marca || "Marca"}</p>
-                <p className="font-serif text-2xl font-semibold leading-tight">{f.nombre || "Nombre del perfume"}</p>
+                <p className="font-serif text-2xl font-semibold leading-tight">{f.nombre || "Nombre del producto"}</p>
                 <p className="text-sm text-gris">
-                  {f.concentracion}
-                  {v0?.ml ? ` · ${v0.ml} ml` : ""}
+                  {f.resumen || "Detalle corto"}
                 </p>
                 <p className="mt-2 text-lg font-semibold">
                   {precios.length ? `${precios.length > 1 ? "Desde " : ""}${formatoPrecio(Math.min(...precios))}` : "$ —"}

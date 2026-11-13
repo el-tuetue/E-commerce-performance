@@ -1,4 +1,4 @@
-# Proyecto Perfumería — tienda online + local físico
+# Arquitectura: tienda online + local físico
 
 ## Stack
 
@@ -26,11 +26,11 @@ Esconder el enlace no da seguridad por sí solo. La protección real son tres ca
 
 Para partir simple puede ser un solo proyecto Next.js, con las rutas del sistema (`/panel/...`) protegidas por login y publicadas en el subdominio. Si el sistema crece, se separa en dos proyectos que usan el mismo Supabase.
 
-Si alguien compra el último frasco online, la caja ya no lo puede vender, y al revés.
+Si alguien compra la última unidad online, la caja ya no la puede vender, y al revés.
 
 ## Base de datos (`schema.sql`)
 
-- **Catálogo:** `marcas`, `categorias`, `productos` y `variantes`. Cada tamaño (30, 50 o 100 ml) es una variante con su propio precio, stock y código de barras.
+- **Catálogo:** `marcas`, `categorias`, `productos` y `variantes`. Cada opción de un producto (talla, color, tamaño…) es una variante con su propio precio, stock y código de barras. Las categorías tienen un `slug` que se usa en la URL del catálogo.
 - **Personas:** `perfiles` (usuarios con login y su rol: cliente, vendedor o admin), `clientes` (con o sin cuenta) y `direcciones`.
 - **Ventas:** `ventas` (con canal `tienda` u `online` y estado del pedido), `detalle_venta` y `movimientos_stock` (historial de cada entrada y salida).
 - **Funciones listas:**
@@ -52,10 +52,9 @@ Si alguien compra el último frasco online, la caja ya no lo puede vender, y al 
    ```sql
    update perfiles set rol = 'admin' where id = (select id from auth.users where email = 'TU_CORREO');
    ```
-4. Instala **Node.js LTS** y en esta carpeta ejecuta:
+4. Instala **Node.js LTS** y en la carpeta `web` ejecuta:
    ```
-   npx create-next-app@latest web --typescript --tailwind --app
-   cd web
+   npm install
    npm install @supabase/supabase-js @supabase/ssr
    ```
 5. Crea `web/.env.local` con los datos de Supabase (Project Settings > API):
@@ -66,9 +65,12 @@ Si alguien compra el último frasco online, la caja ya no lo puede vender, y al 
    ```
    ⚠️ La `SERVICE_ROLE_KEY` solo se usa en el servidor. Nunca la pongas en código del navegador ni la subas a GitHub.
 
-## Orden sugerido para construir
+## Orden sugerido para pasar de demo a versión real
 
-1. /admin: cargar marcas, productos y variantes.
-2. /caja: escanear, cobrar y ver ventas del día. Aquí la app ya sirve en el local.
-3. /tienda: catálogo y carrito.
-4. Integrar pagos online y seguimiento de pedidos.
+Las pantallas ya existen y funcionan con datos de ejemplo (`web/src/lib/demo-store.tsx`). Para la versión real, se reemplazan esas funciones por llamadas a Supabase, en este orden:
+
+1. `/sistema`: login real con Supabase Auth y rol desde `perfiles`.
+2. `/sistema/admin`: cargar marcas, productos y variantes, con fotos en Supabase Storage.
+3. `/sistema/caja`: escanear, cobrar (`confirmar_pago`) y ver ventas del día. Aquí la app ya sirve en el local.
+4. Tienda: catálogo, ficha y carrito leyendo desde la base de datos.
+5. Pagos online (Webpay o Mercado Pago) y seguimiento de pedidos.

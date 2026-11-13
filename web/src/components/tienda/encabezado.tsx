@@ -3,14 +3,13 @@
 import Link from "next/link";
 import { ShoppingBag } from "lucide-react";
 import { Logo } from "@/components/logo";
+import { TIENDA } from "@/config/tienda";
 import { useDemo } from "@/lib/demo-store";
 
+// Menú: una entrada por categoría (src/config/tienda.ts) + el catálogo completo.
 const MENU = [
-  { href: "/catalogo?filtro=arabe", texto: "Árabes", destacado: true },
-  { href: "/catalogo?filtro=mujer", texto: "Mujer" },
-  { href: "/catalogo?filtro=hombre", texto: "Hombre" },
-  { href: "/catalogo?filtro=unisex", texto: "Unisex" },
-  { href: "/catalogo", texto: "Catálogo" },
+  ...TIENDA.categorias.map((c) => ({ href: `/catalogo?filtro=${c.id}`, texto: c.nombre, destacado: false })),
+  { href: "/catalogo", texto: "Ver todo", destacado: true },
 ];
 
 // Importante: la tienda no tiene ningún enlace al sistema interno.
@@ -20,14 +19,12 @@ export function Encabezado() {
   return (
     <>
       <div className="bg-marca px-4 py-1.5 text-center text-xs text-white sm:py-2 sm:text-[13px]">
-        <span className="sm:hidden">Especialistas en perfumería árabe · 100% originales</span>
-        <span className="hidden sm:inline">
-          Especialistas en perfumería árabe · 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]
-        </span>
+        <span className="sm:hidden">{TIENDA.aviso.corto}</span>
+        <span className="hidden sm:inline">{TIENDA.aviso.largo}</span>
       </div>
       <header className="sticky top-0 z-30 border-b border-borde bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-[1200px] items-center gap-x-8 px-4 py-2 sm:py-3.5 sm:px-6">
-          <Link href="/" className="no-underline" aria-label="Nube Aromática, inicio">
+          <Link href="/" className="no-underline" aria-label={`${TIENDA.nombre}, inicio`}>
             <Logo />
           </Link>
           {/* En celular este menú no se muestra: lo reemplaza la barra de abajo. */}
@@ -47,8 +44,8 @@ export function Encabezado() {
               <input
                 type="search"
                 name="q"
-                aria-label="Buscar perfumes"
-                placeholder="Buscar perfume o marca"
+                aria-label="Buscar productos"
+                placeholder="Buscar producto o marca"
                 className="campo h-11 bg-fondo text-sm"
               />
             </form>
