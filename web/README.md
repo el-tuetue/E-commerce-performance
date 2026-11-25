@@ -21,11 +21,13 @@ Después abre http://localhost:3000.
 | Colores de la marca | `src/app/globals.css`, bloque `@theme` (`marca`, `tinta`, `acento`…) |
 | Tipografía de títulos | `src/app/layout.tsx` (cualquier fuente de `next/font/google`) |
 | Productos, stock y pedidos de ejemplo | `src/lib/datos.ts` |
-| Imágenes de ejemplo | `public/ejemplo/` (reemplázalas por fotos reales, JPG o WebP de máx. 1600 px) |
+| Fotos | `public/fotos/` (JPG o WebP de máx. 1600 px). Créditos en `FOTOS-CREDITOS.md` y en `creditosFotos` de `tienda.ts` |
 | Logo | Copia el archivo a `public/` y pon su ruta en `logo` dentro de `tienda.ts` |
-| Ícono de la pestaña | `src/app/icon.svg` y `src/app/apple-icon.png` |
+| Ícono de la pestaña | `src/app/icon.png` y `src/app/apple-icon.png` |
 
-Cada producto tiene **variantes**, una por cada opción que elige el cliente: talla, color o tamaño. Si el producto no tiene opciones, lleva una sola variante, por ejemplo "Única", y la ficha no muestra el selector.
+Cada producto tiene **variantes**, una por cada opción que elige el cliente: en perfumes, el tamaño ("100 ml"); en otras tiendas, la talla o el color. Si el producto no tiene opciones, lleva una sola variante ("Única") y la ficha no muestra el selector.
+
+Un producto puede estar en **varias categorías** (ej: "Árabes" y "Hombre"). Las notas olfativas van en `atributos` (ficha técnica).
 
 Si cambias los datos de ejemplo, cambia también `claveDemo` en `tienda.ts`. Así los navegadores que ya abrieron la demo no siguen mostrando los datos viejos.
 

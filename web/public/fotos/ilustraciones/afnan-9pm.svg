@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1500" width="1200" height="1500">
+<defs>
+<radialGradient id="fondo" cx="50%" cy="38%" r="75%"><stop offset="0" stop-color="#E7EAF1"/><stop offset="1" stop-color="#C3CADB"/></radialGradient>
+<linearGradient id="vidrio" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#07080C"/><stop offset=".35" stop-color="#23262F"/><stop offset=".6" stop-color="#23262F"/><stop offset="1" stop-color="#07080C"/></linearGradient>
+<linearGradient id="tapa" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3E6FD8"/><stop offset=".55" stop-color="#1C3A85"/><stop offset="1" stop-color="#3E6FD8"/></linearGradient>
+<linearGradient id="brillo" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<radialGradient id="sombra" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#000" stop-opacity=".28"/><stop offset="1" stop-color="#000" stop-opacity="0"/></radialGradient>
+<filter id="suave"><feGaussianBlur stdDeviation="6"/></filter>
+</defs>
+<rect width="1200" height="1500" fill="url(#fondo)"/>
+<rect y="1150" width="1200" height="350" fill="#C3CADB" opacity=".55"/>
+<g transform="translate(600 1135) scale(1.38) translate(-600 -1135)">
+<ellipse cx="600" cy="1135" rx="300" ry="38" fill="url(#sombra)"/>
+<rect x="560" y="575" width="80" height="40" fill="url(#tapa)"/>
+<ellipse cx="600" cy="860" rx="230" ry="260" fill="url(#vidrio)"/>
+<rect x="445" y="600" width="38" height="480" rx="19" fill="url(#brillo)" filter="url(#suave)" opacity=".8"/>
+<rect x="470" y="790" width="260" height="150" rx="10" fill="none" stroke="#B9C8F0" stroke-width="3" opacity=".85"/>
+<line x1="510" y1="865.0" x2="690" y2="865.0" stroke="#B9C8F0" stroke-width="2" opacity=".6"/>
+<circle cx="600.0" cy="865.0" r="14" fill="none" stroke="#B9C8F0" stroke-width="3" opacity=".85"/>
+<rect x="520" y="440" width="160" height="150" rx="70" fill="url(#tapa)"/>
+<rect x="555" y="450" width="18" height="110" rx="9" fill="#fff" opacity=".35"/>
+</g>
+</svg>

@@ -8,8 +8,10 @@ import { useDemo } from "@/lib/demo-store";
 
 // Menú: una entrada por categoría (src/config/tienda.ts) + el catálogo completo.
 const MENU = [
-  ...TIENDA.categorias.map((c) => ({ href: `/catalogo?filtro=${c.id}`, texto: c.nombre, destacado: false })),
-  { href: "/catalogo", texto: "Ver todo", destacado: true },
+  ...TIENDA.categorias
+    .filter((c) => c.enPortada !== false)
+    .map((c) => ({ href: `/catalogo?filtro=${c.id}`, texto: c.nombre, destacado: c.id === TIENDA.categoriaDestacada })),
+  { href: "/catalogo", texto: "Ver todo", destacado: false },
 ];
 
 // Importante: la tienda no tiene ningún enlace al sistema interno.

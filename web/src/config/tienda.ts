@@ -1,8 +1,9 @@
 // ============================================================================
 //  CONFIGURACIÓN DE LA TIENDA
-//  Este es el archivo que se edita para cada cliente nuevo: nombre, contacto,
+//  Este es el archivo que se edita para cada cliente: nombre, contacto,
 //  categorías, portada y textos. Los colores están en src/app/globals.css
-//  (@theme) y los productos de ejemplo en src/lib/datos.ts.
+//  (@theme) y los productos en src/lib/datos.ts.
+//  Configuración actual: perfumería Nube Aromática.
 // ============================================================================
 
 import { CreditCard, ShieldCheck, Store, Truck, type LucideIcon } from "lucide-react";
@@ -13,6 +14,7 @@ export type Categoria = {
   descripcion: string; // texto corto bajo el nombre en la portada
   foto: string;
   pos?: string; // encuadre de la foto (CSS object-position)
+  enPortada?: boolean; // false = solo aparece como filtro del catálogo (no en la portada ni en el menú)
 };
 
 export type Slide = {
@@ -24,7 +26,7 @@ export type Slide = {
   cta: string;
   href: string;
   lado: "left" | "right"; // de qué lado va la tarjeta de texto
-  pos?: string;
+  pos?: string; // encuadre de la foto; en celular se ve solo una parte
 };
 
 export type Beneficio = { icono: LucideIcon; titulo: string; texto: string };
@@ -34,23 +36,36 @@ export type Vitrina = {
   eyebrow: string;
   titulo: string;
   texto: string;
-  slugs: string[]; // productos que se muestran (máx. 4 se ve mejor)
+  slugs: string[]; // productos que se muestran (4 se ve mejor)
   href: string;
   cta: string;
 };
 
+// Producto que se carga con "Rellenar con un ejemplo" en el panel (Agregar producto).
+export type EjemploProducto = {
+  nombre: string;
+  marca: string;
+  categorias: string[];
+  resumen: string;
+  descripcion: string;
+  caracteristicas: string[];
+  foto: string;
+  variantes: { nombre: string; precio: string; stock: string; codigo: string }[];
+};
+
 export const TIENDA = {
   // --- Marca ---
-  nombre: "Mi Tienda",
-  bajada: "Tienda online", // texto pequeño bajo el nombre en el logo
-  descripcion: "Productos seleccionados con stock real del local. Retiro gratis en tienda o despacho a domicilio.",
-  // Logo: deja "" para usar las iniciales del nombre, o pon una imagen en /public (ej: "/logo.png").
-  logo: "",
+  nombre: "Nube Aromática",
+  bajada: "Perfumería", // texto pequeño bajo el nombre en el logo
+  descripcion: "Perfumes 100% originales con el stock real del local. Retiro gratis en tienda o despacho a domicilio.",
+  // Logo: una imagen en /public, o "" para usar las iniciales del nombre.
+  // El archivo actual mide 150 px: no mostrarlo a más de 72 px hasta tener el original.
+  logo: "/logo.png",
 
   // Franja superior (en celular se muestra la versión corta).
   aviso: {
-    corto: "Retiro gratis en tienda · Pago seguro",
-    largo: "Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO] · Pago seguro con Webpay o Mercado Pago",
+    corto: "Especialistas en perfumería árabe · 100% originales",
+    largo: "Especialistas en perfumería árabe · 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]",
   },
 
   // --- Contacto y local ---
@@ -68,57 +83,60 @@ export const TIENDA = {
     cobertura: "[COMUNAS DE DESPACHO]",
     preparacion: "[TIEMPO DE PREPARACIÓN]",
   },
-  cuotas: "hasta 3 cuotas sin interés",
+  cuotas: "Precio referencial · hasta 3 cuotas sin interés",
 
   // --- Catálogo ---
+  // Un perfume puede estar en varias categorías (ej: "Árabes" y "Hombre").
   categorias: [
-    { id: "hogar", nombre: "Hogar", descripcion: "Tazas, cojines y decoración", foto: "/ejemplo/categoria-hogar.svg" },
-    { id: "oficina", nombre: "Oficina", descripcion: "Cuadernos, lápices y escritorio", foto: "/ejemplo/categoria-oficina.svg" },
-    { id: "accesorios", nombre: "Accesorios", descripcion: "Bolsos, botellas y relojes", foto: "/ejemplo/categoria-accesorios.svg" },
+    { id: "arabe", nombre: "Árabes", descripcion: "Oud, ámbar y bakhoor", foto: "/fotos/bakhoor.jpg", pos: "center 40%" },
+    { id: "mujer", nombre: "Mujer", descripcion: "Lattafa Yara, Chanel, YSL", foto: "/fotos/coco.jpg" },
+    { id: "hombre", nombre: "Hombre", descripcion: "Lattafa Asad, Armaf, Dior", foto: "/fotos/acqua.jpg", pos: "center 35%" },
+    { id: "unisex", nombre: "Unisex", descripcion: "Para compartir", foto: "/fotos/rasasi-dhan-oud.jpg", enPortada: false },
+    { id: "disenador", nombre: "Diseñador", descripcion: "Dior, Chanel, YSL y más", foto: "/fotos/chanel5.jpg", enPortada: false },
   ] as Categoria[],
   // Categoría con acceso directo en la barra inferior del celular.
-  categoriaDestacada: "hogar",
+  categoriaDestacada: "arabe",
   porPagina: 8, // productos por página en el catálogo
+  // Cómo se llaman los productos en los textos (ej: "12 perfumes", "No encontramos perfumes…").
+  producto: { singular: "perfume", plural: "perfumes" },
 
   // --- Portada ---
   slides: [
     {
-      foto: "/ejemplo/banner-1.svg",
-      alt: "Productos de ejemplo para el hogar",
-      eyebrow: "Nueva temporada",
-      titulo: "Lo nuevo para tu casa",
-      texto: "Cambia este texto en src/config/tienda.ts. Cada banner tiene foto, título, texto y un botón.",
-      cta: "Ver hogar",
-      href: "/catalogo?filtro=hogar",
+      foto: "/fotos/tienda-oud.jpg",
+      alt: "Vitrina con perfumes árabes, oud y bakhoor",
+      eyebrow: "Perfumería árabe",
+      titulo: "El arte del oud",
+      texto: "Lattafa, Armaf, Al Haramain, Rasasi y más. Perfumes intensos y duraderos, originales y con stock real del local.",
+      cta: "Ver perfumes árabes",
+      href: "/catalogo?filtro=arabe",
       lado: "left",
-      pos: "72% center", // en celular se ve el lado derecho de la imagen
     },
     {
-      foto: "/ejemplo/banner-2.svg",
-      alt: "Productos de ejemplo para la oficina",
-      eyebrow: "Oficina",
-      titulo: "Ordena tu escritorio",
-      texto: "Cuadernos, lápices y lámparas con stock real del local.",
-      cta: "Ver oficina",
-      href: "/catalogo?filtro=oficina",
+      foto: "/fotos/banner-million.jpg",
+      alt: "Frasco dorado de Rabanne 1 Million Parfum",
+      eyebrow: "Para él",
+      titulo: "Brilla con 1 Million",
+      texto: "El clásico dorado de Rabanne, especiado y cálido. Disponible en el local y online.",
+      cta: "Ver perfumes de hombre",
+      href: "/catalogo?filtro=hombre",
       lado: "right",
-      pos: "28% center",
+      pos: "30% center",
     },
     {
-      foto: "/ejemplo/banner-3.svg",
-      alt: "Accesorios de ejemplo",
-      eyebrow: "Para regalar",
-      titulo: "Accesorios para todos los días",
-      texto: "Retira gratis en el local o recíbelo en tu casa.",
-      cta: "Ver accesorios",
-      href: "/catalogo?filtro=accesorios",
+      foto: "/fotos/chanel5.jpg",
+      alt: "Frasco de Chanel N°5 iluminado",
+      eyebrow: "Para ella",
+      titulo: "La elegancia de Chanel",
+      texto: "N°5 y Coco Mademoiselle, dos íconos que nunca fallan como regalo.",
+      cta: "Ver perfumes de mujer",
+      href: "/catalogo?filtro=mujer",
       lado: "left",
-      pos: "72% center",
     },
   ] as Slide[],
 
   beneficios: [
-    { icono: ShieldCheck, titulo: "Compra segura", texto: "Productos originales, con boleta." },
+    { icono: ShieldCheck, titulo: "100% originales", texto: "Los mismos perfumes que vendemos en el local." },
     { icono: Store, titulo: "Retiro gratis", texto: "Compra online y pasa a buscarlo al local." },
     { icono: Truck, titulo: "Despacho a domicilio", texto: "Cobertura: [COMUNAS DE DESPACHO]." },
     { icono: CreditCard, titulo: "Pago seguro", texto: "Débito y crédito con Webpay o Mercado Pago." },
@@ -126,40 +144,57 @@ export const TIENDA = {
 
   vitrinas: [
     {
-      id: "titulo-mas-vendidos",
-      eyebrow: "Los favoritos",
-      titulo: "Lo más vendido",
-      texto: "Los productos que más salen del local este mes.",
-      slugs: ["taza-ceramica", "botella-termica", "cuaderno-a5", "bolso-lona"],
-      href: "/catalogo",
-      cta: "Ver todo el catálogo",
+      id: "titulo-arabes",
+      eyebrow: "Nuestra especialidad",
+      titulo: "Los árabes más pedidos",
+      texto: "Intensos, duraderos y a muy buen precio. Si no sabes por cuál partir, empieza por estos.",
+      slugs: ["lattafa-khamrah", "lattafa-asad", "lattafa-yara", "armaf-club-de-nuit-intense"],
+      href: "/catalogo?filtro=arabe",
+      cta: "Ver todos los árabes",
     },
     {
-      id: "titulo-hogar",
-      eyebrow: "Hogar",
-      titulo: "Para tu casa",
-      texto: "Detalles que hacen la diferencia.",
-      slugs: ["cojin-lino", "planta-maceta", "lampara-mesa", "taza-ceramica"],
-      href: "/catalogo?filtro=hogar",
-      cta: "Ver todo hogar",
+      id: "titulo-disenador",
+      eyebrow: "Clásicos de siempre",
+      titulo: "Perfumes de diseñador",
+      texto: "Los íconos de Dior, Chanel, Rabanne e Yves Saint Laurent, originales y con stock real.",
+      slugs: ["dior-sauvage", "chanel-n5", "rabanne-1-million", "ysl-black-opium"],
+      href: "/catalogo?filtro=disenador",
+      cta: "Ver todos los de diseñador",
     },
   ] as Vitrina[],
 
   // Bloque grande entre las vitrinas.
   destacado: {
-    slug: "lampara-mesa",
-    eyebrow: "Producto destacado",
-    texto: "Usa este bloque para el producto que el dueño quiera empujar: una novedad, una oferta o el más vendido.",
+    slug: "rasasi-dhan-oud-kambodi",
+    eyebrow: "La joya de la casa",
   },
 
   // Bloque final de contacto.
   ayuda: {
-    titulo: "¿Necesitas ayuda?",
-    texto: "Escríbenos y te ayudamos a elegir. También armamos paquetes de regalo.",
+    titulo: "¿No sabes cuál elegir?",
+    texto: "Escríbenos y te recomendamos según el gusto de quien lo va a usar. También armamos paquetes de regalo.",
   },
 
+  ejemploProducto: {
+    nombre: "1 Million Parfum",
+    marca: "Rabanne",
+    categorias: ["disenador", "hombre"],
+    resumen: "Parfum · 50 / 100 ml",
+    descripcion: "La versión más intensa del clásico dorado: cuero, ámbar y flor de naranjo. Ideal para la noche.",
+    caracteristicas: ["Ámbar amaderada", "Noche"],
+    foto: "/fotos/banner-million.jpg",
+    variantes: [
+      { nombre: "50 ml", precio: "104990", stock: "4", codigo: "7800001000093" },
+      { nombre: "100 ml", precio: "139990", stock: "3", codigo: "7800001000109" },
+    ],
+  } as EjemploProducto,
+
+  // Créditos de las fotos (obligatorios si usas fotos con licencia CC). "" para no mostrar nada.
+  creditosFotos:
+    "Fotos referenciales de Wikimedia Commons (CC0, CC BY, CC BY-SA): DYVER, Kevin Rheese, Brownchl, Dsuarez04, Jacek Halicki, Javier Velez, Rypptc, Miansari66, Tauseef perfumes, Fseddiqi1983, آية سعيد البيطار. Las ilustraciones de frascos son referenciales.",
+
   // Clave del almacenamiento de la demo en el navegador. Cámbiala si cambias los datos de ejemplo.
-  claveDemo: "tienda-demo-v1",
+  claveDemo: "nube-demo-v3",
 };
 
 export function categoriaPorId(id: string) {

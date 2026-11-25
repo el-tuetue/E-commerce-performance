@@ -35,7 +35,7 @@ export default function Inicio() {
       {/* En celular las categorías se deslizan hacia el lado en vez de apilarse. */}
       <section aria-label="Comprar por categoría" className="mx-auto max-w-[1200px] pb-8 sm:px-6 sm:pb-10">
         <div className="sin-barra flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 sm:grid sm:grid-cols-3 sm:gap-4 sm:overflow-visible sm:px-0">
-          {TIENDA.categorias.map((c) => (
+          {TIENDA.categorias.filter((c) => c.enPortada !== false).map((c) => (
             <Link
               key={c.id}
               href={`/catalogo?filtro=${c.id}`}
@@ -49,7 +49,7 @@ export default function Inicio() {
                 className="size-full object-cover transition duration-700 group-hover:scale-[1.06]"
                 style={{ objectPosition: c.pos ?? "center" }}
               />
-              <span className="absolute inset-x-2.5 bottom-2.5 flex items-center justify-between gap-3 rounded-xl bg-[rgba(15,23,42,0.84)] px-3.5 py-2.5 text-white sm:inset-x-3.5 sm:bottom-3.5 sm:px-4 sm:py-3.5">
+              <span className="absolute inset-x-2.5 bottom-2.5 flex items-center justify-between gap-3 rounded-xl bg-[rgba(12,44,48,0.86)] px-3.5 py-2.5 text-white sm:inset-x-3.5 sm:bottom-3.5 sm:px-4 sm:py-3.5">
                 <span>
                   <span className="block font-serif text-[22px] font-semibold leading-tight sm:text-[26px]">{c.nombre}</span>
                   <span className="mt-0.5 block text-[13px] text-niebla">{c.descripcion}</span>

@@ -40,7 +40,7 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
 
   return (
     <article
-      className="group animate-subir flex flex-col overflow-hidden rounded-2xl border border-borde bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(15,23,42,.12)]"
+      className="group animate-subir flex flex-col overflow-hidden rounded-2xl border border-borde bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(12,44,48,.12)]"
       style={{ animationDelay: `${indice * 0.05}s` }}
     >
       <Link href={href} className="relative block aspect-square overflow-hidden bg-crema sm:aspect-[4/5]">
@@ -51,6 +51,11 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
           loading="lazy"
           className={`size-full object-cover transition duration-700 group-hover:scale-105 ${agotado ? "opacity-75 grayscale-[0.7]" : ""}`}
         />
+        {producto.avisoFoto && (
+          <span className="absolute bottom-2 right-2 rounded-full bg-white/85 px-2 py-0.5 text-[10px] text-gris sm:bottom-3 sm:right-3 sm:text-[11px]">
+            {producto.avisoFoto}
+          </span>
+        )}
         {badge && (
           <span className={`absolute left-2 top-2 rounded-full px-2 py-0.5 text-[11px] font-semibold sm:left-3 sm:top-3 sm:px-2.5 sm:py-1 sm:text-xs ${badgeClase}`}>{badge}</span>
         )}

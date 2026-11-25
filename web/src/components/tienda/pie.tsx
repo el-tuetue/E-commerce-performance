@@ -34,9 +34,18 @@ export function Pie() {
           <p className="text-gris">Cambios y devoluciones · Seguimiento de pedido</p>
         </div>
       </div>
-      <p className="mx-auto max-w-[1200px] px-4 pb-5 text-xs text-gris sm:px-6">
-        © {TIENDA.nombre} · Imágenes y precios de ejemplo.
-      </p>
+      {TIENDA.creditosFotos ? (
+        <details className="mx-auto max-w-[1200px] px-4 pb-5 text-xs text-gris sm:px-6">
+          <summary className="inline-flex min-h-11 cursor-pointer items-center underline-offset-2 hover:underline">
+            © {TIENDA.nombre} · Créditos de fotos · precios referenciales
+          </summary>
+          <p className="pb-2">
+            <bdi>{TIENDA.creditosFotos}</bdi>
+          </p>
+        </details>
+      ) : (
+        <p className="mx-auto max-w-[1200px] px-4 pb-5 text-xs text-gris sm:px-6">© {TIENDA.nombre} · Precios referenciales.</p>
+      )}
     </footer>
   );
 }

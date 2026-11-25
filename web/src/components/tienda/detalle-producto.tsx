@@ -37,7 +37,7 @@ function Detalle({ producto }: { producto: Producto }) {
   const enCarrito = estado.carrito[v.id] ?? 0;
   const disponible = Math.max(0, stock - enCarrito);
   const variasOpciones = producto.variantes.length > 1;
-  const categoria = categoriaPorId(producto.categoria);
+  const categoria = categoriaPorId(producto.categorias[0]);
 
   const stockTxt =
     stock === 0

@@ -11,7 +11,7 @@ type FilaVariante = { nombre: string; precio: string; stock: string; codigo: str
 type Form = {
   nombre: string;
   marca: string;
-  categoria: string;
+  categorias: string[];
   resumen: string;
   descripcion: string;
   caracteristicas: string; // separadas por coma
@@ -26,7 +26,7 @@ const filaVacia = (): FilaVariante => ({ nombre: "", precio: "", stock: "", codi
 const vacio = (): Form => ({
   nombre: "",
   marca: "",
-  categoria: TIENDA.categorias[0].id,
+  categorias: [TIENDA.categorias[0].id],
   resumen: "",
   descripcion: "",
   caracteristicas: "",
@@ -36,20 +36,12 @@ const vacio = (): Form => ({
   variantes: [filaVacia()],
 });
 
+// El ejemplo del botón "Rellenar con un ejemplo" se define en src/config/tienda.ts.
 const EJEMPLO: Form = {
-  nombre: "Florero de vidrio",
-  marca: "Casa Alba",
-  categoria: TIENDA.categorias[0].id,
-  resumen: "Vidrio soplado · 25 cm",
-  descripcion: "Florero de vidrio soplado a mano. Cada pieza es única.",
-  caracteristicas: "Hecho a mano, Pieza única",
-  foto: "/ejemplo/planta-maceta.svg",
+  ...TIENDA.ejemploProducto,
+  caracteristicas: TIENDA.ejemploProducto.caracteristicas.join(", "),
   online: true,
   caja: true,
-  variantes: [
-    { nombre: "Transparente", precio: "16990", stock: "4", codigo: "7800001000192" },
-    { nombre: "Ámbar", precio: "17990", stock: "3", codigo: "7800001000208" },
-  ],
 };
 
 // Achica la foto a máx. 800 px para que quepa en el almacenamiento de la demo.
@@ -114,6 +106,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
   const checks: [string, boolean][] = [
     ["Foto del producto", !!f.foto],
     ["Nombre y marca", f.nombre.trim() !== "" && f.marca.trim() !== ""],
+    ["Al menos una categoría", f.categorias.length > 0],
     ["Nombre de cada opción", opcionesOk],
     ["Precio", precioOk],
     ["Al menos un canal de venta", f.online || f.caja],
@@ -141,7 +134,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
       slug,
       nombre: f.nombre.trim(),
       marca: f.marca.trim(),
-      categoria: f.categoria,
+      categorias: f.categorias,
       resumen: f.resumen.trim(),
       foto: f.foto,
       descripcion: f.descripcion.trim(),
@@ -256,16 +249,31 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                   <option key={m} value={m} />
                 ))}
               </datalist>
-              <label className="flex flex-col gap-1.5 text-sm font-medium">
-                Categoría
-                <select value={f.categoria} onChange={(e) => cambiar({ categoria: e.target.value })} className="campo font-normal">
-                  {TIENDA.categorias.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.nombre}
-                    </option>
-                  ))}
-                </select>
-              </label>
+              <div className="flex flex-col gap-1.5 sm:col-span-2">
+                <span id="lbl-categorias" className="text-sm font-medium">
+                  Categorías <span className="font-normal text-gris">(puedes marcar varias)</span>
+                </span>
+                <div role="group" aria-labelledby="lbl-categorias" className="flex flex-wrap gap-2">
+                  {TIENDA.categorias.map((c) => {
+                    const on = f.categorias.includes(c.id);
+                    return (
+                      <button
+                        key={c.id}
+                        type="button"
+                        aria-pressed={on}
+                        onClick={() =>
+                          cambiar({ categorias: on ? f.categorias.filter((x) => x !== c.id) : [...f.categorias, c.id] })
+                        }
+                        className={`h-10 rounded-full border px-4 text-sm transition-colors ${
+                          on ? "border-marca bg-marca font-semibold text-white" : "border-borde-fuerte bg-white text-tinta"
+                        } ${error && f.categorias.length === 0 ? "border-error" : ""}`}
+                      >
+                        {c.nombre}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
               <label className="flex flex-col gap-1.5 text-sm font-medium">
                 Detalle corto
                 <input
@@ -429,10 +437,10 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
           <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-white p-[18px]">
             <div className="flex items-baseline justify-between">
               <h2 className="text-[15px] font-semibold">Antes de publicar</h2>
-              <span className="text-[13px] text-gris">{listos} de 5</span>
+              <span className="text-[13px] text-gris">{listos} de {checks.length}</span>
             </div>
             <div className="h-1.5 overflow-hidden rounded-full bg-linea">
-              <div className="h-full rounded-full bg-ok transition-[width] duration-300" style={{ width: `${(listos / 5) * 100}%` }} />
+              <div className="h-full rounded-full bg-ok transition-[width] duration-300" style={{ width: `${(listos / checks.length) * 100}%` }} />
             </div>
             <ul className="flex flex-col gap-3">
               {checks.map(([label, ok]) => (

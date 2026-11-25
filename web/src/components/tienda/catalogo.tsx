@@ -16,7 +16,7 @@ const FILTROS: [Filtro, string][] = [["todos", "Todos"], ...TIENDA.categorias.ma
 const POR_PAGINA = TIENDA.porPagina;
 
 function pasaFiltro(p: Producto, f: Filtro) {
-  return f === "todos" || p.categoria === f;
+  return f === "todos" || p.categorias.includes(f);
 }
 
 // Lee ?filtro= y ?q= de la URL (los usan el menú y el buscador del encabezado).
@@ -74,7 +74,7 @@ function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | 
         <div>
           <h1 className="mb-1 font-serif text-[34px] font-semibold leading-tight sm:text-[40px]">Catálogo</h1>
           <p className="text-sm text-gris sm:text-[15px]">
-            {visibles.length} {visibles.length === 1 ? "producto" : "productos"}
+            {visibles.length} {visibles.length === 1 ? TIENDA.producto.singular : TIENDA.producto.plural}
           </p>
         </div>
         <div className="flex gap-2.5">
@@ -140,7 +140,7 @@ function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | 
           <TarjetaProducto key={p.slug} producto={p} indice={i} />
         ))}
       </div>
-      {visibles.length === 0 && <p className="mt-6 text-center text-gris">No encontramos productos con esa búsqueda.</p>}
+      {visibles.length === 0 && <p className="mt-6 text-center text-gris">No encontramos {TIENDA.producto.plural} con esa búsqueda.</p>}
 
       {paginas > 1 && (
         <nav aria-label="Páginas del catálogo" className="mt-8 flex items-center justify-center gap-2">
