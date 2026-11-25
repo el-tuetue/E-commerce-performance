@@ -22,7 +22,7 @@ export function BarraInferior() {
   return (
     <nav
       aria-label="Navegación principal"
-      className="fixed inset-x-0 bottom-0 z-40 border-t border-borde bg-white/95 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden"
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-borde bg-superficie/95 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden"
     >
       <ul className="grid grid-cols-4">
         {items.map(({ href, texto, icono: Icono, activo, cantidad }) => (
