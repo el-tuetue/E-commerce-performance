@@ -193,6 +193,12 @@ export const TIENDA = {
   creditosFotos:
     "Fotos referenciales de Wikimedia Commons (CC0, CC BY, CC BY-SA): DYVER, Kevin Rheese, Brownchl, Dsuarez04, Jacek Halicki, Javier Velez, Rypptc, Miansari66, Tauseef perfumes, Fseddiqi1983, آية سعيد البيطار. Las ilustraciones de frascos son referenciales.",
 
+  // Cifras de ejemplo con las que parte el "Resumen de hoy" del panel (se suman las ventas de la demo).
+  cifrasDemo: {
+    local: { ventas: 7, monto: 849930 },
+    online: { pedidos: 3, monto: 548940 },
+  },
+
   // Clave del almacenamiento de la demo en el navegador. Cámbiala si cambias los datos de ejemplo.
   claveDemo: "nube-demo-v3",
 };

@@ -39,8 +39,8 @@ type Estado = {
 };
 
 // Cifras de ejemplo con las que parte el día.
-export const BASE_LOCAL = { ventas: 7, monto: 189930 };
-export const BASE_ONLINE = { pedidos: 3, monto: 82940 };
+export const BASE_LOCAL = TIENDA.cifrasDemo.local;
+export const BASE_ONLINE = TIENDA.cifrasDemo.online;
 
 function estadoInicial(): Estado {
   return {
