@@ -8,7 +8,9 @@ import { TIENDA } from "@/config/tienda";
 export default function TiendaLayout({ children }: { children: React.ReactNode }) {
   return (
     // pb-[60px]: espacio para la barra inferior del celular.
-    <div className="flex min-h-dvh flex-col bg-fondo pb-[60px] sm:pb-0">
+    <div
+      className={`flex min-h-dvh flex-col pb-[60px] sm:pb-0 ${TIENDA.temporada.activa ? "fondo-festivo" : "bg-fondo"}`}
+    >
       <Encabezado />
       {TIENDA.temporada.activa && <Guirnalda className="-mb-3 sm:-mb-4" />}
       <div className="flex-1">{children}</div>
