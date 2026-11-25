@@ -79,7 +79,7 @@ export function Carrusel() {
             type="button"
             aria-label="Destacado anterior"
             onClick={() => setActual((a) => (a + n - 1) % n)}
-            className="inline-flex size-11 items-center justify-center rounded-full bg-white/90 text-tinta"
+            className="inline-flex size-11 items-center justify-center rounded-full bg-white/90 text-boton-texto"
           >
             <ChevronLeft className="size-[18px]" aria-hidden />
           </button>
@@ -87,7 +87,7 @@ export function Carrusel() {
             type="button"
             aria-label="Destacado siguiente"
             onClick={() => setActual((a) => (a + 1) % n)}
-            className="inline-flex size-11 items-center justify-center rounded-full bg-white/90 text-tinta"
+            className="inline-flex size-11 items-center justify-center rounded-full bg-white/90 text-boton-texto"
           >
             <ChevronRight className="size-[18px]" aria-hidden />
           </button>
