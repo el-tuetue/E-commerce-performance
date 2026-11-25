@@ -6,7 +6,7 @@ import { Pie } from "@/components/tienda/pie";
 export default function TiendaLayout({ children }: { children: React.ReactNode }) {
   return (
     // pb-[60px]: espacio para la barra inferior del celular.
-    <div className="flex min-h-dvh flex-col bg-fondo pb-[60px] sm:pb-0">
+    <div className="fondo-tienda flex min-h-dvh flex-col pb-[60px] sm:pb-0">
       <Encabezado />
       <div className="flex-1">{children}</div>
       <Pie />
