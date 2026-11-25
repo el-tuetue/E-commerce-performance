@@ -101,7 +101,7 @@ function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | 
                 setOrden(e.target.value as typeof orden);
                 setPagina(1);
               }}
-              className="h-11 rounded-[10px] border border-borde-fuerte bg-white px-2.5 text-sm text-tinta"
+              className="h-11 rounded-[10px] border border-borde-fuerte bg-superficie px-2.5 text-sm text-tinta"
             >
               <option value="destacados">Destacados</option>
               <option value="menor">Menor precio</option>
@@ -127,7 +127,7 @@ function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | 
               setPagina(1);
             }}
             className={`h-11 shrink-0 rounded-full border px-[18px] text-sm transition-colors ${
-              filtro === f ? "border-marca bg-marca font-semibold text-white" : "border-borde-fuerte bg-white text-tinta"
+              filtro === f ? "border-marca bg-marca font-semibold text-sobre-marca" : "border-borde-fuerte bg-superficie text-tinta"
             }`}
           >
             {label}
@@ -149,7 +149,7 @@ function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | 
             onClick={() => irAPagina(actual - 1)}
             disabled={actual === 1}
             aria-label="Página anterior"
-            className="inline-flex size-11 items-center justify-center rounded-[10px] border border-borde-fuerte bg-white text-tinta disabled:opacity-35"
+            className="inline-flex size-11 items-center justify-center rounded-[10px] border border-borde-fuerte bg-superficie text-tinta disabled:opacity-35"
           >
             <ChevronLeft className="size-5" aria-hidden />
           </button>
@@ -161,7 +161,7 @@ function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | 
               aria-label={`Página ${n}`}
               aria-current={n === actual ? "page" : undefined}
               className={`size-11 rounded-[10px] border text-sm ${
-                n === actual ? "border-marca bg-marca font-semibold text-white" : "border-borde-fuerte bg-white text-tinta"
+                n === actual ? "border-marca bg-marca font-semibold text-sobre-marca" : "border-borde-fuerte bg-superficie text-tinta"
               }`}
             >
               {n}
@@ -172,7 +172,7 @@ function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | 
             onClick={() => irAPagina(actual + 1)}
             disabled={actual === paginas}
             aria-label="Página siguiente"
-            className="inline-flex size-11 items-center justify-center rounded-[10px] border border-borde-fuerte bg-white text-tinta disabled:opacity-35"
+            className="inline-flex size-11 items-center justify-center rounded-[10px] border border-borde-fuerte bg-superficie text-tinta disabled:opacity-35"
           >
             <ChevronRight className="size-5" aria-hidden />
           </button>

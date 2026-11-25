@@ -11,7 +11,7 @@ export function Emblema({ className = "size-12" }: { className?: string }) {
   return (
     <span
       aria-hidden
-      className={`${className} inline-flex shrink-0 items-center justify-center rounded-full bg-marca font-serif text-[1.1em] font-semibold text-white`}
+      className={`${className} inline-flex shrink-0 items-center justify-center rounded-full bg-marca font-serif text-[1.1em] font-semibold text-sobre-marca`}
     >
       {iniciales(TIENDA.nombre)}
     </span>

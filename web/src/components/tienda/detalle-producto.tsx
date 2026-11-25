@@ -116,7 +116,7 @@ function Detalle({ producto }: { producto: Producto }) {
                           setCantidad(1);
                         }}
                         className={`h-12 min-w-[84px] rounded-[10px] border px-4 text-[15px] ${
-                          on ? "border-tinta bg-tinta font-semibold text-white" : "border-borde-fuerte bg-white text-tinta"
+                          on ? "border-marca bg-marca font-semibold text-sobre-marca" : "border-borde-fuerte bg-superficie text-tinta"
                         } ${agotada && !on ? "text-gris line-through decoration-1" : ""}`}
                       >
                         {nombreVariante(o)}
@@ -132,7 +132,7 @@ function Detalle({ producto }: { producto: Producto }) {
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
-            <div className="flex items-center rounded-[10px] border border-borde-fuerte bg-white">
+            <div className="flex items-center rounded-[10px] border border-borde-fuerte bg-superficie">
               <button
                 type="button"
                 aria-label="Quitar uno"
@@ -157,7 +157,7 @@ function Detalle({ producto }: { producto: Producto }) {
               type="button"
               disabled={stock === 0}
               onClick={() => agregar(false)}
-              className="h-12 flex-[1_1_180px] rounded-[10px] bg-marca font-semibold text-white transition-colors hover:bg-marca-oscuro disabled:cursor-not-allowed disabled:bg-linea disabled:text-gris"
+              className="h-12 flex-[1_1_180px] rounded-[10px] bg-marca font-semibold text-sobre-marca transition-colors hover:bg-marca-oscuro disabled:cursor-not-allowed disabled:bg-linea disabled:text-gris"
             >
               {stock === 0 ? "Sin stock" : "Agregar al carrito"}
             </button>
@@ -165,7 +165,7 @@ function Detalle({ producto }: { producto: Producto }) {
               <button
                 type="button"
                 onClick={() => agregar(true)}
-                className="h-12 flex-[1_1_140px] rounded-[10px] border border-marca bg-white font-semibold text-marca"
+                className="h-12 flex-[1_1_140px] rounded-[10px] border border-marca bg-superficie font-semibold text-marca"
               >
                 Comprar ahora
               </button>
@@ -180,7 +180,7 @@ function Detalle({ producto }: { producto: Producto }) {
             </p>
           )}
 
-          <div className="flex flex-col gap-2.5 rounded-[14px] border border-borde bg-white px-[18px] py-4 text-sm">
+          <div className="flex flex-col gap-2.5 rounded-[14px] border border-borde bg-superficie px-[18px] py-4 text-sm">
             <div className="flex items-center gap-2.5">
               <Store className="size-5 shrink-0 text-marca" aria-hidden />
               <span>Retiro gratis en el local: listo en {TIENDA.envio.preparacion}</span>

@@ -29,6 +29,13 @@
   --color-borde-fuerte: #d4ccbf;
   --color-linea: #efeae1;
 
+  /* Roles que cambian en modo oscuro */
+  --color-superficie: #ffffff; /* tarjetas, campos, encabezado */
+  --color-oscuro: #16181c; /* bloques oscuros (destacado, carrusel, caja) */
+  --color-sobre-marca: #ffffff; /* texto sobre botones de color marca */
+  --color-boton: #ffffff; /* botón claro sobre bloques oscuros o fotos */
+  --color-boton-texto: #16181c;
+
   --color-ok: #2e6b3f;
   --color-ok-fondo: #e6f2e9;
   --color-alerta: #8a4b00;
@@ -112,6 +119,51 @@ body {
 }
 .sin-barra::-webkit-scrollbar {
   display: none;
+}
+
+/* ============================================================================
+   MODO OSCURO: se activa con la clase "dark" en <html> (botón del encabezado).
+   Solo redefine los colores; los componentes no cambian.
+   ========================================================================== */
+html.dark {
+  color-scheme: dark;
+  --color-fondo: #111214;
+  --color-panel: #16181b;
+  --color-crema: #1d1f23;
+  --color-tabla: #1a1c1f;
+  --color-borde: #2a2d32;
+  --color-borde-fuerte: #3a3e44;
+  --color-linea: #23262a;
+  --color-superficie: #1a1c20;
+
+  --color-tinta: #f2ede4;
+  --color-gris: #a9a49b;
+  --color-humo: #c9c3b8;
+  --color-niebla: #ddd6ca;
+
+  --color-marca: #d4b36a; /* dorado: en oscuro los botones pasan a dorado */
+  --color-marca-oscuro: #e2c582;
+  --color-marca-suave: #2b2618;
+  --color-marca-tenue: #201d15;
+  --color-sobre-marca: #16181c;
+  --color-oscuro: #24262b;
+  --color-tinta-2: #2f3237;
+  --color-boton: #f2ede4;
+  --color-boton-texto: #16181c;
+  --color-acento: #c9a24a;
+
+  --color-ok: #7cc495;
+  --color-ok-fondo: #16301f;
+  --color-alerta: #e6b064;
+  --color-alerta-fondo: #3a2a12;
+  --color-error: #f08a9a;
+  --color-error-fondo: #3a1820;
+  --color-info: #93b6ea;
+  --color-info-fondo: #172338;
+
+  /* Colores de temporada (solo existen en la versión festiva) */
+  --color-temporada-suave: #3a161c;
+  --color-pino-suave: #15271d;
 }
 
 :focus-visible {

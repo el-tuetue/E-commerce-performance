@@ -31,7 +31,7 @@ export function EncabezadoCaja() {
   const ventasHoy = BASE_LOCAL.ventas + estado.ventasCaja.length;
 
   return (
-    <header className="border-b border-borde bg-white">
+    <header className="border-b border-borde bg-superficie">
       <div className="mx-auto flex max-w-[1240px] flex-wrap items-center justify-between gap-x-6 gap-y-3 px-4 py-3.5 sm:px-6">
         <div className="flex flex-wrap items-center gap-3">
           <Emblema className="size-11" />

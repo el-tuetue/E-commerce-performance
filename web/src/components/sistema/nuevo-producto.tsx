@@ -174,7 +174,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             setF(EJEMPLO);
             setError(false);
           }}
-          className="h-11 rounded-[10px] border border-borde-fuerte bg-white px-4 text-sm text-tinta"
+          className="h-11 rounded-[10px] border border-borde-fuerte bg-superficie px-4 text-sm text-tinta"
         >
           Rellenar con un ejemplo
         </button>
@@ -182,7 +182,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
 
       <div className="flex flex-wrap items-start gap-5">
         <div className="flex min-w-0 flex-[999_1_460px] flex-col gap-4">
-          <section className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-white p-5">
+          <section className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-superficie p-5">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 className="text-[17px] font-semibold">1. Foto</h2>
               <span className="text-[13px] text-gris">JPG o PNG, fondo claro, mínimo 800 px</span>
@@ -220,7 +220,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             </label>
           </section>
 
-          <section className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-white p-5">
+          <section className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-superficie p-5">
             <h2 className="text-[17px] font-semibold">2. Información</h2>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3.5">
               <label className="flex flex-col gap-1.5 text-sm font-medium">
@@ -265,7 +265,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                           cambiar({ categorias: on ? f.categorias.filter((x) => x !== c.id) : [...f.categorias, c.id] })
                         }
                         className={`h-10 rounded-full border px-4 text-sm transition-colors ${
-                          on ? "border-marca bg-marca font-semibold text-white" : "border-borde-fuerte bg-white text-tinta"
+                          on ? "border-marca bg-marca font-semibold text-sobre-marca" : "border-borde-fuerte bg-superficie text-tinta"
                         } ${error && f.categorias.length === 0 ? "border-error" : ""}`}
                       >
                         {c.nombre}
@@ -307,7 +307,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             </label>
           </section>
 
-          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-white p-5">
+          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-superficie p-5">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h2 className="text-[17px] font-semibold">3. Opciones, precio y stock</h2>
               <span className="text-[13px] text-gris">Con la pistola puedes escanear el código directo en el campo</span>
@@ -367,7 +367,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                       aria-label="Quitar esta opción"
                       disabled={f.variantes.length === 1}
                       onClick={() => cambiar({ variantes: f.variantes.filter((_, j) => j !== i) })}
-                      className="inline-flex size-11 items-center justify-center rounded-[10px] border border-borde bg-white text-error disabled:text-borde-fuerte"
+                      className="inline-flex size-11 items-center justify-center rounded-[10px] border border-borde bg-superficie text-error disabled:text-borde-fuerte"
                     >
                       <Trash2 className="size-[18px]" aria-hidden />
                     </button>
@@ -378,13 +378,13 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             <button
               type="button"
               onClick={() => cambiar({ variantes: [...f.variantes, filaVacia()] })}
-              className="h-11 self-start rounded-[10px] border border-dashed border-marca bg-white px-3.5 text-sm font-medium text-marca"
+              className="h-11 self-start rounded-[10px] border border-dashed border-marca bg-superficie px-3.5 text-sm font-medium text-marca"
             >
               + Agregar otra opción
             </button>
           </section>
 
-          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-white p-5">
+          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-superficie p-5">
             <h2 className="text-[17px] font-semibold">4. Dónde se vende</h2>
             {(
               [
@@ -409,7 +409,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
         </div>
 
         <aside className="flex flex-[1_1_300px] flex-col gap-4 lg:sticky lg:top-6">
-          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-white p-[18px]">
+          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-superficie p-[18px]">
             <h2 className="text-[15px] font-semibold text-gris">Así se verá en la tienda</h2>
             <div className="overflow-hidden rounded-[14px] border border-borde">
               <div className="relative flex aspect-[4/5] items-center justify-center bg-crema">
@@ -419,7 +419,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                 ) : (
                   <span className="text-sm text-gris">Sin foto todavía</span>
                 )}
-                <span className="absolute left-3 top-3 rounded-full bg-tinta px-2.5 py-1 text-xs font-semibold text-white">Nuevo</span>
+                <span className="absolute left-3 top-3 rounded-full bg-oscuro px-2.5 py-1 text-xs font-semibold text-white">Nuevo</span>
               </div>
               <div className="flex flex-col gap-1 px-4 py-3.5">
                 <p className="text-xs uppercase tracking-[1.2px] text-gris">{f.marca || "Marca"}</p>
@@ -434,7 +434,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             </div>
           </section>
 
-          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-white p-[18px]">
+          <section className="flex flex-col gap-3 rounded-2xl border border-borde bg-superficie p-[18px]">
             <div className="flex items-baseline justify-between">
               <h2 className="text-[15px] font-semibold">Antes de publicar</h2>
               <span className="text-[13px] text-gris">{listos} de {checks.length}</span>
@@ -448,7 +448,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
                   <span
                     aria-hidden
                     className={`inline-flex size-[22px] shrink-0 items-center justify-center rounded-full transition-colors ${
-                      ok ? "bg-ok text-white" : `border-2 bg-white ${error ? "border-error" : "border-borde-fuerte"}`
+                      ok ? "bg-ok text-white" : `border-2 bg-superficie ${error ? "border-error" : "border-borde-fuerte"}`
                     }`}
                   >
                     {ok && <Check className="size-3.5" strokeWidth={3} />}
@@ -463,7 +463,7 @@ export function NuevoProducto({ alPublicar }: { alPublicar: () => void }) {
             <button
               type="button"
               onClick={publicar}
-              className={`h-[50px] rounded-xl bg-marca text-base font-semibold text-white transition-opacity ${completo ? "" : "opacity-60"}`}
+              className={`h-[50px] rounded-xl bg-marca text-base font-semibold text-sobre-marca transition-opacity ${completo ? "" : "opacity-60"}`}
             >
               Publicar producto
             </button>
