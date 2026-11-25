@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { formatoPrecio, nombreVariante, variantePrincipal, type Producto } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
+import { Mono } from "./decoracion";
 
-export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; indice?: number }) {
+export function TarjetaProducto({ producto, indice = 0, mono = false }: { producto: Producto; indice?: number; mono?: boolean }) {
   const { stockDe, agregarAlCarrito, avisar, estado } = useDemo();
 
   // La tarjeta agrega la primera variante con stock.
@@ -51,6 +52,7 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
           loading="lazy"
           className={`size-full object-cover transition duration-700 group-hover:scale-105 ${agotado ? "opacity-75 grayscale-[0.7]" : ""}`}
         />
+        {mono && <Mono className="absolute -right-1 -top-1 w-[58px] drop-shadow sm:w-[72px]" />}
         {producto.avisoFoto && (
           <span className="absolute bottom-2 right-2 rounded-full bg-white/85 px-2 py-0.5 text-[10px] text-gris sm:bottom-3 sm:right-3 sm:text-[11px]">
             {producto.avisoFoto}

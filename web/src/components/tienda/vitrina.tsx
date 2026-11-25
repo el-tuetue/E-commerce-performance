@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import { TIENDA } from "@/config/tienda";
 import { useDemo } from "@/lib/demo-store";
 import { TarjetaProducto } from "./tarjeta-producto";
 
@@ -14,6 +15,7 @@ export function Vitrina({
   slugs,
   href,
   cta,
+  decoracion,
 }: {
   id: string;
   eyebrow: string;
@@ -22,6 +24,7 @@ export function Vitrina({
   slugs: string[];
   href: string;
   cta: string;
+  decoracion?: "regalo";
 }) {
   const { productos } = useDemo();
   const lista = slugs.map((s) => productos.find((p) => p.slug === s)).filter((p) => p !== undefined);
@@ -46,7 +49,7 @@ export function Vitrina({
       </div>
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(230px,1fr))] sm:gap-5">
         {lista.map((p, i) => (
-          <TarjetaProducto key={p.slug} producto={p} indice={i} />
+          <TarjetaProducto key={p.slug} producto={p} indice={i} mono={decoracion === "regalo" && TIENDA.temporada.activa} />
         ))}
       </div>
       <Link

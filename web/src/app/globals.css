@@ -29,9 +29,13 @@
   --color-borde-fuerte: #d4ccbf;
   --color-linea: #efeae1;
 
-  /* Temporada (Navidad): rojo del gorro del logo. */
+  /* Temporada (Navidad): rojo del gorro del logo, verde pino y dorado. */
   --color-temporada: #9b1c2c;
   --color-temporada-suave: #fbecee;
+  --color-pino: #1e4d34;
+  --color-pino-claro: #2b6446;
+  --color-pino-suave: #e9f2ec;
+  --color-oro: #c9a24a;
 
   --color-ok: #2e6b3f;
   --color-ok-fondo: #e6f2e9;
@@ -107,6 +111,33 @@ body {
   animation-name: nieve;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+}
+/* Luces de la guirnalda que titilan y esferas que se balancean. */
+@keyframes titilar {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}
+.luz {
+  animation: titilar 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 0 3px rgb(255 220 120 / 0.9));
+}
+@keyframes balanceo {
+  0%,
+  100% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(4deg);
+  }
+}
+.esfera {
+  transform-origin: 50% 0;
+  animation: balanceo 4.5s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
   .copo {

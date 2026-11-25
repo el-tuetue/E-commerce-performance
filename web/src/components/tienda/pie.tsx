@@ -1,10 +1,19 @@
 import { Emblema } from "@/components/logo";
 import { TIENDA } from "@/config/tienda";
+import { Guirnalda } from "./decoracion";
 
 export function Pie() {
   const { contacto } = TIENDA;
   return (
     <footer className="border-t border-borde bg-white">
+      {TIENDA.temporada.activa && (
+        <>
+          <Guirnalda />
+          <p className="mx-auto max-w-[1200px] px-4 pt-3 text-center font-serif text-2xl font-semibold text-pino sm:px-6 sm:text-[28px]">
+            ¡Felices fiestas te desea {TIENDA.nombre}!
+          </p>
+        </>
+      )}
       <div className="mx-auto grid max-w-[1200px] grid-cols-2 gap-x-4 gap-y-5 px-4 pb-4 pt-6 text-sm leading-relaxed sm:gap-6 sm:px-6 sm:pb-5 sm:pt-10 lg:grid-cols-4">
         <div className="col-span-2 flex items-center gap-3 lg:col-span-1 lg:block">
           <Emblema className="size-14 text-xl lg:mb-3 lg:size-16" />

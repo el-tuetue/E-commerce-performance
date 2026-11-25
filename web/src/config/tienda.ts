@@ -39,6 +39,7 @@ export type Vitrina = {
   slugs: string[]; // productos que se muestran (4 se ve mejor)
   href: string;
   cta: string;
+  decoracion?: "regalo"; // en temporada: moño de regalo sobre cada tarjeta
 };
 
 // Temporada especial (Navidad, Día de la Madre, Cyber…). Con activa: false desaparece todo.
@@ -185,6 +186,7 @@ export const TIENDA = {
       slugs: ["chanel-coco-mademoiselle", "dior-sauvage", "ysl-black-opium", "rabanne-1-million"],
       href: "/catalogo?filtro=disenador",
       cta: "Ver todos los de diseñador",
+      decoracion: "regalo",
     },
     {
       id: "titulo-arabes",

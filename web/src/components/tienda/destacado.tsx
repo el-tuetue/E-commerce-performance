@@ -4,6 +4,7 @@ import Link from "next/link";
 import { TIENDA } from "@/config/tienda";
 import { formatoPrecio, nombreVariante, variantePrincipal } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
+import { Mono } from "./decoracion";
 
 // Bloque grande de un producto destacado. Se elige en src/config/tienda.ts (destacado.slug).
 export function Destacado() {
@@ -31,6 +32,15 @@ export function Destacado() {
             loading="lazy"
             className="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-105"
           />
+          {TIENDA.temporada.activa && (
+            <>
+              <div aria-hidden className="absolute inset-y-0 right-10 w-5 bg-temporada/90 sm:right-14 sm:w-7" />
+              <Mono className="absolute right-0 top-2 w-[100px] drop-shadow-lg sm:right-2 sm:w-[124px]" />
+              <span className="absolute bottom-3 left-3 rounded-full bg-white/95 px-3 py-1.5 text-xs font-semibold text-temporada">
+                Envoltura de regalo gratis
+              </span>
+            </>
+          )}
         </div>
         <div className="flex flex-[1.3_1_380px] flex-col justify-center gap-3 p-5 sm:gap-4 sm:p-[clamp(24px,4vw,52px)]">
           <p className="text-xs font-semibold uppercase tracking-[2px] text-claro">{TIENDA.destacado.eyebrow}</p>
