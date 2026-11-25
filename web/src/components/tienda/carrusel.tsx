@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { TIENDA } from "@/config/tienda";
+import { Nieve } from "./nieve";
 
 // Los banners se editan en src/config/tienda.ts (slides).
 const SLIDES = TIENDA.slides;
@@ -70,6 +71,7 @@ export function Carrusel() {
             </div>
           );
         })}
+        <Nieve />
         <div className="absolute right-3 top-3 z-[2] flex gap-2 sm:right-6 sm:top-6">
           <button
             type="button"

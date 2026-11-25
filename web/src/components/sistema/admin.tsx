@@ -1,5 +1,6 @@
 "use client";
 
+import { Gift } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
@@ -378,6 +379,13 @@ function Pedidos() {
               <p className="text-sm text-gris">
                 {o.resumen} · {o.entrega === "retiro" ? "Retiro en tienda" : "Despacho"}
               </p>
+              {o.regalo && (
+                <p className="mt-1.5 inline-flex flex-wrap items-center gap-1.5 rounded-lg bg-temporada-suave px-2.5 py-1 text-[13px] text-temporada">
+                  <Gift className="size-4 shrink-0" aria-hidden />
+                  <strong className="font-semibold">Envolver para regalo</strong>
+                  {o.regalo.mensaje && <span>· Tarjeta: “{o.regalo.mensaje}”</span>}
+                </p>
+              )}
             </div>
             <span className="min-w-[90px] font-semibold">{formatoPrecio(o.total)}</span>
             <span className={`${chip} ${f.clase}`}>{f.txt}</span>

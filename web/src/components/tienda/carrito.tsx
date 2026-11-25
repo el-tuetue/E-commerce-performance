@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useLayoutEffect, useState } from "react";
-import { CircleCheck, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
+import { CircleCheck, Gift, Minus, Plus, ShoppingBag, Trash2 } from "lucide-react";
 import { TIENDA } from "@/config/tienda";
 import { COSTO_ENVIO, formatoPrecio, nombreVariante } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
@@ -42,7 +42,9 @@ export function Carrito() {
   const [medio, setMedio] = useState<Medio>("webpay");
   const [nombre, setNombre] = useState("");
   const [error, setError] = useState("");
-  const [pagado, setPagado] = useState<{ num: number; medio: Medio; entrega: Entrega } | null>(null);
+  const [pagado, setPagado] = useState<{ num: number; medio: Medio; entrega: Entrega; regalo: boolean } | null>(null);
+  const [regalo, setRegalo] = useState(false);
+  const [mensaje, setMensaje] = useState("");
 
   // Next.js deja la página "dormida" al salir y la muestra igual al volver.
   // Al ocultarse, se borra el "¡Gracias por tu compra!" para partir de cero la próxima vez.
@@ -61,13 +63,15 @@ export function Carrito() {
   const envio = entrega === "despacho" ? COSTO_ENVIO : 0;
 
   const pagar = () => {
-    const r = pagarCarrito({ entrega, cliente: nombre.trim() });
+    const r = pagarCarrito({ entrega, cliente: nombre.trim(), regalo: regalo ? { mensaje: mensaje.trim() } : undefined });
     if (!r.ok) {
       setError(r.error);
       return;
     }
     setError("");
-    setPagado({ num: r.num!, medio, entrega });
+    setPagado({ num: r.num!, medio, entrega, regalo });
+    setRegalo(false);
+    setMensaje("");
     window.scrollTo({ top: 0 });
   };
 
@@ -84,6 +88,12 @@ export function Carrito() {
               ? "Lo enviaremos a tu dirección."
               : "Te avisaremos cuando esté listo para retirar en el local."}
           </p>
+          {pagado.regalo && (
+            <p className="inline-flex items-center gap-2 rounded-xl bg-temporada-suave px-4 py-2.5 text-sm font-medium text-temporada">
+              <Gift className="size-4" aria-hidden />
+              Lo envolvemos para regalo, sin costo.
+            </p>
+          )}
           <p className="text-sm text-gris">Te avisaremos por correo y WhatsApp cuando cambie el estado del pedido.</p>
           <p className="rounded-xl bg-marca-suave px-4 py-3 text-sm text-marca">
             Demo: el stock ya se descontó y el pedido aparece en el panel del administrador.
@@ -207,6 +217,42 @@ export function Carrito() {
               )}
             </div>
           </div>
+
+          {TIENDA.temporada.activa && TIENDA.temporada.envolturaRegalo && (
+            <div
+              className={`flex flex-col gap-3 rounded-2xl border p-5 transition-colors ${
+                regalo ? "border-temporada bg-temporada-suave" : "border-borde bg-white"
+              }`}
+            >
+              <label className="flex min-h-11 cursor-pointer items-center gap-3">
+                <input
+                  type="checkbox"
+                  checked={regalo}
+                  onChange={(e) => setRegalo(e.target.checked)}
+                  className="size-5 shrink-0 accent-temporada"
+                />
+                <Gift className="size-6 shrink-0 text-temporada" aria-hidden />
+                <span>
+                  <strong className="block font-semibold">¿Es para regalo?</strong>
+                  <span className="block text-sm text-gris">Lo envolvemos sin costo y agregamos una tarjeta con tu mensaje.</span>
+                </span>
+              </label>
+              {regalo && (
+                <label className="flex flex-col gap-1.5 text-sm font-medium">
+                  Mensaje para la tarjeta (opcional)
+                  <textarea
+                    rows={2}
+                    maxLength={160}
+                    value={mensaje}
+                    onChange={(e) => setMensaje(e.target.value)}
+                    placeholder="Ej: ¡Feliz Navidad, mamá! Con cariño, Sofi"
+                    className="campo h-auto resize-none p-3 font-normal"
+                  />
+                  <span className="text-xs font-normal text-gris">{mensaje.length} / 160</span>
+                </label>
+              )}
+            </div>
+          )}
 
           <div className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-white p-5">
             <h2 className="text-lg font-semibold">Medio de pago</h2>

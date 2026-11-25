@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { Carrusel } from "@/components/tienda/carrusel";
 import { Destacado } from "@/components/tienda/destacado";
+import { GuiaRegalos } from "@/components/tienda/guia-regalos";
 import { Vitrina } from "@/components/tienda/vitrina";
 import { TIENDA } from "@/config/tienda";
 import { MARCAS } from "@/lib/datos";
@@ -60,6 +61,8 @@ export default function Inicio() {
           ))}
         </div>
       </section>
+
+      <GuiaRegalos />
 
       <section
         id="marcas"

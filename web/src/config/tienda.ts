@@ -41,6 +41,19 @@ export type Vitrina = {
   cta: string;
 };
 
+// Temporada especial (Navidad, Día de la Madre, Cyber…). Con activa: false desaparece todo.
+export type RangoRegalo = { titulo: string; texto: string; min?: number; max?: number };
+export type Temporada = {
+  activa: boolean;
+  nombre: string;
+  nieve: boolean; // copos cayendo sobre el banner principal
+  fecha: string; // AAAA-MM-DD, para la cuenta regresiva
+  textoCuenta: string; // "Faltan 30 días <textoCuenta>"
+  fechaLimite: string; // aviso de hasta cuándo comprar online
+  envolturaRegalo: boolean; // opción "Envolver para regalo" en el carrito
+  guiaRegalos: { eyebrow: string; titulo: string; texto: string; rangos: RangoRegalo[] };
+};
+
 // Producto que se carga con "Rellenar con un ejemplo" en el panel (Agregar producto).
 export type EjemploProducto = {
   nombre: string;
@@ -64,8 +77,8 @@ export const TIENDA = {
 
   // Franja superior (en celular se muestra la versión corta).
   aviso: {
-    corto: "Perfumes 100% originales · Retiro gratis",
-    largo: "Perfumes 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO] · Pago seguro",
+    corto: "Navidad en LA Perfumes · 100% originales",
+    largo: "Navidad en LA Perfumes · Perfumes 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]",
   },
 
   // --- Contacto y local ---
@@ -84,6 +97,27 @@ export const TIENDA = {
     preparacion: "[TIEMPO DE PREPARACIÓN]",
   },
   cuotas: "Precio referencial · hasta 3 cuotas sin interés",
+
+  // --- Temporada ---
+  temporada: {
+    activa: true,
+    nombre: "Navidad",
+    nieve: true,
+    fecha: "2026-12-25",
+    textoCuenta: "para Navidad",
+    fechaLimite: "Compra online hasta el 22 de diciembre para recibirlo a tiempo",
+    envolturaRegalo: true,
+    guiaRegalos: {
+      eyebrow: "Guía de regalos",
+      titulo: "Encuentra el regalo perfecto",
+      texto: "Elige tu presupuesto y te mostramos los perfumes que calzan. Todos se envuelven para regalo sin costo.",
+      rangos: [
+        { titulo: "Hasta $40.000", texto: "Árabes intensos y duraderos", max: 40000 },
+        { titulo: "$40.000 a $100.000", texto: "Clásicos y favoritos", min: 40000, max: 100000 },
+        { titulo: "Más de $100.000", texto: "Los grandes íconos", min: 100000 },
+      ],
+    },
+  } as Temporada,
 
   // --- Catálogo ---
   // Un perfume puede estar en varias categorías (ej: "Árabes" y "Hombre").
@@ -105,10 +139,10 @@ export const TIENDA = {
     {
       foto: "/fotos/chanel5.jpg",
       alt: "Frasco de Chanel N°5 iluminado",
-      eyebrow: "Para ella",
-      titulo: "La elegancia de un clásico",
-      texto: "Chanel, YSL y más: perfumes originales con stock real del local. Retira gratis o recíbelo en tu casa.",
-      cta: "Ver perfumes de mujer",
+      eyebrow: "Navidad",
+      titulo: "Regala un clásico",
+      texto: "Perfumes originales para cada persona de tu lista. Envoltura de regalo sin costo y retiro gratis en el local.",
+      cta: "Ver regalos para ella",
       href: "/catalogo?filtro=mujer",
       lado: "left",
     },
@@ -145,9 +179,9 @@ export const TIENDA = {
   vitrinas: [
     {
       id: "titulo-regalos",
-      eyebrow: "Los favoritos",
-      titulo: "Lo más vendido",
-      texto: "Los perfumes que más salen del local este mes.",
+      eyebrow: "Para regalar esta Navidad",
+      titulo: "Los más regalados",
+      texto: "Los perfumes que más se llevan para regalo. Te los envolvemos sin costo.",
       slugs: ["chanel-coco-mademoiselle", "dior-sauvage", "ysl-black-opium", "rabanne-1-million"],
       href: "/catalogo?filtro=disenador",
       cta: "Ver todos los de diseñador",
@@ -166,13 +200,13 @@ export const TIENDA = {
   // Bloque grande entre las vitrinas.
   destacado: {
     slug: "chanel-n5",
-    eyebrow: "Un clásico que nunca falla",
+    eyebrow: "El regalo que nunca falla",
   },
 
   // Bloque final de contacto.
   ayuda: {
-    titulo: "¿No sabes cuál elegir?",
-    texto: "Escríbenos y te recomendamos según el gusto de quien lo va a usar. También armamos paquetes de regalo.",
+    titulo: "¿Buscas el regalo perfecto?",
+    texto: "Escríbenos y te recomendamos según el gusto de quien lo va a recibir. Envolvemos para regalo sin costo.",
   },
 
   ejemploProducto: {

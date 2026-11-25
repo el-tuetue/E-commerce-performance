@@ -29,6 +29,10 @@
   --color-borde-fuerte: #d4ccbf;
   --color-linea: #efeae1;
 
+  /* Temporada (Navidad): rojo del gorro del logo. */
+  --color-temporada: #9b1c2c;
+  --color-temporada-suave: #fbecee;
+
   --color-ok: #2e6b3f;
   --color-ok-fondo: #e6f2e9;
   --color-alerta: #8a4b00;
@@ -86,6 +90,30 @@ body {
 }
 
 /* Va en la capa de componentes para que las utilidades (pl-9, h-11…) puedan ajustarlo. */
+/* Copos de nieve del banner (temporada). */
+@keyframes nieve {
+  from {
+    transform: translate3d(0, -12px, 0);
+  }
+  to {
+    transform: translate3d(var(--deriva, 20px), 600px, 0);
+  }
+}
+.copo {
+  position: absolute;
+  top: -12px;
+  border-radius: 9999px;
+  background: #fff;
+  animation-name: nieve;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .copo {
+    display: none;
+  }
+}
+
 @layer components {
   .campo {
     height: 46px;

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag, Snowflake } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { TIENDA } from "@/config/tienda";
 import { useDemo } from "@/lib/demo-store";
@@ -17,12 +17,19 @@ const MENU = [
 // Importante: la tienda no tiene ningún enlace al sistema interno.
 export function Encabezado() {
   const { unidadesCarrito } = useDemo();
+  const temporada = TIENDA.temporada.activa;
 
   return (
     <>
-      <div className="bg-marca px-4 py-1.5 text-center text-xs text-white sm:py-2 sm:text-[13px]">
+      <div
+        className={`flex items-center justify-center gap-2 px-4 py-1.5 text-center text-xs text-white sm:py-2 sm:text-[13px] ${
+          temporada ? "bg-temporada" : "bg-marca"
+        }`}
+      >
+        {temporada && <Snowflake className="size-3.5 shrink-0 opacity-80" aria-hidden />}
         <span className="sm:hidden">{TIENDA.aviso.corto}</span>
         <span className="hidden sm:inline">{TIENDA.aviso.largo}</span>
+        {temporada && <Snowflake className="size-3.5 shrink-0 opacity-80" aria-hidden />}
       </div>
       <header className="sticky top-0 z-30 border-b border-borde bg-white/95 backdrop-blur">
         <div className="mx-auto flex max-w-[1200px] items-center gap-x-8 px-4 py-2 sm:py-3.5 sm:px-6">

@@ -41,4 +41,5 @@ El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simp
 - Colores en `web/src/app/globals.css`: marca negro `#16181C`, crema `#FDFBF7`, dorado `#9A7431` (acento) y dorado claro `#E4CF9E` (detalles sobre fondo oscuro).
 - Tipografías: Bodoni Moda (títulos, parecida a la del logo) e Inter (texto).
 - Hay **dos versiones**: la normal en `main` (https://e-commerce-performance.vercel.app) y la navideña en la rama `festivo`, publicada en su propio proyecto de Vercel. Los cambios generales se hacen en `main` y luego se pasan a `festivo` (`git merge main` estando en `festivo`).
+- Versión navideña (`festivo`): `temporada.activa: true` en `tienda.ts` activa la franja roja con copos, la nieve del banner (`nieve.tsx`), la cuenta regresiva y guía de regalos por presupuesto (`guia-regalos.tsx`, usa `/catalogo?min=&max=`) y la opción "Envolver para regalo" en el carrito (se ve en el pedido del panel). Se publica en el proyecto de Vercel `la-perfumes-festivo` con `npx vercel deploy --prod` desde `web/` estando en la rama `festivo` (la carpeta `web/.vercel` queda enlazada a ese proyecto).
 - Botones de al menos 44 px; contraste mínimo de 4.5:1.

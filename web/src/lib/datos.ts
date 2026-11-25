@@ -336,6 +336,7 @@ export type Pedido = {
   entrega: "retiro" | "despacho";
   total: number;
   estado: EstadoPedido;
+  regalo?: { mensaje: string }; // si el cliente pidió envolver para regalo
 };
 
 export const PEDIDOS_INICIALES: Pedido[] = [

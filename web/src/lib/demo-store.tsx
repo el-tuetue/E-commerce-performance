@@ -66,7 +66,7 @@ type Contexto = {
   unidadesCarrito: number;
   agregarAlCarrito: (varianteId: string, cantidad?: number) => boolean;
   cambiarCantidadCarrito: (varianteId: string, cantidad: number) => void;
-  pagarCarrito: (datos: { entrega: "retiro" | "despacho"; cliente: string }) => Resultado;
+  pagarCarrito: (datos: { entrega: "retiro" | "despacho"; cliente: string; regalo?: { mensaje: string } }) => Resultado;
   venderEnCaja: (lineas: Linea[], medio: MedioCaja) => Resultado;
   reponer: (varianteId: string, cantidad: number) => void;
   publicarProducto: (producto: Producto, stock: Record<string, number>) => void;
@@ -197,7 +197,7 @@ export function useDemo(): Contexto {
         });
       },
 
-      pagarCarrito({ entrega, cliente }) {
+      pagarCarrito({ entrega, cliente, regalo }) {
         const e = leerEstado();
         const lineas = Object.entries(e.carrito).map(([varianteId, cantidad]) => ({ varianteId, cantidad }));
         if (lineas.length === 0) return { ok: false, error: "Tu carrito está vacío." };
@@ -217,7 +217,7 @@ export function useDemo(): Contexto {
           stock: descontar(p.stock, lineas),
           carrito: {},
           siguientePedido: p.siguientePedido + 1,
-          pedidos: [{ num, cliente: cliente || "Cliente web", resumen, entrega, total, estado: "pagado" }, ...p.pedidos],
+          pedidos: [{ num, cliente: cliente || "Cliente web", resumen, entrega, total, estado: "pagado", regalo }, ...p.pedidos],
         }));
         return { ok: true, num };
       },

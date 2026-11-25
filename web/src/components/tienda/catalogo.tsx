@@ -2,9 +2,9 @@
 
 import { useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, Search } from "lucide-react";
+import { ChevronLeft, ChevronRight, Search, X } from "lucide-react";
 import { TIENDA } from "@/config/tienda";
-import type { Producto } from "@/lib/datos";
+import { formatoPrecio, type Producto } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
 import { TarjetaProducto } from "./tarjeta-producto";
 
@@ -19,15 +19,47 @@ function pasaFiltro(p: Producto, f: Filtro) {
   return f === "todos" || p.categorias.includes(f);
 }
 
-// Lee ?filtro= y ?q= de la URL (los usan el menú y el buscador del encabezado).
-export function Catalogo() {
-  const params = useSearchParams();
-  // Al cambiar la URL se vuelve a montar con los filtros nuevos.
-  return <CatalogoInterno key={params.toString()} filtroInicial={params.get("filtro")} qInicial={params.get("q") ?? ""} />;
+type Rango = { min?: number; max?: number };
+
+// El producto entra si alguna de sus opciones tiene un precio dentro del rango.
+function pasaPrecio(p: Producto, r: Rango) {
+  return p.variantes.some((v) => (r.min === undefined || v.precio >= r.min) && (r.max === undefined || v.precio <= r.max));
 }
 
-function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | null; qInicial: string }) {
+function textoRango(r: Rango) {
+  if (r.min !== undefined && r.max !== undefined) return `${formatoPrecio(r.min)} a ${formatoPrecio(r.max)}`;
+  if (r.max !== undefined) return `Hasta ${formatoPrecio(r.max)}`;
+  if (r.min !== undefined) return `Más de ${formatoPrecio(r.min)}`;
+  return "";
+}
+
+// Lee ?filtro=, ?q=, ?min= y ?max= de la URL (los usan el menú, el buscador y la guía de regalos).
+export function Catalogo() {
+  const params = useSearchParams();
+  const numero = (v: string | null) => (v && Number.isFinite(Number(v)) ? Number(v) : undefined);
+  // Al cambiar la URL se vuelve a montar con los filtros nuevos.
+  return (
+    <CatalogoInterno
+      key={params.toString()}
+      filtroInicial={params.get("filtro")}
+      qInicial={params.get("q") ?? ""}
+      rangoInicial={{ min: numero(params.get("min")), max: numero(params.get("max")) }}
+    />
+  );
+}
+
+function CatalogoInterno({
+  filtroInicial,
+  qInicial,
+  rangoInicial,
+}: {
+  filtroInicial: string | null;
+  qInicial: string;
+  rangoInicial: Rango;
+}) {
   const { productos, stockDe } = useDemo();
+  const [rango, setRango] = useState<Rango>(rangoInicial);
+  const hayRango = rango.min !== undefined || rango.max !== undefined;
   const [filtro, setFiltro] = useState<Filtro>(
     filtroInicial && FILTROS.some(([f]) => f === filtroInicial) ? filtroInicial : "todos",
   );
@@ -39,7 +71,11 @@ function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | 
   const visibles = useMemo(() => {
     const q = busqueda.toLowerCase().trim();
     const lista = productos.filter(
-      (p) => p.online && pasaFiltro(p, filtro) && (q === "" || `${p.nombre} ${p.marca}`.toLowerCase().includes(q)),
+      (p) =>
+        p.online &&
+        pasaFiltro(p, filtro) &&
+        pasaPrecio(p, rango) &&
+        (q === "" || `${p.nombre} ${p.marca}`.toLowerCase().includes(q)),
     );
     const precio = (p: Producto) => Math.min(...p.variantes.map((v) => v.precio));
     if (orden === "menor") lista.sort((a, b) => precio(a) - precio(b));
@@ -50,7 +86,7 @@ function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | 
       lista.sort((a, b) => disponible(a) - disponible(b));
     }
     return lista;
-  }, [productos, filtro, busqueda, orden, stockDe]);
+  }, [productos, filtro, busqueda, orden, stockDe, rango]);
 
   const paginas = Math.max(1, Math.ceil(visibles.length / POR_PAGINA));
   const actual = Math.min(pagina, paginas);
@@ -134,6 +170,23 @@ function CatalogoInterno({ filtroInicial, qInicial }: { filtroInicial: string | 
           </button>
         ))}
       </div>
+
+      {hayRango && (
+        <div className="-mt-1 mb-4">
+          <button
+            type="button"
+            onClick={() => {
+              setRango({});
+              setPagina(1);
+            }}
+            className="inline-flex h-10 items-center gap-2 rounded-full bg-marca-suave px-4 text-sm font-medium text-marca"
+          >
+            Precio: {textoRango(rango)}
+            <X className="size-4" aria-hidden />
+            <span className="sr-only">Quitar filtro de precio</span>
+          </button>
+        </div>
+      )}
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-[repeat(auto-fill,minmax(230px,1fr))] sm:gap-5">
         {enPagina.map((p, i) => (
