@@ -64,8 +64,8 @@ export const TIENDA = {
 
   // Franja superior (en celular se muestra la versión corta).
   aviso: {
-    corto: "Navidad en LA Perfumes · 100% originales",
-    largo: "Navidad en LA Perfumes · Perfumes 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]",
+    corto: "Perfumes 100% originales · Retiro gratis",
+    largo: "Perfumes 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO] · Pago seguro",
   },
 
   // --- Contacto y local ---
@@ -105,10 +105,10 @@ export const TIENDA = {
     {
       foto: "/fotos/chanel5.jpg",
       alt: "Frasco de Chanel N°5 iluminado",
-      eyebrow: "Navidad",
-      titulo: "Regala un clásico",
-      texto: "Perfumes originales para cada persona de tu lista. Envoltura de regalo sin costo y retiro gratis en el local.",
-      cta: "Ver regalos para ella",
+      eyebrow: "Para ella",
+      titulo: "La elegancia de un clásico",
+      texto: "Chanel, YSL y más: perfumes originales con stock real del local. Retira gratis o recíbelo en tu casa.",
+      cta: "Ver perfumes de mujer",
       href: "/catalogo?filtro=mujer",
       lado: "left",
     },
@@ -145,9 +145,9 @@ export const TIENDA = {
   vitrinas: [
     {
       id: "titulo-regalos",
-      eyebrow: "Para regalar esta Navidad",
-      titulo: "Los más regalados",
-      texto: "Los perfumes que más se llevan para regalo. Te los envolvemos sin costo.",
+      eyebrow: "Los favoritos",
+      titulo: "Lo más vendido",
+      texto: "Los perfumes que más salen del local este mes.",
       slugs: ["chanel-coco-mademoiselle", "dior-sauvage", "ysl-black-opium", "rabanne-1-million"],
       href: "/catalogo?filtro=disenador",
       cta: "Ver todos los de diseñador",
@@ -166,13 +166,13 @@ export const TIENDA = {
   // Bloque grande entre las vitrinas.
   destacado: {
     slug: "chanel-n5",
-    eyebrow: "El regalo que nunca falla",
+    eyebrow: "Un clásico que nunca falla",
   },
 
   // Bloque final de contacto.
   ayuda: {
-    titulo: "¿Buscas el regalo perfecto?",
-    texto: "Escríbenos y te recomendamos según el gusto de quien lo va a recibir. Envolvemos para regalo sin costo.",
+    titulo: "¿No sabes cuál elegir?",
+    texto: "Escríbenos y te recomendamos según el gusto de quien lo va a usar. También armamos paquetes de regalo.",
   },
 
   ejemploProducto: {

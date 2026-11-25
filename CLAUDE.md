@@ -40,5 +40,5 @@ El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simp
 ## Identidad visual (sacada del logo)
 - Colores en `web/src/app/globals.css`: marca negro `#16181C`, crema `#FDFBF7`, dorado `#9A7431` (acento) y dorado claro `#E4CF9E` (detalles sobre fondo oscuro).
 - Tipografías: Bodoni Moda (títulos, parecida a la del logo) e Inter (texto).
-- Portada con campaña de Navidad (banners, aviso superior y vitrina "Los más regalados"): cambiarla después de las fiestas en `tienda.ts`.
+- Hay **dos versiones**: la normal en `main` (https://e-commerce-performance.vercel.app) y la navideña en la rama `festivo`, publicada en su propio proyecto de Vercel. Los cambios generales se hacen en `main` y luego se pasan a `festivo` (`git merge main` estando en `festivo`).
 - Botones de al menos 44 px; contraste mínimo de 4.5:1.
