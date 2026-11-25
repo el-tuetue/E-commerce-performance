@@ -19,7 +19,7 @@ export function Ingreso() {
   };
 
   return (
-    <main className="flex min-h-dvh items-center justify-center bg-tinta px-4 py-10">
+    <main className="flex min-h-dvh items-center justify-center bg-oscuro px-4 py-10">
       <div className="flex w-full max-w-[440px] flex-col gap-5">
         <div className="flex flex-col items-center text-center text-white">
           <Emblema className="mb-3 size-[72px] ring-2 ring-white/30" />
@@ -32,7 +32,7 @@ export function Ingreso() {
             e.preventDefault();
             setAviso("En la demo no hay cuentas reales: entra con uno de los roles de abajo.");
           }}
-          className="flex flex-col gap-4 rounded-[20px] bg-white p-8"
+          className="flex flex-col gap-4 rounded-[20px] bg-superficie p-8"
         >
           <h1 className="text-[22px] font-semibold">Ingresar</h1>
           <label className="flex flex-col gap-1.5 text-sm font-medium">
@@ -43,7 +43,7 @@ export function Ingreso() {
             Contraseña
             <input type="password" placeholder="••••••••" autoComplete="current-password" className="campo h-12 font-normal" />
           </label>
-          <button type="submit" className="mt-1 h-[50px] rounded-[10px] bg-marca font-semibold text-white hover:bg-marca-oscuro">
+          <button type="submit" className="mt-1 h-[50px] rounded-[10px] bg-marca font-semibold text-sobre-marca hover:bg-marca-oscuro">
             Ingresar
           </button>
           {aviso && (

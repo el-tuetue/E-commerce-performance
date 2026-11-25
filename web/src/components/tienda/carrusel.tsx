@@ -31,7 +31,7 @@ export function Carrusel() {
       onBlur={() => setPausa(false)}
       className="mx-auto max-w-[1200px] px-4 pt-4 sm:px-6 sm:pt-7"
     >
-      <div className="relative h-[380px] overflow-hidden rounded-[18px] bg-tinta sm:h-[clamp(440px,44vw,560px)] sm:rounded-[22px]">
+      <div className="relative h-[380px] overflow-hidden rounded-[18px] bg-oscuro sm:h-[clamp(440px,44vw,560px)] sm:rounded-[22px]">
         {SLIDES.map((s, i) => {
           const on = i === actual;
           return (
@@ -63,7 +63,7 @@ export function Carrusel() {
                 <div className="mt-1">
                   <Link
                     href={s.href}
-                    className="inline-flex h-11 items-center rounded-[10px] bg-white px-5 text-[15px] font-semibold text-tinta sm:h-12 sm:px-[22px] sm:text-base"
+                    className="inline-flex h-11 items-center rounded-[10px] bg-boton px-5 text-[15px] font-semibold text-boton-texto sm:h-12 sm:px-[22px] sm:text-base"
                   >
                     {s.cta}
                   </Link>
@@ -103,7 +103,7 @@ export function Carrusel() {
               className="inline-flex size-11 items-center justify-center"
             >
               <span
-                className={`block h-2 rounded-full transition-all duration-300 ${i === actual ? "w-7 bg-white" : "w-2 bg-white/55"}`}
+                className={`block h-2 rounded-full transition-all duration-300 ${i === actual ? "w-7 bg-superficie" : "w-2 bg-white/55"}`}
               />
             </button>
           ))}

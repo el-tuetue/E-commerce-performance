@@ -23,7 +23,7 @@ export function Destacado() {
 
   return (
     <section aria-label={TIENDA.destacado.eyebrow} className="mx-auto max-w-[1200px] px-4 pt-10 sm:px-6 sm:pt-12">
-      <div className="flex flex-wrap overflow-hidden rounded-[18px] bg-tinta text-white sm:rounded-[22px]">
+      <div className="flex flex-wrap overflow-hidden rounded-[18px] bg-oscuro text-white sm:rounded-[22px]">
         <div className="group relative min-h-[230px] flex-[1_1_340px] overflow-hidden sm:min-h-[460px]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
@@ -66,7 +66,7 @@ export function Destacado() {
               type="button"
               onClick={agregar}
               disabled={stock === 0}
-              className="h-[50px] rounded-xl bg-white px-6 text-base font-semibold text-tinta disabled:cursor-not-allowed disabled:opacity-60"
+              className="h-[50px] rounded-xl bg-boton px-6 text-base font-semibold text-boton-texto disabled:cursor-not-allowed disabled:opacity-60"
             >
               {stock === 0 ? "Sin stock" : "Agregar al carrito"}
             </button>

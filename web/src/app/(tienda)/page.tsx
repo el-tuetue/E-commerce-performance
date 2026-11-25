@@ -21,7 +21,7 @@ export default function Inicio() {
           {TIENDA.beneficios.map(({ icono: Icono, titulo, texto }) => (
             <div
               key={titulo}
-              className="flex items-center gap-2.5 rounded-[14px] border border-borde bg-white p-3 sm:items-start sm:gap-3.5 sm:p-5"
+              className="flex items-center gap-2.5 rounded-[14px] border border-borde bg-superficie p-3 sm:items-start sm:gap-3.5 sm:p-5"
             >
               <Icono className="size-5 shrink-0 text-marca sm:size-6" aria-hidden />
               <div>
@@ -67,7 +67,7 @@ export default function Inicio() {
       <section
         id="marcas"
         aria-label={`Marcas: ${MARCAS.join(", ")}`}
-        className="scroll-mt-28 overflow-hidden border-y border-borde bg-white py-3.5 sm:py-5"
+        className="scroll-mt-28 overflow-hidden border-y border-borde bg-superficie py-3.5 sm:py-5"
       >
         <div className="flex w-max animate-marquesina hover:[animation-play-state:paused]" aria-hidden>
           {[0, 1].map((k) => (
@@ -92,7 +92,7 @@ export default function Inicio() {
       ))}
 
       <section className="mx-auto max-w-[1200px] px-4 pb-10 pt-10 sm:px-6 sm:pb-16 sm:pt-12">
-        <div className="flex flex-wrap items-center justify-between gap-4 rounded-[18px] bg-tinta p-5 text-white sm:gap-5 sm:rounded-[20px] sm:p-8">
+        <div className="flex flex-wrap items-center justify-between gap-4 rounded-[18px] bg-oscuro p-5 text-white sm:gap-5 sm:rounded-[20px] sm:p-8">
           <div className="flex-[1_1_380px]">
             <h2 className="mb-1.5 font-serif text-[28px] font-semibold leading-tight sm:text-[34px]">{TIENDA.ayuda.titulo}</h2>
             <p className="text-[15px] leading-relaxed text-humo sm:text-base">{TIENDA.ayuda.texto}</p>
@@ -100,7 +100,7 @@ export default function Inicio() {
           <div className="flex w-full flex-wrap gap-3 sm:w-auto">
             <a
               href={TIENDA.contacto.whatsappUrl}
-              className="inline-flex h-12 flex-1 items-center justify-center gap-2.5 rounded-xl bg-white px-5 font-semibold text-tinta sm:h-[52px] sm:flex-none sm:px-6"
+              className="inline-flex h-12 flex-1 items-center justify-center gap-2.5 rounded-xl bg-boton px-5 font-semibold text-boton-texto sm:h-[52px] sm:flex-none sm:px-6"
             >
               <MessageCircle className="size-5" aria-hidden />
               WhatsApp

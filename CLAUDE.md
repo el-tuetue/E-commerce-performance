@@ -37,6 +37,11 @@ El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simp
 3. Variables en `web/.env.local` (nunca subirlas): `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY` (esta última solo en el servidor).
 4. Con cada cliente: datos de los `[CORCHETES]` de `tienda.ts`, fotos y precios reales, logo, boleta electrónica del SII, contrato de Webpay o Mercado Pago y políticas (cambios y devoluciones, retracto, privacidad).
 
+## Modo oscuro
+- Botón luna/sol en el encabezado (`components/boton-tema.tsx`). Guarda la elección en localStorage (`tema`) y un script en `<head>` (`SCRIPT_TEMA` en `app/layout.tsx`) la aplica antes de dibujar, para que no parpadee. Por defecto: claro.
+- Funciona por colores con rol en `globals.css`, que `html.dark` redefine: `superficie` (tarjetas/campos, en vez de `bg-white`), `tinta` (texto), `oscuro` (bloques oscuros), `boton`/`boton-texto` (botón claro sobre bloques oscuros o fotos) y `sobre-marca` (texto sobre `bg-marca`). **No usar `bg-white` ni `bg-tinta` en componentes nuevos**: usar estos roles.
+- En oscuro, `marca` pasa a dorado.
+
 ## Identidad visual (sacada del logo)
 - Colores en `web/src/app/globals.css`: marca negro `#16181C`, crema `#FDFBF7`, dorado `#9A7431` (acento) y dorado claro `#E4CF9E` (detalles sobre fondo oscuro).
 - Tipografías: Bodoni Moda (títulos, parecida a la del logo) e Inter (texto).

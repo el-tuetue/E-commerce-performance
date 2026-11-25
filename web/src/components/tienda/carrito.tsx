@@ -27,7 +27,7 @@ function Opcion({
       aria-pressed={activa}
       onClick={onClick}
       className={`min-h-11 rounded-xl p-4 text-left text-tinta transition-colors ${
-        activa ? "border-2 border-marca bg-marca-suave" : "border border-borde-fuerte bg-white"
+        activa ? "border-2 border-marca bg-marca-suave" : "border border-borde-fuerte bg-superficie"
       }`}
     >
       <span className="mb-1 block font-semibold">{titulo}</span>
@@ -78,7 +78,7 @@ export function Carrito() {
   if (pagado) {
     return (
       <main className="mx-auto max-w-[1200px] px-4 pb-16 pt-8 sm:px-6">
-        <div className="animate-subir mx-auto my-10 flex max-w-[560px] flex-col items-center gap-3.5 rounded-[20px] border border-borde bg-white px-8 py-10 text-center">
+        <div className="animate-subir mx-auto my-10 flex max-w-[560px] flex-col items-center gap-3.5 rounded-[20px] border border-borde bg-superficie px-8 py-10 text-center">
           <CircleCheck className="size-14 text-ok" strokeWidth={2} aria-label="Pago aprobado" />
           <h1 className="font-serif text-[40px] font-semibold leading-tight">¡Gracias por tu compra!</h1>
           <p className="leading-relaxed text-gris">
@@ -99,7 +99,7 @@ export function Carrito() {
             Demo: el stock ya se descontó y el pedido aparece en el panel del administrador.
           </p>
           <div className="mt-2 flex flex-wrap justify-center gap-3">
-            <Link href="/" className="inline-flex h-12 items-center rounded-[10px] bg-marca px-[22px] font-medium text-white">
+            <Link href="/" className="inline-flex h-12 items-center rounded-[10px] bg-marca px-[22px] font-medium text-sobre-marca">
               Volver a la tienda
             </Link>
           </div>
@@ -111,11 +111,11 @@ export function Carrito() {
   if (listo && items.length === 0) {
     return (
       <main className="mx-auto max-w-[1200px] px-4 pb-16 pt-8 sm:px-6">
-        <div className="mx-auto my-10 flex max-w-[520px] flex-col items-center gap-4 rounded-[20px] border border-borde bg-white px-8 py-12 text-center">
+        <div className="mx-auto my-10 flex max-w-[520px] flex-col items-center gap-4 rounded-[20px] border border-borde bg-superficie px-8 py-12 text-center">
           <ShoppingBag className="size-12 text-marca" strokeWidth={1.6} aria-hidden />
           <h1 className="font-serif text-4xl font-semibold">Tu carrito está vacío</h1>
           <p className="text-gris">Mira el catálogo y agrega tus productos favoritos.</p>
-          <Link href="/catalogo" className="inline-flex h-12 items-center rounded-[10px] bg-marca px-6 font-medium text-white">
+          <Link href="/catalogo" className="inline-flex h-12 items-center rounded-[10px] bg-marca px-6 font-medium text-sobre-marca">
             Ver catálogo
           </Link>
         </div>
@@ -128,7 +128,7 @@ export function Carrito() {
       <h1 className="mb-6 font-serif text-[44px] font-semibold leading-tight">Tu carrito</h1>
       <div className="flex flex-wrap items-start gap-8">
         <div className="flex min-w-0 flex-[999_1_560px] flex-col gap-6">
-          <div className="rounded-2xl border border-borde bg-white">
+          <div className="rounded-2xl border border-borde bg-superficie">
             {items.map(({ id, cantidad, info }) => {
               const { producto, variante } = info!;
               const max = stockDe(id);
@@ -176,7 +176,7 @@ export function Carrito() {
             })}
           </div>
 
-          <div className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-white p-5">
+          <div className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-superficie p-5">
             <h2 className="text-lg font-semibold">¿Cómo lo quieres recibir?</h2>
             <div role="group" aria-label="Tipo de entrega" className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
               <Opcion activa={entrega === "retiro"} onClick={() => setEntrega("retiro")} titulo="Retiro en tienda" texto={`Gratis · ${TIENDA.contacto.direccion}`} />
@@ -221,7 +221,7 @@ export function Carrito() {
           {TIENDA.temporada.activa && TIENDA.temporada.envolturaRegalo && (
             <div
               className={`flex flex-col gap-3 rounded-2xl border p-5 transition-colors ${
-                regalo ? "border-temporada bg-temporada-suave" : "border-borde bg-white"
+                regalo ? "border-temporada bg-temporada-suave" : "border-borde bg-superficie"
               }`}
             >
               <label className="flex min-h-11 cursor-pointer items-center gap-3">
@@ -254,7 +254,7 @@ export function Carrito() {
             </div>
           )}
 
-          <div className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-white p-5">
+          <div className="flex flex-col gap-3.5 rounded-2xl border border-borde bg-superficie p-5">
             <h2 className="text-lg font-semibold">Medio de pago</h2>
             <div role="group" aria-label="Medio de pago" className="grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-3">
               <Opcion activa={medio === "webpay"} onClick={() => setMedio("webpay")} titulo="Webpay" texto="Débito, crédito y prepago" />
@@ -263,7 +263,7 @@ export function Carrito() {
           </div>
         </div>
 
-        <aside className="flex flex-[1_1_320px] flex-col gap-3 rounded-2xl border border-borde bg-white p-[22px] lg:sticky lg:top-28">
+        <aside className="flex flex-[1_1_320px] flex-col gap-3 rounded-2xl border border-borde bg-superficie p-[22px] lg:sticky lg:top-28">
           <h2 className="mb-1 text-lg font-semibold">Resumen</h2>
           <div className="flex justify-between text-gris">
             <span>Productos ({unidades})</span>
@@ -280,7 +280,7 @@ export function Carrito() {
           <button
             type="button"
             onClick={pagar}
-            className="mt-1.5 h-[52px] rounded-[10px] bg-marca text-base font-semibold text-white transition-colors hover:bg-marca-oscuro"
+            className="mt-1.5 h-[52px] rounded-[10px] bg-marca text-base font-semibold text-sobre-marca transition-colors hover:bg-marca-oscuro"
           >
             Ir a pagar
           </button>

@@ -5,11 +5,11 @@ import { Guirnalda } from "./decoracion";
 export function Pie() {
   const { contacto } = TIENDA;
   return (
-    <footer className="border-t border-borde bg-white">
+    <footer className="border-t border-borde bg-superficie">
       {TIENDA.temporada.activa && (
         <>
           <Guirnalda />
-          <p className="mx-auto max-w-[1200px] px-4 pt-3 text-center font-serif text-2xl font-semibold text-pino sm:px-6 sm:text-[28px]">
+          <p className="mx-auto max-w-[1200px] px-4 pt-3 text-center font-serif text-2xl font-semibold text-pino sm:px-6 dark:text-[#8fc7a3] sm:text-[28px]">
             ¡Felices fiestas te desea {TIENDA.nombre}!
           </p>
         </>

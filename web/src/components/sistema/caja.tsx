@@ -144,7 +144,7 @@ export function Caja() {
   if (cobrado) {
     return (
       <main className="mx-auto max-w-[1240px] p-4 sm:p-6">
-        <div className="animate-subir mx-auto my-12 flex max-w-[520px] flex-col items-center gap-3 rounded-[20px] border border-borde bg-white px-8 py-10 text-center">
+        <div className="animate-subir mx-auto my-12 flex max-w-[520px] flex-col items-center gap-3 rounded-[20px] border border-borde bg-superficie px-8 py-10 text-center">
           <CircleCheck className="size-14 text-ok" aria-label="Venta registrada" />
           <h1 className="text-[28px] font-semibold">Venta registrada</h1>
           <p className="text-4xl font-semibold">{formatoPrecio(cobrado.total)}</p>
@@ -157,7 +157,7 @@ export function Caja() {
             type="button"
             autoFocus
             onClick={nuevaVenta}
-            className="mt-2.5 h-[52px] rounded-xl bg-marca px-7 text-base font-semibold text-white"
+            className="mt-2.5 h-[52px] rounded-xl bg-marca px-7 text-base font-semibold text-sobre-marca"
           >
             Nueva venta
           </button>
@@ -170,7 +170,7 @@ export function Caja() {
     <main className="mx-auto max-w-[1240px] p-4 sm:p-6">
       <div className="flex flex-wrap items-start gap-6">
         <section className="flex min-w-0 flex-[999_1_600px] flex-col gap-5">
-          <div className="rounded-2xl border border-borde bg-white p-[18px]">
+          <div className="rounded-2xl border border-borde bg-superficie p-[18px]">
             <label htmlFor="scan" className="mb-2 block font-semibold">
               Escanea el código de barras o escríbelo y presiona Enter
             </label>
@@ -199,7 +199,7 @@ export function Caja() {
               <button
                 type="button"
                 onClick={simular}
-                className="h-[52px] rounded-xl border border-tinta bg-white px-5 font-medium text-tinta"
+                className="h-[52px] rounded-xl border border-tinta bg-superficie px-5 font-medium text-tinta"
               >
                 Simular escaneo
               </button>
@@ -225,7 +225,7 @@ export function Caja() {
                       agregar(c.id);
                       enfocar();
                     }}
-                    className="min-h-16 rounded-xl border border-borde bg-white px-3.5 py-3 text-left text-tinta transition-colors hover:border-marca disabled:cursor-not-allowed disabled:opacity-50"
+                    className="min-h-16 rounded-xl border border-borde bg-superficie px-3.5 py-3 text-left text-tinta transition-colors hover:border-marca disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <span className="block text-sm font-semibold">{c.nombre}</span>
                     <span className="block text-[13px] text-gris">
@@ -240,7 +240,7 @@ export function Caja() {
             </div>
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-borde bg-white">
+          <div className="overflow-hidden rounded-2xl border border-borde bg-superficie">
             <div className="overflow-x-auto">
               <table className="w-full min-w-[600px] text-[15px]">
                 <caption className="sr-only">Productos de la venta</caption>
@@ -315,7 +315,7 @@ export function Caja() {
           </div>
         </section>
 
-        <aside className="flex flex-[1_1_340px] flex-col gap-4 rounded-[20px] bg-tinta p-6 text-white lg:sticky lg:top-6">
+        <aside className="flex flex-[1_1_340px] flex-col gap-4 rounded-[20px] bg-oscuro p-6 text-white lg:sticky lg:top-6">
           <div>
             <p className="mb-1 text-sm text-humo">Total a cobrar · {unidades} productos</p>
             <p className="text-5xl font-semibold tracking-[-0.5px]">{formatoPrecio(total)}</p>
@@ -330,7 +330,7 @@ export function Caja() {
                   aria-pressed={medio === m}
                   onClick={() => setMedio(m)}
                   className={`h-12 rounded-xl text-[15px] ${
-                    medio === m ? "border-2 border-white bg-white font-semibold text-tinta" : "border border-white/40 text-white"
+                    medio === m ? "border-2 border-boton bg-boton font-semibold text-boton-texto" : "border border-white/40 text-white"
                   }`}
                 >
                   {label}
@@ -349,7 +349,7 @@ export function Caja() {
                     aria-pressed={efectivo === b}
                     onClick={() => setRecibido({ monto: b, total })}
                     className={`h-11 rounded-[10px] text-sm ${
-                      efectivo === b ? "border border-white bg-white font-semibold text-tinta" : "border border-white/40 text-white"
+                      efectivo === b ? "border border-boton bg-boton font-semibold text-boton-texto" : "border border-white/40 text-white"
                     }`}
                   >
                     {b === total ? "Exacto" : formatoPrecio(b)}
@@ -365,7 +365,7 @@ export function Caja() {
             type="button"
             onClick={cobrar}
             disabled={lineas.length === 0}
-            className="h-[60px] rounded-[14px] bg-white text-lg font-semibold text-tinta disabled:cursor-not-allowed disabled:opacity-50"
+            className="h-[60px] rounded-[14px] bg-boton text-lg font-semibold text-boton-texto disabled:cursor-not-allowed disabled:opacity-50"
           >
             Cobrar {formatoPrecio(total)}
           </button>

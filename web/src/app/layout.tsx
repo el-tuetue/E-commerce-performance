@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Inter } from "next/font/google";
 import { TIENDA } from "@/config/tienda";
+import { SCRIPT_TEMA } from "@/components/boton-tema";
 import { DemoProvider } from "@/lib/demo-store";
 import "./globals.css";
 
@@ -15,7 +16,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es" className={`${inter.variable} ${titulos.variable} antialiased`}>
+    // suppressHydrationWarning: el script de abajo puede agregar la clase "dark" antes de que cargue React.
+    <html lang="es" className={`${inter.variable} ${titulos.variable} antialiased`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: SCRIPT_TEMA }} />
+      </head>
       <body className="min-h-dvh font-sans">
         <DemoProvider>{children}</DemoProvider>
       </body>

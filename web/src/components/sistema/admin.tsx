@@ -43,7 +43,7 @@ export function Admin() {
       <div className="mx-auto flex max-w-[1240px] flex-wrap items-start gap-6 p-4 sm:p-6">
         <nav
           aria-label="Menú de administración"
-          className="flex max-w-full flex-[1_1_210px] flex-col gap-1.5 rounded-2xl border border-borde bg-white p-4 lg:sticky lg:top-6"
+          className="flex max-w-full flex-[1_1_210px] flex-col gap-1.5 rounded-2xl border border-borde bg-superficie p-4 lg:sticky lg:top-6"
         >
           <div className="mb-0.5 ml-2 flex items-center gap-2">
             <Emblema className="size-10" />
@@ -141,7 +141,7 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
         <button
           type="button"
           onClick={() => irA("nuevo")}
-          className="h-11 rounded-[10px] bg-marca px-4 text-sm font-semibold text-white hover:bg-marca-oscuro"
+          className="h-11 rounded-[10px] bg-marca px-4 text-sm font-semibold text-sobre-marca hover:bg-marca-oscuro"
         >
           + Agregar producto
         </button>
@@ -161,12 +161,12 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
               key={k.t}
               type="button"
               onClick={() => irA(k.ir!)}
-              className="rounded-2xl border border-borde bg-white p-[18px] text-left transition-colors hover:border-marca"
+              className="rounded-2xl border border-borde bg-superficie p-[18px] text-left transition-colors hover:border-marca"
             >
               {contenido}
             </button>
           ) : (
-            <div key={k.t} className="rounded-2xl border border-borde bg-white p-[18px]">
+            <div key={k.t} className="rounded-2xl border border-borde bg-superficie p-[18px]">
               {contenido}
             </div>
           );
@@ -174,7 +174,7 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
       </div>
 
       <div className="flex flex-wrap gap-5">
-        <section className="flex-[1_1_340px] rounded-2xl border border-borde bg-white p-5">
+        <section className="flex-[1_1_340px] rounded-2xl border border-borde bg-superficie p-5">
           <h2 className="mb-4 text-lg font-semibold">Ventas de la semana</h2>
           <div
             role="img"
@@ -203,7 +203,7 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
           </div>
         </section>
 
-        <section className="flex flex-[1_1_340px] flex-col gap-1 rounded-2xl border border-borde bg-white p-5">
+        <section className="flex flex-[1_1_340px] flex-col gap-1 rounded-2xl border border-borde bg-superficie p-5">
           <h2 className="mb-2 text-lg font-semibold">Por reponer</h2>
           {bajos.map(({ producto, variante }) => {
             const n = stockDe(variante.id);
@@ -230,7 +230,7 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
                       reponer(variante.id, 5);
                       avisar(`${producto.marca} ${producto.nombre} ${nombreVariante(variante)}: +5 unidades ingresadas`);
                     }}
-                    className="h-11 rounded-[10px] border border-marca bg-white px-3.5 text-sm font-medium text-marca"
+                    className="h-11 rounded-[10px] border border-marca bg-superficie px-3.5 text-sm font-medium text-marca"
                   >
                     +5
                   </button>
@@ -277,13 +277,13 @@ function Inventario({ irA }: { irA: (t: Tab) => void }) {
           <button
             type="button"
             onClick={() => irA("nuevo")}
-            className="h-11 rounded-[10px] bg-marca px-4 text-sm font-semibold text-white hover:bg-marca-oscuro"
+            className="h-11 rounded-[10px] bg-marca px-4 text-sm font-semibold text-sobre-marca hover:bg-marca-oscuro"
           >
             + Agregar producto
           </button>
         </div>
       </div>
-      <div className="overflow-hidden rounded-2xl border border-borde bg-white">
+      <div className="overflow-hidden rounded-2xl border border-borde bg-superficie">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[860px] text-sm">
             <caption className="sr-only">Inventario</caption>
@@ -365,7 +365,7 @@ function Pedidos() {
         return (
           <article
             key={o.num}
-            className={`flex flex-wrap items-center justify-between gap-3.5 rounded-2xl border bg-white p-[18px] ${
+            className={`flex flex-wrap items-center justify-between gap-3.5 rounded-2xl border bg-superficie p-[18px] ${
               nuevo ? "border-marca" : "border-borde"
             }`}
           >
@@ -396,7 +396,7 @@ function Pedidos() {
                   avanzarPedido(o.num);
                   avisar(`Pedido N° ${o.num}: aviso enviado al cliente`);
                 }}
-                className="h-11 rounded-[10px] bg-marca px-4 text-sm font-medium text-white hover:bg-marca-oscuro"
+                className="h-11 rounded-[10px] bg-marca px-4 text-sm font-medium text-sobre-marca hover:bg-marca-oscuro"
               >
                 {f.accion}
               </button>

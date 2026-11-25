@@ -58,7 +58,7 @@ export function GuiaRegalos() {
           </div>
           <div className="flex flex-col items-start gap-1.5 sm:items-end">
             {cuenta && (
-              <p aria-live="polite" className="rounded-full bg-white px-4 py-1.5 text-sm font-semibold text-pino">
+              <p aria-live="polite" className="rounded-full bg-boton px-4 py-1.5 text-sm font-semibold text-pino">
                 {cuenta}
               </p>
             )}
@@ -75,11 +75,11 @@ export function GuiaRegalos() {
               <Link
                 key={r.titulo}
                 href={`/catalogo?${params.toString()}`}
-                className="group flex items-center justify-between gap-3 rounded-[14px] bg-white px-4 py-3.5 text-tinta transition-transform hover:-translate-y-0.5 sm:py-4"
+                className="group flex items-center justify-between gap-3 rounded-[14px] bg-boton px-4 py-3.5 text-boton-texto transition-transform hover:-translate-y-0.5 sm:py-4"
               >
                 <span>
                   <span className="block font-serif text-xl font-semibold leading-tight">{r.titulo}</span>
-                  <span className="block text-[13px] text-gris">{r.texto}</span>
+                  <span className="block text-[13px] text-boton-texto/70">{r.texto}</span>
                 </span>
                 <ArrowRight className="size-5 shrink-0 text-pino transition-transform group-hover:translate-x-1" aria-hidden />
               </Link>

@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ShoppingBag, Snowflake } from "lucide-react";
+import { BotonTema } from "@/components/boton-tema";
 import { Logo } from "@/components/logo";
 import { TIENDA } from "@/config/tienda";
 import { useDemo } from "@/lib/demo-store";
@@ -22,8 +23,8 @@ export function Encabezado() {
   return (
     <>
       <div
-        className={`flex items-center justify-center gap-2 px-4 py-1.5 text-center text-xs text-white sm:py-2 sm:text-[13px] ${
-          temporada ? "bg-temporada" : "bg-marca"
+        className={`flex items-center justify-center gap-2 px-4 py-1.5 text-center text-xs sm:py-2 sm:text-[13px] ${
+          temporada ? "bg-temporada text-white" : "bg-marca text-sobre-marca"
         }`}
       >
         {temporada && <Snowflake className="size-3.5 shrink-0 opacity-80" aria-hidden />}
@@ -31,7 +32,7 @@ export function Encabezado() {
         <span className="hidden sm:inline">{TIENDA.aviso.largo}</span>
         {temporada && <Snowflake className="size-3.5 shrink-0 opacity-80" aria-hidden />}
       </div>
-      <header className="sticky top-0 z-30 border-b border-borde bg-white/95 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-borde bg-superficie/95 backdrop-blur">
         <div className="mx-auto flex max-w-[1200px] items-center gap-x-8 px-4 py-2 sm:py-3.5 sm:px-6">
           <Link href="/" className="no-underline" aria-label={`${TIENDA.nombre}, inicio`}>
             <Logo />
@@ -58,17 +59,18 @@ export function Encabezado() {
                 className="campo h-11 bg-fondo text-sm"
               />
             </form>
+            <BotonTema />
             {/* En celular el carrito está en la barra de abajo; aquí solo desde tablet. */}
             <Link
               href="/carrito"
               aria-label={`Carrito, ${unidadesCarrito} productos`}
-              className="hidden h-11 items-center gap-2 rounded-[10px] bg-marca px-4 text-sm font-medium text-white no-underline transition-colors hover:bg-marca-oscuro sm:inline-flex"
+              className="hidden h-11 items-center gap-2 rounded-[10px] bg-marca px-4 text-sm font-medium text-sobre-marca no-underline transition-colors hover:bg-marca-oscuro sm:inline-flex"
             >
               <ShoppingBag className="size-[18px]" aria-hidden />
               Carrito
               <span
                 key={unidadesCarrito}
-                className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full bg-white px-1.5 text-xs font-bold text-marca ${unidadesCarrito > 0 ? "animate-pop" : ""}`}
+                className={`inline-flex h-[22px] min-w-[22px] items-center justify-center rounded-full bg-superficie px-1.5 text-xs font-bold text-marca ${unidadesCarrito > 0 ? "animate-pop" : ""}`}
               >
                 {unidadesCarrito}
               </span>

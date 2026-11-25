@@ -54,7 +54,7 @@ export function Vitrina({
       </div>
       <Link
         href={href}
-        className="mt-4 flex h-12 items-center justify-center gap-2 rounded-[10px] border border-marca bg-white text-sm font-semibold text-marca sm:hidden"
+        className="mt-4 flex h-12 items-center justify-center gap-2 rounded-[10px] border border-marca bg-superficie text-sm font-semibold text-marca sm:hidden"
       >
         {cta}
         <ArrowRight className="size-4" aria-hidden />

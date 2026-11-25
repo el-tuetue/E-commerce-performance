@@ -19,10 +19,10 @@ export function TarjetaProducto({ producto, indice = 0, mono = false }: { produc
   const varios = new Set(producto.variantes.map((v) => v.precio)).size > 1;
 
   let badge = producto.nuevo ? "Nuevo" : producto.badge;
-  let badgeClase = "bg-tinta text-white";
+  let badgeClase = "bg-oscuro text-white";
   if (agotado) {
     badge = "Agotado";
-    badgeClase = "border border-error bg-white text-error";
+    badgeClase = "border border-error bg-superficie text-error";
   } else if (stockTotal === 1) {
     badge = "Última unidad";
     badgeClase = "bg-alerta-fondo text-alerta";
@@ -41,7 +41,7 @@ export function TarjetaProducto({ producto, indice = 0, mono = false }: { produc
 
   return (
     <article
-      className="group animate-subir flex flex-col overflow-hidden rounded-2xl border border-borde bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(16,17,20,.12)]"
+      className="group animate-subir flex flex-col overflow-hidden rounded-2xl border border-borde bg-superficie transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(16,17,20,.12)]"
       style={{ animationDelay: `${indice * 0.05}s` }}
     >
       <Link href={href} className="relative block aspect-square overflow-hidden bg-crema sm:aspect-[4/5]">
@@ -78,7 +78,7 @@ export function TarjetaProducto({ producto, indice = 0, mono = false }: { produc
           {stockPrincipal === 0 && !agotado ? (
             <Link
               href={href}
-              className="inline-flex h-11 items-center justify-center rounded-[10px] border border-marca bg-white px-4 text-sm font-medium text-marca"
+              className="inline-flex h-11 items-center justify-center rounded-[10px] border border-marca bg-superficie px-4 text-sm font-medium text-marca"
             >
               Ver opciones
             </Link>
@@ -91,8 +91,8 @@ export function TarjetaProducto({ producto, indice = 0, mono = false }: { produc
                 agotado
                   ? "cursor-not-allowed border-linea bg-linea text-gris"
                   : enCarrito
-                    ? "border-marca bg-white text-marca"
-                    : "border-marca bg-marca text-white hover:bg-marca-oscuro"
+                    ? "border-marca bg-superficie text-marca"
+                    : "border-marca bg-marca text-sobre-marca hover:bg-marca-oscuro"
               }`}
             >
               {agotado ? "Sin stock" : enCarrito ? "Agregar otro" : "Agregar"}
