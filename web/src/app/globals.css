@@ -16,7 +16,7 @@
   --color-marca-suave: #f1ece2;
   --color-marca-tenue: #f8f5ef;
   --color-claro: #e4cf9e; /* dorado claro: detalles sobre fondo oscuro */
-  --color-acento: #9a7431; /* dorado: contador del carrito y gráfico del panel */
+  --color-acento: #8a6629; /* dorado: títulos pequeños, contador del carrito y gráfico del panel */
 
   --color-tinta: #16181c;
   --color-tinta-2: #25282e;
@@ -239,6 +239,20 @@ html.dark {
   /* Colores de temporada (solo existen en la versión festiva) */
   --color-temporada-suave: #3a161c;
   --color-pino-suave: #15271d;
+}
+
+/* Fondo de la tienda: destellos champaña y rosado empolvado muy suaves + brillos dorados finos.
+   Para un fondo liso, cambia "fondo-tienda" por "bg-fondo" en src/app/(tienda)/layout.tsx. */
+.fondo-tienda {
+  background-color: var(--color-fondo);
+  background-image:
+    radial-gradient(900px 560px at 0% 0%, rgb(201 162 74 / 0.13), transparent 70%),
+    radial-gradient(820px 620px at 100% 22%, rgb(216 168 160 / 0.16), transparent 70%),
+    radial-gradient(760px 560px at 6% 64%, rgb(201 162 74 / 0.1), transparent 70%),
+    radial-gradient(820px 560px at 98% 90%, rgb(216 168 160 / 0.13), transparent 70%),
+    url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22320%22%20height%3D%22320%22%20viewBox%3D%220%200%20320%20320%22%3E%3Cpolygon%20points%3D%2248.0%2C53.0%2048.9%2C59.1%2055.0%2C60.0%2048.9%2C60.9%2048.0%2C67.0%2047.1%2C60.9%2041.0%2C60.0%2047.1%2C59.1%22%20fill%3D%22%23b8924a%22%20fill-opacity%3D%220.35%22%2F%3E%3Cpolygon%20points%3D%22232.0%2C34.0%20232.5%2C37.5%20236.0%2C38.0%20232.5%2C38.5%20232.0%2C42.0%20231.5%2C38.5%20228.0%2C38.0%20231.5%2C37.5%22%20fill%3D%22%23b8924a%22%20fill-opacity%3D%220.3%22%2F%3E%3Cpolygon%20points%3D%22150.0%2C165.0%20150.6%2C169.4%20155.0%2C170.0%20150.6%2C170.6%20150.0%2C175.0%20149.4%2C170.6%20145.0%2C170.0%20149.4%2C169.4%22%20fill%3D%22%23b8924a%22%20fill-opacity%3D%220.25%22%2F%3E%3Cpolygon%20points%3D%22282.0%2C228.0%20283.0%2C235.0%20290.0%2C236.0%20283.0%2C237.0%20282.0%2C244.0%20281.0%2C237.0%20274.0%2C236.0%20281.0%2C235.0%22%20fill%3D%22%23b8924a%22%20fill-opacity%3D%220.3%22%2F%3E%3Cpolygon%20points%3D%2270.0%2C264.0%2070.5%2C267.5%2074.0%2C268.0%2070.5%2C268.5%2070.0%2C272.0%2069.5%2C268.5%2066.0%2C268.0%2069.5%2C267.5%22%20fill%3D%22%23b8924a%22%20fill-opacity%3D%220.28%22%2F%3E%3Ccircle%20cx%3D%22190%22%20cy%3D%22104%22%20r%3D%221.4%22%20fill%3D%22%23b8924a%22%20fill-opacity%3D%220.4%22%2F%3E%3Ccircle%20cx%3D%2218%22%20cy%3D%22160%22%20r%3D%221.2%22%20fill%3D%22%23b8924a%22%20fill-opacity%3D%220.35%22%2F%3E%3Ccircle%20cx%3D%22236%22%20cy%3D%22306%22%20r%3D%221.4%22%20fill%3D%22%23b8924a%22%20fill-opacity%3D%220.35%22%2F%3E%3Ccircle%20cx%3D%22118%22%20cy%3D%2222%22%20r%3D%221%22%20fill%3D%22%23b8924a%22%20fill-opacity%3D%220.35%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, repeat;
+  background-size: auto, auto, auto, auto, 320px 320px;
 }
 
 :focus-visible {

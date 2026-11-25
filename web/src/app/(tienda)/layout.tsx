@@ -9,7 +9,7 @@ export default function TiendaLayout({ children }: { children: React.ReactNode }
   return (
     // pb-[60px]: espacio para la barra inferior del celular.
     <div
-      className={`flex min-h-dvh flex-col pb-[60px] sm:pb-0 ${TIENDA.temporada.activa ? "fondo-festivo" : "bg-fondo"}`}
+      className={`flex min-h-dvh flex-col pb-[60px] sm:pb-0 ${TIENDA.temporada.activa ? "fondo-festivo" : "fondo-tienda"}`}
     >
       <Encabezado />
       {TIENDA.temporada.activa && <Guirnalda className="-mb-3 sm:-mb-4" />}

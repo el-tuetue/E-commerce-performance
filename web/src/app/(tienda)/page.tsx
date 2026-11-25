@@ -23,7 +23,9 @@ export default function Inicio() {
               key={titulo}
               className="flex items-center gap-2.5 rounded-[14px] border border-borde bg-superficie p-3 sm:items-start sm:gap-3.5 sm:p-5"
             >
-              <Icono className="size-5 shrink-0 text-marca sm:size-6" aria-hidden />
+              <span className="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-marca-suave sm:size-11">
+                <Icono className="size-[18px] text-acento sm:size-5" aria-hidden />
+              </span>
               <div>
                 <p className="text-[13px] font-semibold leading-tight sm:mb-1 sm:text-base">{titulo}</p>
                 <p className="hidden text-sm leading-normal text-gris sm:block">{texto}</p>
@@ -67,16 +69,19 @@ export default function Inicio() {
       <section
         id="marcas"
         aria-label={`Marcas: ${MARCAS.join(", ")}`}
-        className="scroll-mt-28 overflow-hidden border-y border-borde bg-superficie py-3.5 sm:py-5"
+        className="scroll-mt-28 overflow-hidden border-y border-acento/40 bg-oscuro py-4 sm:py-6"
       >
         <div className="flex w-max animate-marquesina hover:[animation-play-state:paused]" aria-hidden>
           {[0, 1].map((k) => (
             <div
               key={k}
-              className="flex gap-10 whitespace-nowrap pr-10 font-serif text-xl font-semibold text-tinta sm:gap-16 sm:pr-16 sm:text-[26px]"
+              className="flex items-center gap-10 whitespace-nowrap pr-10 font-serif text-xl font-semibold text-claro sm:gap-16 sm:pr-16 sm:text-[26px]"
             >
               {marcas.map((m, i) => (
-                <span key={i}>{m}</span>
+                <span key={i} className="inline-flex items-center gap-10 sm:gap-16">
+                  {m}
+                  <span aria-hidden className="text-xs text-acento">✦</span>
+                </span>
               ))}
             </div>
           ))}

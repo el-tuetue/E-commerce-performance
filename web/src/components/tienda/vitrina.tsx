@@ -33,7 +33,10 @@ export function Vitrina({
     <section aria-labelledby={id} className="mx-auto max-w-[1200px] px-4 pt-10 sm:px-6 sm:pt-12">
       <div className="mb-4 flex flex-wrap items-end justify-between gap-x-4 gap-y-2 sm:mb-6">
         <div>
-          <p className="mb-1 text-xs font-semibold uppercase tracking-[2px] text-alerta">{eyebrow}</p>
+          <p className="mb-1.5 flex items-center gap-2.5 text-xs font-semibold uppercase tracking-[2.5px] text-acento">
+            <span aria-hidden className="h-px w-8 bg-acento" />
+            {eyebrow}
+          </p>
           <h2 id={id} className="font-serif text-[30px] font-semibold leading-tight sm:text-[40px]">
             {titulo}
           </h2>
