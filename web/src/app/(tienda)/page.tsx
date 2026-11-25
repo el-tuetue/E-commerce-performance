@@ -49,7 +49,7 @@ export default function Inicio() {
                 className="size-full object-cover transition duration-700 group-hover:scale-[1.06]"
                 style={{ objectPosition: c.pos ?? "center" }}
               />
-              <span className="absolute inset-x-2.5 bottom-2.5 flex items-center justify-between gap-3 rounded-xl bg-[rgba(12,44,48,0.86)] px-3.5 py-2.5 text-white sm:inset-x-3.5 sm:bottom-3.5 sm:px-4 sm:py-3.5">
+              <span className="absolute inset-x-2.5 bottom-2.5 flex items-center justify-between gap-3 rounded-xl bg-[rgba(16,17,20,0.84)] px-3.5 py-2.5 text-white sm:inset-x-3.5 sm:bottom-3.5 sm:px-4 sm:py-3.5">
                 <span>
                   <span className="block font-serif text-[22px] font-semibold leading-tight sm:text-[26px]">{c.nombre}</span>
                   <span className="mt-0.5 block text-[13px] text-niebla">{c.descripcion}</span>

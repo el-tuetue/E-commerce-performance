@@ -3,7 +3,7 @@
 //  Este es el archivo que se edita para cada cliente: nombre, contacto,
 //  categorías, portada y textos. Los colores están en src/app/globals.css
 //  (@theme) y los productos en src/lib/datos.ts.
-//  Configuración actual: perfumería Nube Aromática.
+//  Configuración actual: LA Perfumes (prototipo).
 // ============================================================================
 
 import { CreditCard, ShieldCheck, Store, Truck, type LucideIcon } from "lucide-react";
@@ -55,17 +55,17 @@ export type EjemploProducto = {
 
 export const TIENDA = {
   // --- Marca ---
-  nombre: "Nube Aromática",
+  nombre: "LA Perfumes",
   bajada: "Perfumería", // texto pequeño bajo el nombre en el logo
-  descripcion: "Perfumes 100% originales con el stock real del local. Retiro gratis en tienda o despacho a domicilio.",
+  descripcion: "Perfumes originales de diseñador y árabes, con el stock real del local. Retiro gratis en tienda o despacho a domicilio.",
   // Logo: una imagen en /public, o "" para usar las iniciales del nombre.
-  // El archivo actual mide 150 px: no mostrarlo a más de 72 px hasta tener el original.
+  // El archivo actual mide 138 px: no mostrarlo a más de 72 px hasta tener el original.
   logo: "/logo.png",
 
   // Franja superior (en celular se muestra la versión corta).
   aviso: {
-    corto: "Especialistas en perfumería árabe · 100% originales",
-    largo: "Especialistas en perfumería árabe · 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]",
+    corto: "Navidad en LA Perfumes · 100% originales",
+    largo: "Navidad en LA Perfumes · Perfumes 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO]",
   },
 
   // --- Contacto y local ---
@@ -88,14 +88,14 @@ export const TIENDA = {
   // --- Catálogo ---
   // Un perfume puede estar en varias categorías (ej: "Árabes" y "Hombre").
   categorias: [
+    { id: "mujer", nombre: "Mujer", descripcion: "Chanel, YSL, Lattafa Yara", foto: "/fotos/coco.jpg" },
+    { id: "hombre", nombre: "Hombre", descripcion: "Dior, Armani, Rabanne", foto: "/fotos/acqua.jpg", pos: "center 35%" },
     { id: "arabe", nombre: "Árabes", descripcion: "Oud, ámbar y bakhoor", foto: "/fotos/bakhoor.jpg", pos: "center 40%" },
-    { id: "mujer", nombre: "Mujer", descripcion: "Lattafa Yara, Chanel, YSL", foto: "/fotos/coco.jpg" },
-    { id: "hombre", nombre: "Hombre", descripcion: "Lattafa Asad, Armaf, Dior", foto: "/fotos/acqua.jpg", pos: "center 35%" },
     { id: "unisex", nombre: "Unisex", descripcion: "Para compartir", foto: "/fotos/rasasi-dhan-oud.jpg", enPortada: false },
     { id: "disenador", nombre: "Diseñador", descripcion: "Dior, Chanel, YSL y más", foto: "/fotos/chanel5.jpg", enPortada: false },
   ] as Categoria[],
   // Categoría con acceso directo en la barra inferior del celular.
-  categoriaDestacada: "arabe",
+  categoriaDestacada: "mujer",
   porPagina: 8, // productos por página en el catálogo
   // Cómo se llaman los productos en los textos (ej: "12 perfumes", "No encontramos perfumes…").
   producto: { singular: "perfume", plural: "perfumes" },
@@ -103,13 +103,13 @@ export const TIENDA = {
   // --- Portada ---
   slides: [
     {
-      foto: "/fotos/tienda-oud.jpg",
-      alt: "Vitrina con perfumes árabes, oud y bakhoor",
-      eyebrow: "Perfumería árabe",
-      titulo: "El arte del oud",
-      texto: "Lattafa, Armaf, Al Haramain, Rasasi y más. Perfumes intensos y duraderos, originales y con stock real del local.",
-      cta: "Ver perfumes árabes",
-      href: "/catalogo?filtro=arabe",
+      foto: "/fotos/chanel5.jpg",
+      alt: "Frasco de Chanel N°5 iluminado",
+      eyebrow: "Navidad",
+      titulo: "Regala un clásico",
+      texto: "Perfumes originales para cada persona de tu lista. Envoltura de regalo sin costo y retiro gratis en el local.",
+      cta: "Ver regalos para ella",
+      href: "/catalogo?filtro=mujer",
       lado: "left",
     },
     {
@@ -124,13 +124,13 @@ export const TIENDA = {
       pos: "30% center",
     },
     {
-      foto: "/fotos/chanel5.jpg",
-      alt: "Frasco de Chanel N°5 iluminado",
-      eyebrow: "Para ella",
-      titulo: "La elegancia de Chanel",
-      texto: "N°5 y Coco Mademoiselle, dos íconos que nunca fallan como regalo.",
-      cta: "Ver perfumes de mujer",
-      href: "/catalogo?filtro=mujer",
+      foto: "/fotos/tienda-oud.jpg",
+      alt: "Vitrina con perfumes árabes, oud y bakhoor",
+      eyebrow: "Perfumería árabe",
+      titulo: "El arte del oud",
+      texto: "Lattafa, Armaf, Al Haramain y Rasasi: intensos, duraderos y a muy buen precio.",
+      cta: "Ver perfumes árabes",
+      href: "/catalogo?filtro=arabe",
       lado: "left",
     },
   ] as Slide[],
@@ -144,35 +144,35 @@ export const TIENDA = {
 
   vitrinas: [
     {
-      id: "titulo-arabes",
-      eyebrow: "Nuestra especialidad",
-      titulo: "Los árabes más pedidos",
-      texto: "Intensos, duraderos y a muy buen precio. Si no sabes por cuál partir, empieza por estos.",
-      slugs: ["lattafa-khamrah", "lattafa-asad", "lattafa-yara", "armaf-club-de-nuit-intense"],
-      href: "/catalogo?filtro=arabe",
-      cta: "Ver todos los árabes",
-    },
-    {
-      id: "titulo-disenador",
-      eyebrow: "Clásicos de siempre",
-      titulo: "Perfumes de diseñador",
-      texto: "Los íconos de Dior, Chanel, Rabanne e Yves Saint Laurent, originales y con stock real.",
-      slugs: ["dior-sauvage", "chanel-n5", "rabanne-1-million", "ysl-black-opium"],
+      id: "titulo-regalos",
+      eyebrow: "Para regalar esta Navidad",
+      titulo: "Los más regalados",
+      texto: "Los perfumes que más se llevan para regalo. Te los envolvemos sin costo.",
+      slugs: ["chanel-coco-mademoiselle", "dior-sauvage", "ysl-black-opium", "rabanne-1-million"],
       href: "/catalogo?filtro=disenador",
       cta: "Ver todos los de diseñador",
+    },
+    {
+      id: "titulo-arabes",
+      eyebrow: "Tendencia",
+      titulo: "Perfumes árabes",
+      texto: "Intensos, duraderos y a muy buen precio. Si no sabes por cuál partir, empieza por estos.",
+      slugs: ["lattafa-khamrah", "lattafa-yara", "lattafa-asad", "armaf-club-de-nuit-intense"],
+      href: "/catalogo?filtro=arabe",
+      cta: "Ver todos los árabes",
     },
   ] as Vitrina[],
 
   // Bloque grande entre las vitrinas.
   destacado: {
-    slug: "rasasi-dhan-oud-kambodi",
-    eyebrow: "La joya de la casa",
+    slug: "chanel-n5",
+    eyebrow: "El regalo que nunca falla",
   },
 
   // Bloque final de contacto.
   ayuda: {
-    titulo: "¿No sabes cuál elegir?",
-    texto: "Escríbenos y te recomendamos según el gusto de quien lo va a usar. También armamos paquetes de regalo.",
+    titulo: "¿Buscas el regalo perfecto?",
+    texto: "Escríbenos y te recomendamos según el gusto de quien lo va a recibir. Envolvemos para regalo sin costo.",
   },
 
   ejemploProducto: {
@@ -200,7 +200,7 @@ export const TIENDA = {
   },
 
   // Clave del almacenamiento de la demo en el navegador. Cámbiala si cambias los datos de ejemplo.
-  claveDemo: "nube-demo-v3",
+  claveDemo: "la-perfumes-v1",
 };
 
 export function categoriaPorId(id: string) {

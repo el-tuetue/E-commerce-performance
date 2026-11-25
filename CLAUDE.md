@@ -1,7 +1,7 @@
-# Nube Aromática (sobre plantilla e-commerce): contexto para Claude Code
+# LA Perfumes (sobre plantilla e-commerce): contexto para Claude Code
 
 ## Qué es
-Demo de tienda online + sistema de caja para la perfumería **Nube Aromática** (especialistas en perfumería árabe). Está construida sobre una **plantilla genérica**: todo lo propio de la perfumería vive en la configuración y los datos, no en los componentes. Así la misma base sirve para otro rubro cambiando `tienda.ts`, `datos.ts`, colores e imágenes.
+Prototipo de tienda online + sistema de caja para la perfumería **LA Perfumes** (perfumes de diseñador y árabes). Antes se usó para otra perfumería (Nube Aromática, que no siguió); esa versión está en el historial de git. Está construida sobre una **plantilla genérica**: todo lo propio de la perfumería vive en la configuración y los datos, no en los componentes. Así la misma base sirve para otro rubro cambiando `tienda.ts`, `datos.ts`, colores e imágenes.
 
 Tiene dos partes que comparten el inventario:
 1. **Tienda online pública**: portada, catálogo, ficha de producto, carrito y pago. No tiene ningún enlace al sistema interno.
@@ -21,7 +21,7 @@ El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simp
 - `web/src/app/layout.tsx`: tipografía de títulos (`--font-titulos`).
 - `web/src/lib/datos.ts`: tipos `Producto` / `Variante` y productos de ejemplo. Un producto tiene `categorias` (varias, la primera es la principal), `resumen`, `caracteristicas`, `atributos` (en perfumes: notas olfativas y origen), `avisoFoto` (ej: "Ilustración"), `variantes` (en perfumes: los ml) y `varianteDestacada`.
 - `web/public/fotos/`: fotos de Wikimedia Commons (créditos en `web/FOTOS-CREDITOS.md`) e ilustraciones de frascos en `fotos/ilustraciones/` para los árabes sin foto libre. Hay que reemplazarlas por fotos del proveedor.
-- `web/public/logo.png`: logo de la perfumería (solo 150 px; no mostrarlo a más de 72 px).
+- `web/public/logo.png`: logo de LA Perfumes, versión de Navidad con gorro (solo 138 px; no mostrarlo a más de 72 px). Pedir el original en alta resolución y la versión sin gorro para después de las fiestas.
 
 ## Estado actual
 - `web/`: demo navegable. Estado en `web/src/lib/demo-store.tsx` (`useSyncExternalStore` + localStorage, sincronizado entre pestañas); solo los avisos (toasts) usan contexto.
@@ -38,6 +38,7 @@ El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simp
 4. Con cada cliente: datos de los `[CORCHETES]` de `tienda.ts`, fotos y precios reales, logo, boleta electrónica del SII, contrato de Webpay o Mercado Pago y políticas (cambios y devoluciones, retracto, privacidad).
 
 ## Identidad visual (sacada del logo)
-- Colores en `web/src/app/globals.css`: marca petróleo `#1F6F78`, aguamarina `#BBE9E9`, rosado flor `#D9779A`, texto `#12383D`, fondo crema `#FCFAF5`.
-- Tipografías: Cormorant Garamond (títulos) e Inter (texto).
+- Colores en `web/src/app/globals.css`: marca negro `#16181C`, crema `#FDFBF7`, dorado `#9A7431` (acento) y dorado claro `#E4CF9E` (detalles sobre fondo oscuro).
+- Tipografías: Bodoni Moda (títulos, parecida a la del logo) e Inter (texto).
+- Portada con campaña de Navidad (banners, aviso superior y vitrina "Los más regalados"): cambiarla después de las fiestas en `tienda.ts`.
 - Botones de al menos 44 px; contraste mínimo de 4.5:1.

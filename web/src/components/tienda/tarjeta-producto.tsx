@@ -40,7 +40,7 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
 
   return (
     <article
-      className="group animate-subir flex flex-col overflow-hidden rounded-2xl border border-borde bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(12,44,48,.12)]"
+      className="group animate-subir flex flex-col overflow-hidden rounded-2xl border border-borde bg-white transition duration-300 hover:-translate-y-1 hover:shadow-[0_14px_30px_rgba(16,17,20,.12)]"
       style={{ animationDelay: `${indice * 0.05}s` }}
     >
       <Link href={href} className="relative block aspect-square overflow-hidden bg-crema sm:aspect-[4/5]">

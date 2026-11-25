@@ -1,6 +1,6 @@
-# Nube Aromática: tienda online + sistema de caja
+# LA Perfumes: tienda online + sistema de caja
 
-Demo para la perfumería **Nube Aromática**, armada sobre una plantilla reutilizable para cualquier tienda que venda **online y en un local físico con el mismo stock**:
+Prototipo para la perfumería **LA Perfumes**, armado sobre una plantilla reutilizable para cualquier tienda que venda **online y en un local físico con el mismo stock**:
 
 - **Tienda online (pública):** portada, catálogo con filtros y paginación, ficha de producto con opciones (talla, color, tamaño…), carrito y pago.
 - **Sistema interno (solo personal):** caja con lector de código de barras, inventario, pedidos online, reportes y formulario para agregar productos.

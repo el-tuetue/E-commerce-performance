@@ -7,26 +7,27 @@
    - acento: detalles llamativos (contador del carrito, gráfico del panel).
    ========================================================================== */
 @theme {
-  --color-marca: #1f6f78; /* petróleo del logo (contraste 5.8:1 con blanco) */
-  --color-marca-oscuro: #17555c;
-  --color-marca-suave: #e0f3f1;
-  --color-marca-tenue: #f1faf9;
-  --color-claro: #bbe9e9; /* aguamarina del logo: detalles sobre fondo oscuro */
-  --color-acento: #d9779a; /* rosado de la flor del logo */
+  /* LA Perfumes: negro y crema del logo, con dorado como acento. */
+  --color-marca: #16181c; /* botones y enlaces: negro del logo */
+  --color-marca-oscuro: #000000;
+  --color-marca-suave: #f1ece2;
+  --color-marca-tenue: #f8f5ef;
+  --color-claro: #e4cf9e; /* dorado claro: detalles sobre fondo oscuro */
+  --color-acento: #9a7431; /* dorado: contador del carrito y gráfico del panel */
 
-  --color-tinta: #12383d;
-  --color-tinta-2: #1b4b51;
-  --color-gris: #55686b;
-  --color-humo: #c3d9d9;
-  --color-niebla: #dcebeb;
+  --color-tinta: #16181c;
+  --color-tinta-2: #25282e;
+  --color-gris: #5e5b56;
+  --color-humo: #d3cdc2;
+  --color-niebla: #e9e4da;
 
-  --color-fondo: #fcfaf5; /* crema del logo */
-  --color-panel: #eef5f4;
-  --color-crema: #eaf4f2;
-  --color-tabla: #f4f9f8;
-  --color-borde: #dbe7e5;
-  --color-borde-fuerte: #c4d6d4;
-  --color-linea: #e6efee;
+  --color-fondo: #fdfbf7; /* crema del logo */
+  --color-panel: #f4f1ea;
+  --color-crema: #f3eee6;
+  --color-tabla: #faf8f3;
+  --color-borde: #e8e2d7;
+  --color-borde-fuerte: #d4ccbf;
+  --color-linea: #efeae1;
 
   --color-ok: #2e6b3f;
   --color-ok-fondo: #e6f2e9;
@@ -101,7 +102,7 @@ body {
   .campo:focus {
     outline: none;
     border-color: var(--color-marca);
-    box-shadow: 0 0 0 3px rgb(31 111 120 / 0.18);
+    box-shadow: 0 0 0 3px rgb(22 24 28 / 0.16);
   }
 }
 

@@ -47,7 +47,7 @@ export function Carrusel() {
                 style={{ objectPosition: s.pos ?? "center", transform: `scale(${on ? 1.06 : 1})` }}
               />
               <div
-                className={`absolute bottom-3 flex w-[calc(100%-24px)] max-w-[470px] sm:bottom-4 sm:w-[calc(100%-32px)] flex-col gap-[clamp(8px,1vw,12px)] rounded-[18px] bg-[rgba(12,44,48,0.86)] p-[clamp(16px,2.2vw,28px)] text-white transition duration-900 ${
+                className={`absolute bottom-3 flex w-[calc(100%-24px)] max-w-[470px] sm:bottom-4 sm:w-[calc(100%-32px)] flex-col gap-[clamp(8px,1vw,12px)] rounded-[18px] bg-[rgba(16,17,20,0.84)] p-[clamp(16px,2.2vw,28px)] text-white transition duration-900 ${
                   s.lado === "right" ? "right-3 sm:right-4" : "left-3 sm:left-4"
                 } ${on ? "translate-y-0" : "translate-y-4"}`}
               >
