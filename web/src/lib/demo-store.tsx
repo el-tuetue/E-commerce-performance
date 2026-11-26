@@ -34,6 +34,7 @@ type Estado = {
   pedidos: Pedido[];
   nuevos: Producto[];
   ventasCaja: VentaCaja[];
+  consultas: Record<string, number>; // versión WhatsApp: clics en "Consultar" por producto (slug)
   siguientePedido: number;
   rol: Rol | null;
 };
@@ -49,6 +50,7 @@ function estadoInicial(): Estado {
     pedidos: PEDIDOS_INICIALES.map((p) => ({ ...p })),
     nuevos: [],
     ventasCaja: [],
+    consultas: {},
     siguientePedido: 1046,
     rol: null,
   };
@@ -71,6 +73,7 @@ type Contexto = {
   reponer: (varianteId: string, cantidad: number) => void;
   publicarProducto: (producto: Producto, stock: Record<string, number>) => void;
   avanzarPedido: (num: number) => void;
+  registrarConsulta: (slug: string) => void;
   iniciarSesion: (rol: Rol) => void;
   cerrarSesion: () => void;
   reiniciarDemo: () => void;
@@ -257,6 +260,10 @@ export function useDemo(): Contexto {
           ...p,
           pedidos: p.pedidos.map((o) => (o.num === num ? { ...o, estado: SIGUIENTE[o.estado] } : o)),
         }));
+      },
+
+      registrarConsulta(slug) {
+        guardar((p) => ({ ...p, consultas: { ...p.consultas, [slug]: (p.consultas[slug] ?? 0) + 1 } }));
       },
 
       iniciarSesion(rol) {

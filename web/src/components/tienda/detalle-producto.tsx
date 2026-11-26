@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { Check, Minus, Plus, Store, Truck } from "lucide-react";
-import { TIENDA, categoriaPorId } from "@/config/tienda";
+import { Check, MessageCircle, Minus, Plus, Store, Truck } from "lucide-react";
+import { TIENDA, VENTA_WHATSAPP, categoriaPorId } from "@/config/tienda";
+import { BotonWhatsApp } from "./boton-whatsapp";
 import { formatoPrecio, nombreVariante, variantePrincipal, type Producto } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
 
@@ -131,6 +132,14 @@ function Detalle({ producto }: { producto: Producto }) {
             </p>
           </div>
 
+          {VENTA_WHATSAPP ? (
+            stock > 0 ? (
+              <BotonWhatsApp producto={producto} variante={v} className="h-12 w-full px-5 text-base sm:w-auto sm:self-start" />
+            ) : (
+              <p className="text-sm text-gris">Escríbenos por WhatsApp y te avisamos cuando vuelva a llegar.</p>
+            )
+          ) : (
+          <>
           <div className="flex flex-wrap items-center gap-3">
             <div className="flex items-center rounded-[10px] border border-borde-fuerte bg-superficie">
               <button
@@ -179,16 +188,33 @@ function Detalle({ producto }: { producto: Producto }) {
               </Link>
             </p>
           )}
+          </>
+          )}
 
           <div className="flex flex-col gap-2.5 rounded-[14px] border border-borde bg-superficie px-[18px] py-4 text-sm">
-            <div className="flex items-center gap-2.5">
-              <Store className="size-5 shrink-0 text-marca" aria-hidden />
-              <span>Retiro gratis en el local: listo en {TIENDA.envio.preparacion}</span>
-            </div>
-            <div className="flex items-center gap-2.5">
-              <Truck className="size-5 shrink-0 text-marca" aria-hidden />
-              <span>Despacho a domicilio desde {formatoPrecio(TIENDA.envio.costo)}</span>
-            </div>
+            {VENTA_WHATSAPP ? (
+              <>
+                <div className="flex items-center gap-2.5">
+                  <MessageCircle className="size-5 shrink-0 text-marca" aria-hidden />
+                  <span>Te respondemos por WhatsApp, confirmamos el stock y coordinamos el pago</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <Store className="size-5 shrink-0 text-marca" aria-hidden />
+                  <span>Retiro en el local: {TIENDA.contacto.direccion}</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="flex items-center gap-2.5">
+                  <Store className="size-5 shrink-0 text-marca" aria-hidden />
+                  <span>Retiro gratis en el local: listo en {TIENDA.envio.preparacion}</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <Truck className="size-5 shrink-0 text-marca" aria-hidden />
+                  <span>Despacho a domicilio desde {formatoPrecio(TIENDA.envio.costo)}</span>
+                </div>
+              </>
+            )}
           </div>
 
           {producto.descripcion && <p className="leading-relaxed text-gris">{producto.descripcion}</p>}

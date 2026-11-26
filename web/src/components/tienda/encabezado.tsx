@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingBag } from "lucide-react";
+import { MessageCircle, ShoppingBag } from "lucide-react";
 import { BotonTema } from "@/components/boton-tema";
 import { Logo } from "@/components/logo";
-import { TIENDA } from "@/config/tienda";
+import { TIENDA, VENTA_WHATSAPP } from "@/config/tienda";
+import { linkWhatsApp } from "@/lib/whatsapp";
 import { useDemo } from "@/lib/demo-store";
 
 // Menú: una entrada por categoría (src/config/tienda.ts) + el catálogo completo.
@@ -54,6 +55,17 @@ export function Encabezado() {
             </form>
             <BotonTema />
             {/* En celular el carrito está en la barra de abajo; aquí solo desde tablet. */}
+            {VENTA_WHATSAPP ? (
+              <a
+                href={linkWhatsApp(`Hola ${TIENDA.nombre}, tengo una consulta.`)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden h-11 items-center gap-2 rounded-[10px] bg-whatsapp px-4 text-sm font-medium text-white no-underline transition-colors hover:bg-whatsapp-oscuro sm:inline-flex"
+              >
+                <MessageCircle className="size-[18px]" aria-hidden />
+                WhatsApp
+              </a>
+            ) : (
             <Link
               href="/carrito"
               aria-label={`Carrito, ${unidadesCarrito} productos`}
@@ -68,6 +80,7 @@ export function Encabezado() {
                 {unidadesCarrito}
               </span>
             </Link>
+            )}
           </div>
         </div>
         {/* Tablet: menú en una fila que se desliza. */}

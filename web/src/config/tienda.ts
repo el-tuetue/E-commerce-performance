@@ -6,7 +6,13 @@
 //  Configuración actual: LA Perfumes (prototipo).
 // ============================================================================
 
-import { CreditCard, ShieldCheck, Store, Truck, type LucideIcon } from "lucide-react";
+import { CreditCard, MessageCircle, ShieldCheck, Store, Truck, type LucideIcon } from "lucide-react";
+
+// Cómo se vende:
+// - "online": carrito y pago en la página (Mercado Pago / Webpay).
+// - "whatsapp": catálogo; cada producto tiene un botón que abre el chat de la tienda.
+// Se elige con la variable NEXT_PUBLIC_MODO_VENTA al publicar (por defecto "online").
+export const VENTA_WHATSAPP = process.env.NEXT_PUBLIC_MODO_VENTA === "whatsapp";
 
 export type Categoria = {
   id: string; // se usa en la URL: /catalogo?filtro=<id>
@@ -57,7 +63,9 @@ export const TIENDA = {
   // --- Marca ---
   nombre: "LA Perfumes",
   bajada: "Perfumería", // texto pequeño bajo el nombre en el logo
-  descripcion: "Perfumes originales de diseñador y árabes, con el stock real del local. Retiro gratis en tienda o despacho a domicilio.",
+  descripcion: VENTA_WHATSAPP
+    ? "Perfumes originales de diseñador y árabes, con el stock real del local. Consulta por WhatsApp y retira en tienda."
+    : "Perfumes originales de diseñador y árabes, con el stock real del local. Retiro gratis en tienda o despacho a domicilio.",
   // Logo: una imagen en /public, o "" para usar las iniciales del nombre.
   // El archivo actual mide 138 px: no mostrarlo a más de 72 px hasta tener el original.
   logo: "/logo.png",
@@ -65,7 +73,9 @@ export const TIENDA = {
   // Franja superior (en celular se muestra la versión corta).
   aviso: {
     corto: "Perfumes 100% originales · Retiro gratis",
-    largo: "Perfumes 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO] · Pago seguro",
+    largo: VENTA_WHATSAPP
+      ? "Perfumes 100% originales · Consulta por WhatsApp · Retiro en tienda"
+      : "Perfumes 100% originales · Retiro gratis en tienda · Despacho a [COMUNAS DE DESPACHO] · Pago seguro",
   },
 
   // --- Contacto y local ---
@@ -83,7 +93,7 @@ export const TIENDA = {
     cobertura: "[COMUNAS DE DESPACHO]",
     preparacion: "[TIEMPO DE PREPARACIÓN]",
   },
-  cuotas: "Precio referencial · hasta 3 cuotas sin interés",
+  cuotas: VENTA_WHATSAPP ? "Consulta disponibilidad y medios de pago por WhatsApp" : "Precio referencial · hasta 3 cuotas sin interés",
 
   // --- Catálogo ---
   // Un perfume puede estar en varias categorías (ej: "Árabes" y "Hombre").
@@ -137,9 +147,11 @@ export const TIENDA = {
 
   beneficios: [
     { icono: ShieldCheck, titulo: "100% originales", texto: "Los mismos perfumes que vendemos en el local." },
-    { icono: Store, titulo: "Retiro gratis", texto: "Compra online y pasa a buscarlo al local." },
+    { icono: Store, titulo: "Retiro gratis", texto: VENTA_WHATSAPP ? "Reserva por WhatsApp y pasa a buscarlo al local." : "Compra online y pasa a buscarlo al local." },
     { icono: Truck, titulo: "Despacho a domicilio", texto: "Cobertura: [COMUNAS DE DESPACHO]." },
-    { icono: CreditCard, titulo: "Pago seguro", texto: "Débito y crédito con Webpay o Mercado Pago." },
+    VENTA_WHATSAPP
+      ? { icono: MessageCircle, titulo: "Atención por WhatsApp", texto: "Te asesoramos y coordinamos el pago y el retiro." }
+      : { icono: CreditCard, titulo: "Pago seguro", texto: "Débito y crédito con Mercado Pago." },
   ] as Beneficio[],
 
   vitrinas: [
@@ -197,6 +209,8 @@ export const TIENDA = {
   cifrasDemo: {
     local: { ventas: 7, monto: 849930 },
     online: { pedidos: 3, monto: 548940 },
+    // Versión WhatsApp: visitas y consultas de ejemplo con las que parte el día.
+    whatsapp: { visitas: 184, consultas: 12 },
   },
 
   // Clave del almacenamiento de la demo en el navegador. Cámbiala si cambias los datos de ejemplo.

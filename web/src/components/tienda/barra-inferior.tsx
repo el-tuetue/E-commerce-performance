@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { House, LayoutGrid, ShoppingBag, Sparkles } from "lucide-react";
-import { TIENDA, categoriaPorId } from "@/config/tienda";
+import { House, LayoutGrid, MessageCircle, ShoppingBag, Sparkles } from "lucide-react";
+import { TIENDA, VENTA_WHATSAPP, categoriaPorId } from "@/config/tienda";
+import { linkWhatsApp } from "@/lib/whatsapp";
 import { useDemo } from "@/lib/demo-store";
 
 // Barra fija de abajo, solo en celular: lo más usado queda siempre a un toque del pulgar.
@@ -16,8 +17,10 @@ export function BarraInferior() {
     { href: "/", texto: "Inicio", icono: House, activo: ruta === "/" },
     { href: "/catalogo", texto: "Catálogo", icono: LayoutGrid, activo: ruta.startsWith("/catalogo") || ruta.startsWith("/producto") },
     { href: `/catalogo?filtro=${destacada.id}`, texto: destacada.nombre, icono: Sparkles, activo: false },
-    { href: "/carrito", texto: "Carrito", icono: ShoppingBag, activo: ruta.startsWith("/carrito"), cantidad: unidadesCarrito },
-  ];
+    VENTA_WHATSAPP
+      ? { href: linkWhatsApp(`Hola ${TIENDA.nombre}, tengo una consulta.`), texto: "WhatsApp", icono: MessageCircle, activo: false, externo: true }
+      : { href: "/carrito", texto: "Carrito", icono: ShoppingBag, activo: ruta.startsWith("/carrito"), cantidad: unidadesCarrito },
+  ] as { href: string; texto: string; icono: typeof House; activo: boolean; cantidad?: number; externo?: boolean }[];
 
   return (
     <nav
@@ -25,10 +28,11 @@ export function BarraInferior() {
       className="fixed inset-x-0 bottom-0 z-40 border-t border-borde bg-superficie/95 pb-[env(safe-area-inset-bottom)] backdrop-blur sm:hidden"
     >
       <ul className="grid grid-cols-4">
-        {items.map(({ href, texto, icono: Icono, activo, cantidad }) => (
+        {items.map(({ href, texto, icono: Icono, activo, cantidad, externo }) => (
           <li key={texto}>
             <Link
               href={href}
+              {...(externo ? { target: "_blank", rel: "noopener noreferrer" } : {})}
               aria-current={activo ? "page" : undefined}
               className={`relative flex h-[60px] flex-col items-center justify-center gap-0.5 text-[11px] ${
                 activo ? "font-semibold text-marca" : "text-gris"

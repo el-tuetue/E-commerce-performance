@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { formatoPrecio, nombreVariante, variantePrincipal, type Producto } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
+import { VENTA_WHATSAPP } from "@/config/tienda";
+import { BotonWhatsApp } from "./boton-whatsapp";
 
 export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; indice?: number }) {
   const { stockDe, agregarAlCarrito, avisar, estado } = useDemo();
@@ -73,7 +75,9 @@ export function TarjetaProducto({ producto, indice = 0 }: { producto: Producto; 
             {varios && <span className="text-xs font-normal text-gris sm:text-sm">Desde </span>}
             {formatoPrecio(minimo)}
           </span>
-          {stockPrincipal === 0 && !agotado ? (
+          {VENTA_WHATSAPP && !agotado ? (
+            <BotonWhatsApp producto={producto} variante={principal} texto="Consultar" className="h-11 w-full px-4 text-sm sm:w-auto" />
+          ) : stockPrincipal === 0 && !agotado ? (
             <Link
               href={href}
               className="inline-flex h-11 items-center justify-center rounded-[10px] border border-marca bg-superficie px-4 text-sm font-medium text-marca"

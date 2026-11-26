@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Emblema } from "@/components/logo";
 import { formatoPrecio, nombreVariante, type EstadoPedido } from "@/lib/datos";
-import { TIENDA } from "@/config/tienda";
+import { TIENDA, VENTA_WHATSAPP } from "@/config/tienda";
 import { BASE_LOCAL, BASE_ONLINE, useDemo } from "@/lib/demo-store";
 import { BotonReiniciar } from "./encabezado-sistema";
 import { NuevoProducto } from "./nuevo-producto";
@@ -14,7 +14,7 @@ type Tab = "resumen" | "inventario" | "pedidos" | "nuevo";
 const TABS: [Tab, string][] = [
   ["resumen", "Resumen"],
   ["inventario", "Inventario"],
-  ["pedidos", "Pedidos online"],
+  ["pedidos", VENTA_WHATSAPP ? "Consultas WhatsApp" : "Pedidos online"],
   ["nuevo", "Agregar producto"],
 ];
 
@@ -88,7 +88,7 @@ export function Admin() {
         <main className="flex min-w-0 flex-[999_1_640px] flex-col gap-5">
           {tab === "resumen" && <Resumen irA={setTab} />}
           {tab === "inventario" && <Inventario irA={setTab} />}
-          {tab === "pedidos" && <Pedidos />}
+          {tab === "pedidos" && (VENTA_WHATSAPP ? <Consultas /> : <Pedidos />)}
           {tab === "nuevo" && <NuevoProducto alPublicar={() => setTab("inventario")} />}
         </main>
       </div>
@@ -123,12 +123,20 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
     ["D", 40, 18],
   ];
 
-  const tarjetas = [
-    { t: "Ventas en el local", v: formatoPrecio(ventasLocal), s: `${cantLocal} ventas` },
-    { t: "Ventas online", v: formatoPrecio(ventasOnline), s: `${cantOnline} pedidos` },
-    { t: "Pedidos por preparar", v: String(porPreparar), s: "Revisar en Pedidos online", ir: "pedidos" as Tab },
-    { t: "Stock bajo", v: String(bajos.length), s: "productos por reponer", alerta: true },
-  ];
+  const consultasHoy = TIENDA.cifrasDemo.whatsapp.consultas + Object.values(estado.consultas).reduce((a, b) => a + b, 0);
+  const tarjetas = VENTA_WHATSAPP
+    ? [
+        { t: "Ventas en el local", v: formatoPrecio(ventasLocal), s: `${cantLocal} ventas` },
+        { t: "Visitas a la tienda", v: String(TIENDA.cifrasDemo.whatsapp.visitas), s: "personas hoy" },
+        { t: "Consultas por WhatsApp", v: String(consultasHoy), s: "Ver qué perfumes consultan", ir: "pedidos" as Tab },
+        { t: "Stock bajo", v: String(bajos.length), s: "productos por reponer", alerta: true },
+      ]
+    : [
+        { t: "Ventas en el local", v: formatoPrecio(ventasLocal), s: `${cantLocal} ventas` },
+        { t: "Ventas online", v: formatoPrecio(ventasOnline), s: `${cantOnline} pedidos` },
+        { t: "Pedidos por preparar", v: String(porPreparar), s: "Revisar en Pedidos online", ir: "pedidos" as Tab },
+        { t: "Stock bajo", v: String(bajos.length), s: "productos por reponer", alerta: true },
+      ];
 
   return (
     <div className="animate-subir flex flex-col gap-5">
@@ -197,7 +205,7 @@ function Resumen({ irA }: { irA: (t: Tab) => void }) {
             </span>
             <span className="inline-flex items-center gap-1.5">
               <span className="size-3 rounded-[3px] bg-acento" />
-              Online
+              {VENTA_WHATSAPP ? "Por WhatsApp" : "Online"}
             </span>
           </div>
         </section>
@@ -396,6 +404,51 @@ function Pedidos() {
           </article>
         );
       })}
+    </div>
+  );
+}
+
+// Versión catálogo: qué perfumes generan más consultas por WhatsApp (ejemplo + clics de la demo).
+const CONSULTAS_EJEMPLO = [9, 7, 6, 5, 4, 4, 3, 3, 2, 2, 1, 1, 1, 0, 0];
+
+function Consultas() {
+  const { estado, productos } = useDemo();
+  const filas = productos
+    .map((p, i) => {
+      const demo = estado.consultas[p.slug] ?? 0;
+      return { p, demo, total: (CONSULTAS_EJEMPLO[i] ?? 0) + demo };
+    })
+    .sort((a, b) => b.total - a.total);
+  const max = Math.max(1, ...filas.map((f) => f.total));
+
+  return (
+    <div className="animate-subir flex flex-col gap-4">
+      <div>
+        <h1 className="mb-1 text-[28px] font-semibold">Consultas por WhatsApp</h1>
+        <p className="text-gris">Cuántas veces tocaron “Consultar” en cada perfume · cifras de ejemplo + los clics de la demo</p>
+      </div>
+      <section className="flex flex-col rounded-2xl border border-borde bg-superficie p-5">
+        {filas.map(({ p, demo, total }) => (
+          <div key={p.slug} className="flex items-center gap-3 border-t border-linea py-2.5 first:border-t-0">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={p.foto} alt="" className="h-[52px] w-11 shrink-0 rounded-lg bg-crema object-cover" />
+            <div className="min-w-0 flex-[1_1_200px]">
+              <p className="font-semibold">
+                {p.marca} {p.nombre}
+                {demo > 0 && (
+                  <span className="ml-2 rounded-full bg-marca-suave px-2 py-0.5 text-xs font-semibold text-marca">+{demo} hoy</span>
+                )}
+              </p>
+              <div className="mt-1.5 h-2 rounded-full bg-linea" aria-hidden>
+                <div className="h-2 rounded-full bg-whatsapp transition-all duration-500" style={{ width: `${(total / max) * 100}%` }} />
+              </div>
+            </div>
+            <span className="w-24 shrink-0 text-right text-sm font-semibold">
+              {total} {total === 1 ? "consulta" : "consultas"}
+            </span>
+          </div>
+        ))}
+      </section>
     </div>
   );
 }

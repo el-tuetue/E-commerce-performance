@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { TIENDA } from "@/config/tienda";
+import { TIENDA, VENTA_WHATSAPP } from "@/config/tienda";
+import { BotonWhatsApp } from "./boton-whatsapp";
 import { formatoPrecio, nombreVariante, variantePrincipal } from "@/lib/datos";
 import { useDemo } from "@/lib/demo-store";
 
@@ -52,6 +53,9 @@ export function Destacado() {
             </span>
           </div>
           <div className="flex flex-wrap gap-3">
+            {VENTA_WHATSAPP && stock > 0 ? (
+              <BotonWhatsApp producto={producto} variante={v} className="h-[50px] px-6 text-base" />
+            ) : (
             <button
               type="button"
               onClick={agregar}
@@ -60,6 +64,7 @@ export function Destacado() {
             >
               {stock === 0 ? "Sin stock" : "Agregar al carrito"}
             </button>
+            )}
             <Link
               href={`/producto/${producto.slug}`}
               className="inline-flex h-[50px] items-center rounded-xl border border-white px-[22px] font-medium text-white"

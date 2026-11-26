@@ -37,6 +37,8 @@
   --color-boton-texto: #16181c;
 
   --color-ok: #2e6b3f;
+  --color-whatsapp: #17784a; /* botón "Consultar por WhatsApp" (versión catálogo); texto blanco 5:1 */
+  --color-whatsapp-oscuro: #0f5c37;
   --color-ok-fondo: #e6f2e9;
   --color-alerta: #8a4b00;
   --color-alerta-fondo: #fdf0dc;
