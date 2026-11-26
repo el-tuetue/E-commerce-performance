@@ -47,3 +47,9 @@ El dueño del repo trabaja con IA ("vibecoder"): explica los pasos de forma simp
 - Tipografías: Bodoni Moda (títulos, parecida a la del logo) e Inter (texto).
 - Hay **dos versiones**: la normal en `main` (https://e-commerce-performance.vercel.app) y la navideña en la rama `festivo`, publicada en su propio proyecto de Vercel. Los cambios generales se hacen en `main` y luego se pasan a `festivo` (`git merge main` estando en `festivo`).
 - Botones de al menos 44 px; contraste mínimo de 4.5:1.
+
+## Versión catálogo (venta por WhatsApp)
+- Misma rama `main`, activada con la variable `NEXT_PUBLIC_MODO_VENTA=whatsapp` (constante `VENTA_WHATSAPP` en `tienda.ts`). Sin la variable, la tienda es la normal con carrito.
+- Cada perfume tiene un botón "Consultar por WhatsApp" (`components/tienda/boton-whatsapp.tsx`, link en `lib/whatsapp.ts`) con el mensaje ya escrito; el carrito se oculta y `/carrito` redirige al catálogo. El panel cambia "Pedidos online" por "Consultas WhatsApp" (clics por perfume).
+- Publicada en el proyecto de Vercel `la-perfumes-catalogo` (https://la-perfumes-catalogo.vercel.app), con la variable ya configurada. Para volver a publicar a mano: `npx vercel link --project la-perfumes-catalogo` en `web/` y `npx vercel deploy --prod` (luego volver a enlazar `la-perfumes-festivo` si hace falta).
+- Probar en local: configuración `web-whatsapp` de `.claude/launch.json`.
